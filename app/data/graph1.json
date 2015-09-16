@@ -1,1 +1,5 @@
-{"name" : "Graf1", "snippet": "Toto jsou data o grafu 1"}
+[
+  ["ideas1", 1],
+  ["ideas2", 8],
+  ["ideas3", 5]
+]

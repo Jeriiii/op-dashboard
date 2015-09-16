@@ -25,7 +25,23 @@
 
   <dashboard-widget dbw-title="Toto je jiný titulek">jiný vnitrek widgetu napsany v index.html</dashboard-widget>
 
-  <dashboard-widget dbw-title="Graf"><dbw-graph /></dashboard-widget>
+  <!-- <dashboard-widget dbw-title="Graf"><dbw-graph /></dashboard-widget> -->
+
+  <dashboard-widget dbw-title="Toto je jiný titulek">
+    <div ng-controller="graphHighchartCtrl">
+        <div class="span12">
+            <input ng-model="chartConfig.title.text">
+            <button ng-click="addSeries()">Add Series</button>
+            <button ng-click="addPoints()">Add Points to Random Series</button>
+            <button ng-click="removeRandomSeries()">Remove Random Series</button>
+            <button ng-click="swapChartType()">Line/Bar</button>
+            <button ng-click="toggleLoading()">Loading?</button>
+        </div>
+        <div class="row">
+            <highchart id="chart1" config="chartConfig" class="span10"></highchart>
+        </div>
+    </div>
+  </dashboard-widget>
 
   <div style="clear:both"></div>
   </div>
@@ -63,6 +79,10 @@
 
   <!-- jQuery -->
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <!-- highcharts -->
+  <script src="bower_components/highcharts/highcharts.js"></script>
+  <script src="bower_components/highcharts/modules/exporting.js"></script>
+  <script src="bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
   <!-- bootstrap -->
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
