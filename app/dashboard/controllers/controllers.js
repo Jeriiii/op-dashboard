@@ -74,8 +74,8 @@ dashboardApp.controller('graphHighchartCtrl', ['GraphRes', '$scope', function (G
         loading: false
     }
 
+    /* načtení serie dat ze služby GraphRes */
     var graphData = GraphRes.query();
-
     graphData.$promise.then(addSerie);
 
 }]);
