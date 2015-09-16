@@ -6,6 +6,7 @@ dashboardApp.directive('dashboardWidget', function() {
     },
     link: function(scope, elem, attrs) {
         scope.phone = 'Samsung Galaxi';
+        scope.abcDef = attrs.dbwTitle;
     },
     transclude: true,
     templateUrl: 'dashboard/templates/simpleTemplate.html'
