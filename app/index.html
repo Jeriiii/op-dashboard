@@ -27,7 +27,7 @@
 
   <!-- <dashboard-widget dbw-title="Graf"><dbw-graph /></dashboard-widget> -->
 
-  <dashboard-widget dbw-title="Toto je jiný titulek">
+  <dashboard-widget dbw-title="Graf">
     <div ng-controller="graphHighchartCtrl">
         <div class="span12">
             <input ng-model="chartConfig.title.text">
@@ -72,10 +72,11 @@
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
   <script src="dashboard/app.js"></script>
+  <script src="dashboard/services/graph.js"></script>
   <script src="dashboard/controllers/controllers.js"></script>
   <script src="dashboard/directives/directives.js"></script>
   <script src="dashboard/widgets/graph/widgets.js"></script>
-  <script src="dashboard/services/graph.js"></script>
+
 
   <!-- jQuery -->
   <script src="bower_components/jquery/dist/jquery.min.js"></script>

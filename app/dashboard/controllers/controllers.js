@@ -1,9 +1,9 @@
-dashboardApp.controller('graphHighchartCtrl', function ($scope) {
+dashboardApp.controller('graphHighchartCtrl', ['GraphRes', '$scope', function (GraphRes, $scope) {
 
     $scope.addPoints = function () {
-        var seriesArray = $scope.chartConfig.series
+        var seriesArray = $scope.chartConfig.series;
         var rndIdx = Math.floor(Math.random() * seriesArray.length);
-        seriesArray[rndIdx].data = seriesArray[rndIdx].data.concat([1, 10, 20])
+        seriesArray[rndIdx].data = seriesArray[rndIdx].data.concat([1, 10, 20]);
     };
 
     $scope.addSeries = function () {
@@ -16,23 +16,48 @@ dashboardApp.controller('graphHighchartCtrl', function ($scope) {
         })
     }
 
+    /* přidá serii dat do grafu */
+    var addSerie = function (result) {
+      var dataArr = [];
+
+      angular.forEach(result, function(value, key) {
+        var val = value[1]; //data jsou v poli na indexu 1
+        dataArr.push(val);
+      });
+
+      $scope.chartConfig.series.push({
+          name: "Testovací serie",
+          data: dataArr
+      });
+    }
+
+    var removeAllSeries = function() {
+        $scope.chartConfig.series = [];
+    }
+
     $scope.removeRandomSeries = function () {
-        var seriesArray = $scope.chartConfig.series
+        var seriesArray = $scope.chartConfig.series;
         var rndIdx = Math.floor(Math.random() * seriesArray.length);
-        seriesArray.splice(rndIdx, 1)
+        seriesArray.splice(rndIdx, 1);
     }
 
     $scope.swapChartType = function () {
         if (this.chartConfig.options.chart.type === 'line') {
-            this.chartConfig.options.chart.type = 'bar'
+            this.chartConfig.options.chart.type = 'bar';
         } else {
-            this.chartConfig.options.chart.type = 'line'
-            this.chartConfig.options.chart.zoomType = 'x'
+            this.chartConfig.options.chart.type = 'line';
+            this.chartConfig.options.chart.zoomType = 'x';
         }
     }
 
     $scope.toggleLoading = function () {
-        this.chartConfig.loading = !this.chartConfig.loading
+        this.chartConfig.loading = !this.chartConfig.loading;
+        removeAllSeries();
+
+        var graphData = GraphRes.query();
+        graphData.$promise.then(addSerie);
+
+        this.chartConfig.loading = !this.chartConfig.loading;
     }
 
     $scope.chartConfig = {
@@ -41,9 +66,7 @@ dashboardApp.controller('graphHighchartCtrl', function ($scope) {
                 type: 'bar'
             }
         },
-        series: [{
-            data: [10, 15, 12, 8, 7]
-        }],
+        series: [],
         title: {
             text: 'Hello'
         },
@@ -51,4 +74,8 @@ dashboardApp.controller('graphHighchartCtrl', function ($scope) {
         loading: false
     }
 
-});
+    var graphData = GraphRes.query();
+
+    graphData.$promise.then(addSerie);
+
+}]);
