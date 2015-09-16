@@ -1,3 +1,28 @@
+// Hlavní direktiva, ve které se nachází celý dashboard
+dashboardApp.directive('dashboardRoot', ['$compile', function($compile) {
+  return {
+    restrict: 'E',
+    replace: true,
+    transclude: true,
+    templateUrl: 'dashboard/templates/rootDashboart.html',
+    controller: function ( $scope, $element ) {
+      $scope.addTextWidget = function () {
+        var el = $compile(
+          '<dashboard-widget dbw-title="Vygenerovaný widget s textem">Obsah vygenerovaného widgetu</dashboard-widget> '
+        )( $scope );
+        $element.parent().append( el );
+      };
+      $scope.addGraphWidget = function () {
+        var el = $compile(
+          '<dashboard-widget dbw-title="Vygenerovaný widget s grafem"><graph-example /></dashboard-widget> '
+        )( $scope );
+        $element.parent().append( el );
+      };
+    }
+  };
+}]);
+
+// Prázdný widget
 dashboardApp.directive('dashboardWidget', function() {
   return {
     restrict: 'E',
@@ -5,10 +30,9 @@ dashboardApp.directive('dashboardWidget', function() {
     scope: {
     },
     link: function(scope, elem, attrs) {
-        scope.phone = 'Samsung Galaxi';
-        scope.abcDef = attrs.dbwTitle;
+        scope.dbwTitle = attrs.dbwTitle;
     },
     transclude: true,
-    templateUrl: 'dashboard/templates/simpleTemplate.html'
+    templateUrl: 'dashboard/templates/widget.html'
   };
 });
