@@ -21,17 +21,19 @@
 </head>
 <body>
   <div ng-app="dashboardApp" class="jumbotron">
-    <dashboard-root>
+    <div ng-controller="dashboard1Ctrl">
+    <dashboard-root db-model="{{ model }}" />
+    <!-- <dashboard-root>
       <dashboard-widget dbw-title="Toto je titulek">toto je libovolny vnitrek widgetu napsany v index.html</dashboard-widget>
 
       <dashboard-widget dbw-title="Toto je jiný titulek">jiný vnitrek widgetu napsany v index.html</dashboard-widget>
 
-      <!-- <dashboard-widget dbw-title="Graf"><dbw-graph /></dashboard-widget> -->
+       <dashboard-widget dbw-title="Graf"><dbw-graph /></dashboard-widget>
 
       <dashboard-widget dbw-title="Graf"><graph-example /></dashboard-widget>
 
       <div style="clear:both"></div>
-    </dashboard-root>
+    </dashboard-root> -->
 
 
   </div>
@@ -56,16 +58,21 @@
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
   <script src="app.js"></script>
+  <script src="init.js"></script>
   <script src="view1/view1.js"></script>
   <script src="view3/view2.js"></script>
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
+
   <script src="dashboard/app.js"></script>
+  <script src="dashboard/providers.js"></script>
   <script src="dashboard/services/graph.js"></script>
   <script src="dashboard/controllers/controllers.js"></script>
   <script src="dashboard/directives/directives.js"></script>
   <script src="dashboard/widgets/graph/directive.js"></script>
+
+  <script src="dashboard/init.js"></script>
 
 
   <!-- jQuery -->

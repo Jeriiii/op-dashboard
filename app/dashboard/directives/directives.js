@@ -18,6 +18,18 @@ dashboardApp.directive('dashboardRoot', ['$compile', function($compile) {
         )( $scope );
         $element.parent().append( el );
       };
+    },
+    link: function(scope, elem, attrs) {
+      var model = JSON.parse(attrs.dbModel);
+
+      angular.forEach(model.widgets, function(value, key) {
+        console.log(value);
+        if(value.type == 'simpleText') {
+          scope.addTextWidget();
+        } else if(value.type == 'graph') {
+          scope.addGraphWidget();
+        }
+      });
     }
   };
 }]);
