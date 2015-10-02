@@ -8,13 +8,13 @@ dashboardApp.directive('dashboardRoot', ['$compile', function($compile) {
     controller: function ( $scope, $element ) {
       $scope.addTextWidget = function () {
         var el = $compile(
-          '<dashboard-widget dbw-title="Vygenerovaný widget s textem">Obsah vygenerovaného widgetu</dashboard-widget> '
+          '<widget dbw-title="Vygenerovaný widget s textem">Obsah vygenerovaného widgetu</widget> '
         )( $scope );
         $element.parent().append( el );
       };
       $scope.addGraphWidget = function () {
         var el = $compile(
-          '<dashboard-widget dbw-title="Vygenerovaný widget s grafem"><graph-example /></dashboard-widget> '
+          '<widget dbw-title="Vygenerovaný widget s grafem"><graph-example /></widget> '
         )( $scope );
         $element.parent().append( el );
       };
@@ -33,18 +33,3 @@ dashboardApp.directive('dashboardRoot', ['$compile', function($compile) {
     }
   };
 }]);
-
-// Prázdný widget
-dashboardApp.directive('dashboardWidget', function() {
-  return {
-    restrict: 'E',
-    replace: true,
-    scope: {
-    },
-    link: function(scope, elem, attrs) {
-        scope.dbwTitle = attrs.dbwTitle;
-    },
-    transclude: true,
-    templateUrl: 'dashboard/templates/widget.html'
-  };
-});
