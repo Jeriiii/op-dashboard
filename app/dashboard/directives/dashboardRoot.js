@@ -5,15 +5,18 @@ dashboardApp.directive('dashboardRoot', ['$compile', 'dashboardModel', function(
     replace: true,
     templateUrl: 'dashboard/templates/rootDashboart.html',
     controller: function ( $scope, $element ) {
-      $scope.addTextWidget = function () {
+      $scope.addTextWidget = function (settings) {
+        console.log(settings);
+        $scope.settings = settings;
         var el = $compile(
-          '<widget-base dbw-title="Vygenerovaný widget s textem"><widget-simple-text dbw-text="Obsah vygenerovaného widgetu" /></widget-base>'
+          '<widget-base dbw-title="' + settings.tittle + '"><widget-simple-text dbw-text="' + settings.text + '" /></widget-base>'
         )( $scope );
         $element.find('#content').append( el );
       };
-      $scope.addGraphWidget = function () {
+      $scope.addGraphWidget = function (settings) {
+        $scope.settings = settings;
         var el = $compile(
-          '<widget-base dbw-title="Vygenerovaný widget s grafem"><graph-example /></widget-base>'
+          '<widget-base dbw-title="' + settings.tittle + '"><graph-example /></widget-base>'
         )( $scope );
         $element.find('#content').append( el );
       };
@@ -25,11 +28,20 @@ dashboardApp.directive('dashboardRoot', ['$compile', 'dashboardModel', function(
       angular.forEach(model.widgets, function(value, key) {
         console.log(value);
         if(value.type == 'simpleText') {
-          scope.addTextWidget();
+          scope.addTextWidget(value.settings);
         } else if(value.type == 'graph') {
-          scope.addGraphWidget();
+          scope.addGraphWidget(value.settings);
         }
       });
+
+      scope.textSettings = {
+        'tittle': 'Vygenerovaný textový widget',
+        'text': 'Obsah vygenerovaného widgetu.'
+      };
+
+      scope.graphSettings = {
+        'tittle': 'Vygenerovaný textový widget',
+      };
     }
   };
 }]);
