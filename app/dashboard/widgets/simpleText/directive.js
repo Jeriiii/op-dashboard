@@ -6,10 +6,9 @@ dashboardApp.directive('widgetSimpleText', function() {
     scope: {
     },
     link: function(scope, elem, attrs) {
-        scope.dbwTitle = attrs.dbwTitle;
         scope.dbwText = attrs.dbwText;
 
     },
-    templateUrl: 'dashboard/templates/widget.html'
+    templateUrl: 'dashboard/widgets/simpleText/template.html'
   };
 });

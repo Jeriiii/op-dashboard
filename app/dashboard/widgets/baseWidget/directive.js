@@ -1,5 +1,5 @@
 // Prázdný widget
-dashboardApp.directive('widgetSimpleText', function() {
+dashboardApp.directive('widgetBase', function() {
   return {
     restrict: 'E',
     replace: true,
@@ -7,9 +7,9 @@ dashboardApp.directive('widgetSimpleText', function() {
     },
     link: function(scope, elem, attrs) {
         scope.dbwTitle = attrs.dbwTitle;
-        scope.dbwText = attrs.dbwText;
 
     },
-    templateUrl: 'dashboard/templates/widget.html'
+    templateUrl: 'dashboard/widgets/baseWidget/template.html',
+    transclude: true
   };
 });

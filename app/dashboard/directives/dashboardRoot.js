@@ -1,26 +1,26 @@
 // Hlavní direktiva, ve které se nachází celý dashboard
-dashboardApp.directive('dashboardRoot', ['$compile', function($compile) {
+dashboardApp.directive('dashboardRoot', ['$compile', 'dashboardModel', function($compile, dashboardModelProvider) {
   return {
     restrict: 'E',
     replace: true,
-    transclude: true,
     templateUrl: 'dashboard/templates/rootDashboart.html',
     controller: function ( $scope, $element ) {
       $scope.addTextWidget = function () {
         var el = $compile(
-          '<widget dbw-title="Vygenerovaný widget s textem">Obsah vygenerovaného widgetu</widget> '
+          '<widget-base dbw-title="Vygenerovaný widget s textem"><widget-simple-text dbw-text="Obsah vygenerovaného widgetu" /></widget-base>'
         )( $scope );
-        $element.parent().append( el );
+        $element.find('#content').append( el );
       };
       $scope.addGraphWidget = function () {
         var el = $compile(
-          '<widget dbw-title="Vygenerovaný widget s grafem"><graph-example /></widget> '
+          '<widget-base dbw-title="Vygenerovaný widget s grafem"><graph-example /></widget-base>'
         )( $scope );
-        $element.parent().append( el );
+        $element.find('#content').append( el );
       };
     },
     link: function(scope, elem, attrs) {
-      var model = JSON.parse(attrs.dbModel);
+      //var model = JSON.parse(attrs.dbModel);
+      var model = dashboardModelProvider.getModel();
 
       angular.forEach(model.widgets, function(value, key) {
         console.log(value);
