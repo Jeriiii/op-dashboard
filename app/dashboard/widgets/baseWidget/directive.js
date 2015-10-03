@@ -7,7 +7,6 @@ dashboardApp.directive('widgetBase', function() {
     },
     link: function(scope, elem, attrs) {
         scope.dbwTitle = attrs.dbwTitle;
-
     },
     templateUrl: 'dashboard/widgets/baseWidget/template.html',
     transclude: true

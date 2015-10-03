@@ -16,7 +16,7 @@ dashboardApp.directive('dashboardRoot', ['$compile', 'dashboardModel', function(
       $scope.addGraphWidget = function (settings) {
         $scope.settings = settings;
         var el = $compile(
-          '<widget-base dbw-title="' + settings.tittle + '"><graph-example /></widget-base>'
+          '<widget-base dbw-title="' + settings.tittle + '"><graph-example relative-url="' + settings.relativeUrl + '" /></widget-base>'
         )( $scope );
         $element.find('#content').append( el );
       };
@@ -35,12 +35,13 @@ dashboardApp.directive('dashboardRoot', ['$compile', 'dashboardModel', function(
       });
 
       scope.textSettings = {
-        'tittle': 'Vygenerovaný textový widget',
-        'text': 'Obsah vygenerovaného widgetu.'
+        tittle: 'Vygenerovaný textový widget',
+        text: 'Obsah vygenerovaného widgetu.'
       };
 
       scope.graphSettings = {
-        'tittle': 'Vygenerovaný textový widget',
+        tittle: 'Vygenerovaný textový widget',
+        relativeUrl: 'data/graph1.json'
       };
     }
   };

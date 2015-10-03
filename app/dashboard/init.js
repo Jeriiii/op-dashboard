@@ -20,7 +20,8 @@ dashboardApp.config(function(dashboardModelProvider){
       {
         type: 'graph',
         settings: {
-          tittle: 'Jednoduchý graf 2'
+          tittle: 'Jednoduchý graf 2',
+          relativeUrl: 'data/graph1.json'
         }
       }
     ]
