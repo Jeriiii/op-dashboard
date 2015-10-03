@@ -38,7 +38,6 @@ dashboardApp.directive('dashboardRoot', ['$compile', 'dashboardModel', function(
       var model = dashboardModelProvider.getModel();
 
       angular.forEach(model.widgets, function(value, key) {
-        console.log(value);
         if(value.type == 'simpleText') {
           scope.addTextWidget(value.settings);
         } else if(value.type == 'graph') {

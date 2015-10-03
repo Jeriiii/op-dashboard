@@ -4,7 +4,8 @@ dashboardApp.directive('widgetClock', ['dateFilter', '$timeout', function(dateFi
     restrict: 'E',
     replace: true,
     link: function(scope, element, attrs){
-      console.log('clock');
+      console.log('init clock');
+      var timer;
 
       scope.format = attrs.format;
 
@@ -12,8 +13,13 @@ dashboardApp.directive('widgetClock', ['dateFilter', '$timeout', function(dateFi
           var now = Date.now();
 
           element.html(dateFilter(now, scope.format));
-          $timeout(updateTime, now % 1000);
+          timer = $timeout(updateTime, now % 1000);
       };
+
+      scope.$on("$destroy", function( event ) {
+        console.log('des clock');
+        $timeout.cancel( timer );
+      });
 
       updateTime();
     },
