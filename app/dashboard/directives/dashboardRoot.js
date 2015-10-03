@@ -17,35 +17,18 @@ dashboardApp.directive('dashboardRoot', ['$compile', 'dashboardModel', function(
         var htmlToCompile = '<widget-base dbw-title="' + settings.tittle + '"><widget-simple-text dbw-text="' + settings.text + '" /></widget-base>';
 
         compileWidget(settings, htmlToCompile);
-        // $scope.settings = settings;
-        // var el = $compile(
-        //   '<widget-base dbw-title="' + settings.tittle + '"><widget-simple-text dbw-text="' + settings.text + '" /></widget-base>'
-        // )( $scope );
-        // $element.find('#content').append( el );
       };
 
       $scope.addGraphWidget = function (settings) {
         var htmlToCompile = '<widget-base dbw-title="' + settings.tittle + '"><graph-example relative-url="' + settings.relativeUrl + '" /></widget-base>';
 
         compileWidget(settings, htmlToCompile);
-
-        // $scope.settings = settings;
-        // var el = $compile(
-        //   '<widget-base dbw-title="' + settings.tittle + '"><graph-example relative-url="' + settings.relativeUrl + '" /></widget-base>'
-        // )( $scope );
-        // $element.find('#content').append( el );
       };
 
       $scope.addClockWidget = function (settings) {
         var htmlToCompile = '<widget-base dbw-title="' + settings.tittle + '"><widget-clock format="' + settings.format + '" /></widget-base>';
 
         compileWidget(settings, htmlToCompile);
-
-        // $scope.settings = settings;
-        // var el = $compile(
-        //   '<widget-base dbw-title="' + settings.tittle + '"><graph-example relative-url="' + settings.relativeUrl + '" /></widget-base>'
-        // )( $scope );
-        // $element.find('#content').append( el );
       };
 
     },
