@@ -34,8 +34,8 @@ dashboardApp.directive('dashboardRoot', ['$compile', 'dashboardModel', function(
     },
 
     link: function(scope, elem, attrs) {
-      //var model = JSON.parse(attrs.dbModel);
-      var model = dashboardModelProvider.getModel();
+      var model = JSON.parse(attrs.dbModel);
+      //var model = dashboardModelProvider.getModel();
 
       angular.forEach(model.widgets, function(value, key) {
         if(value.type == 'simpleText') {
