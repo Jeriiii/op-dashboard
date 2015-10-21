@@ -3,7 +3,21 @@
   <div class="btn btn-primary" ng-click="addGraphWidget(graphSettings)">Přidá graf</div>
   <div class="btn btn-primary" ng-click="addClockWidget(clockSettings)">Přidá hodiny</div>
   <div>
-    <div id="content"></div>
+    <div id="content">
+      <div ng-repeat="widget in widgets">
+        <div ng-switch="widget.type">
+          <div ng-switch-when="simpleText">
+            <widget-base dbw-title="{{widget.settings.tittle}}"><widget-simple-text dbw-text="{{widget.settings.text}}" /></widget-base>
+          </div>
+          <div ng-switch-when="graph">
+            <widget-base dbw-title="{{widget.settings.tittle}}"><graph-example relative-url="{{widget.settings.relativeUrl}}" /></widget-base>
+          </div>
+          <div ng-switch-when="clock">
+            <widget-base dbw-title="{{widget.settings.tittle}}"><widget-clock format="{{widget.settings.format}}" /></widget-base>
+          </div>
+        </div>
+      </div>
+    </div>
     <div style="clear:both"></div>
   </div>
 </div>
