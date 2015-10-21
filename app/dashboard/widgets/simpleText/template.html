@@ -1,1 +1,6 @@
-<p>{{dbwText}}</p>
+<p>
+  <span ng-if="escapeHtml">{{dbwText}}</span>
+  <span ng-if="!escapeHtml">
+    <span ng-bind-html="toTrustedHTML(dbwText)"></span>
+  </span>
+</p>

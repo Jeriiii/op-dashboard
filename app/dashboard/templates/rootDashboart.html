@@ -7,7 +7,7 @@
       <div ng-repeat="widget in widgets">
         <div ng-switch="widget.type">
           <div ng-switch-when="simpleText">
-            <widget-base dbw-title="{{widget.settings.tittle}}"><widget-simple-text dbw-text="{{widget.settings.text}}" /></widget-base>
+            <widget-base dbw-title="{{widget.settings.tittle}}"><widget-simple-text dbw-text="{{widget.settings.text}}" dbw-escape-html="{{widget.settings.escapeHtml}}" /></widget-base>
           </div>
           <div ng-switch-when="graph">
             <widget-base dbw-title="{{widget.settings.tittle}}"><graph-example relative-url="{{widget.settings.relativeUrl}}" /></widget-base>

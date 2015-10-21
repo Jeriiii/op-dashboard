@@ -4,7 +4,8 @@ var model = {
       type: 'simpleText',
       settings: {
         tittle: 'Jednoduchý widget 1',
-        text: 'Toto je opravdu jednoduchý dashboard 1 jen s textem'
+        text: 'Toto je opravdu jednoduchý dashboard 1 jen s textem <b>ahoj</b>',
+        escapeHtml: false
       }
     },
     {

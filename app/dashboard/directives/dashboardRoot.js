@@ -5,7 +5,8 @@ var ctrlFnc = function ( $scope, $element ) {
         type: 'simpleText',
         settings: {
           tittle: 'Vygenerovaný textový widget',
-          text: 'Toto je opravdu jednoduchý dashboard 1 jen s textem'
+          text: 'Toto je opravdu jednoduchý dashboard 1 jen s textem',
+          escapeHtml: true
         }
       });
   };
