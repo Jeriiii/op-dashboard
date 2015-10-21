@@ -1,6 +1,13 @@
 var model = {
   widgets: [
     {
+      type: 'linechart',
+      settings: {
+        tittle: 'Linechart',
+        relativeUrl: 'data/graph1.json'
+      }
+    },
+    {
       type: 'simpleText',
       settings: {
         tittle: 'Jednoduchý widget 1',

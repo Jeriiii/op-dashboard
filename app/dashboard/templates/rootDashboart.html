@@ -12,6 +12,9 @@
           <div ng-switch-when="graph">
             <widget-base dbw-title="{{widget.settings.tittle}}"><graph-example relative-url="{{widget.settings.relativeUrl}}" /></widget-base>
           </div>
+          <div ng-switch-when="linechart">
+            <widget-base dbw-title="{{widget.settings.tittle}}"><linechart relative-url="{{widget.settings.relativeUrl}}" /></widget-base>
+          </div>
           <div ng-switch-when="clock">
             <widget-base dbw-title="{{widget.settings.tittle}}"><widget-clock format="{{widget.settings.format}}" /></widget-base>
           </div>
