@@ -19,7 +19,7 @@ var model = {
       type: 'graph',
       settings: {
         tittle: 'Jednoduchý graf 2',
-        relativeUrl: 'data/graph1.json'
+        relativeUrl: 'http://localhost/skola/op/dashboard-op/server/'
       }
     }
   ]
