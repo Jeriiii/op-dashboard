@@ -10,7 +10,7 @@
 *******************************************************/
 
 
-linechart = function($, options) {
+linechart = function($, $scope, elem, options) {
     var o = options;
 
     o = $.extend({
@@ -41,11 +41,21 @@ linechart = function($, options) {
     }, o);
 
     // Container init
-    var wrap = $('#'+o.id).addClass('linechart');
-    var wrapOffset = wrap.offset();
+    // var wrap = document.getElementById(o.id);
+    //
+    // console.log(o.id);
+    // console.log(wrap);
+    // //var wrapOffset = wrap.offset();
+    // wrapRect = wrap.getBoundingClientRect(); //objekt TextRange, který zajišťuje zjištění relativní pozice k levému a hornímu rohu (asi předka?)
+
+    $scope.canvas = {"width": 452, "height": 155};
+    // $scope.canvas.width = wrap.clientWidth;
+    // $scope.canvas.height = wrap.clientHeight();
 
     // Canvas size iso container
-    var graph = $('> canvas', wrap).attr('width',wrap.width()).attr('height',wrap.height());
+    var graph = elem;//$('> canvas', wrap);
+    graph.attr('width',$scope.canvas.width);
+    graph.attr('height',$scope.canvas.height);
 
     // Canvas init
     var c = graph[0].getContext('2d');
@@ -53,8 +63,7 @@ linechart = function($, options) {
         c.fillStyle = o.gridFontColor;
         c.font = o.gridFont;
         c.textAlign = "center";
-    var tooltip = $('> div', wrap);
-    console.log(tooltip);
+    //var tooltip = $('> div', wrap);
 
     // Return the max values in our data list
     var maxX = 0;
@@ -70,20 +79,20 @@ linechart = function($, options) {
     }
 
     // Return the pixel position (x or y) for a graph point
-    var getPixelX = function(val){ return (((graph.width() - o.gridPaddingX) / (maxX + 1)) * val + (o.gridPaddingX * 1.5)); };
-    var getPixelY = function(val){ return (graph.height() - (((graph.height() - o.gridPaddingY) / maxY) * val) - o.gridPaddingY); };
+    var getPixelX = function(val){ return ((($scope.canvas.width - o.gridPaddingX) / (maxX + 1)) * val + (o.gridPaddingX * 1.5)); };
+    var getPixelY = function(val){ return ($scope.canvas.height - ((($scope.canvas.height - o.gridPaddingY) / maxY) * val) - o.gridPaddingY); };
 
     // Draw the axises
     c.beginPath();
     c.moveTo(o.gridPaddingX, 0);
-    c.lineTo(o.gridPaddingX, graph.height() - o.gridPaddingY);
-    c.lineTo(graph.width(), graph.height() - o.gridPaddingY);
+    c.lineTo(o.gridPaddingX, $scope.canvas.height - o.gridPaddingY);
+    c.lineTo($scope.canvas.width, $scope.canvas.height - o.gridPaddingY);
     c.linesWidth = o.gridWidth;
     c.stroke();
 
     // Draw the X value texts
     for (i=0;i<=maxX;i++)
-        c.fillText(i, getPixelX(i), graph.height() - o.gridPaddingY + 20);
+        c.fillText(i, getPixelX(i), $scope.canvas.height - o.gridPaddingY + 20);
 
     // Draw the Y value texts
     c.textAlign = "right"
@@ -120,38 +129,38 @@ linechart = function($, options) {
     }
 
     // Dots hover function
-    wrap.mousemove(function (e){
-        var dotHover = false;
-        mouseX = parseInt(e.clientX - wrapOffset.left);
-        mouseY = parseInt(e.clientY - wrapOffset.top);
-        for (j=0;j<o.data.length;j++)
-            for (i=0;i<o.data[j].length;i++){
-                if (typeof o.data[j][i].tip == 'string' && o.data[j][i].tip != '')
-                {
-                    var dx = mouseX - o.data[j][i].posX;
-                    var dy = mouseY - o.data[j][i].posY;
-                    if (dx * dx + dy * dy < o.data[j][i].rXr)
-                        dotHover = o.data[j][i];
-                        console.log(dotHover);
-                }
-            }
-        if (dotHover){
-            dotClick = dotHover;
-            tooltip.html(dotHover.tip).css({
-                'position': 'absolute',
-                'left': mouseX + o.tooltipMarginX,
-                'top': mouseY + o.tooltipMarginY
-            }).show();
-            o.dotsHover(dotHover);
-        } else {
-            dotClick = false;
-            tooltip.hide().html('').css({
-                'position': 'static',
-                'positionLeft': 0,
-                'positionTop': 0
-            });
-        }
-    });
+    // wrap.mousemove(function (e){
+    //     var dotHover = false;
+    //     mouseX = parseInt(e.clientX - wrapRect.left);
+    //     mouseY = parseInt(e.clientY - wrapRect.top);
+    //     for (j=0;j<o.data.length;j++)
+    //         for (i=0;i<o.data[j].length;i++){
+    //             if (typeof o.data[j][i].tip == 'string' && o.data[j][i].tip != '')
+    //             {
+    //                 var dx = mouseX - o.data[j][i].posX;
+    //                 var dy = mouseY - o.data[j][i].posY;
+    //                 if (dx * dx + dy * dy < o.data[j][i].rXr)
+    //                     dotHover = o.data[j][i];
+    //                     console.log(dotHover);
+    //             }
+    //         }
+    //     if (dotHover){
+    //         dotClick = dotHover;
+    //         tooltip.html(dotHover.tip).css({
+    //             'position': 'absolute',
+    //             'left': mouseX + o.tooltipMarginX,
+    //             'top': mouseY + o.tooltipMarginY
+    //         }).show();
+    //         o.dotsHover(dotHover);
+    //     } else {
+    //         dotClick = false;
+    //         tooltip.hide().html('').css({
+    //             'position': 'static',
+    //             'positionLeft': 0,
+    //             'positionTop': 0
+    //         });
+    //     }
+    // });
 
     // Dots click function
     var dotClick = false;
@@ -167,8 +176,8 @@ linechart = function($, options) {
 // Příklad grafu pluginu highchart, který se dá vložit do vydgetu
 dashboardApp.directive('linechartAng', ['JsonGraphRes', function(JsonGraphRes) {
   return {
-    restrict: 'E',
-    replace: true,
+    restrict: 'A',
+    // replace: true,
     scope: {
     },
     link: function($scope, elem, attrs) {
@@ -177,7 +186,7 @@ dashboardApp.directive('linechartAng', ['JsonGraphRes', function(JsonGraphRes) {
 
       /* po http požadavku přidá graf */
       var addChart = function(chartData) {
-        linechart(jQuery, {
+        linechart(jQuery, $scope, elem, {
           id: lineChartId,
           data: chartData.linechart
         });
@@ -189,6 +198,6 @@ dashboardApp.directive('linechartAng', ['JsonGraphRes', function(JsonGraphRes) {
       graphData.$promise.then(addChart);
     },
     transclude: true,
-    templateUrl: 'dashboard/widgets/linechartAng/template.html'
+    // templateUrl: 'dashboard/widgets/linechartAng/template.html'
   };
 }]);
