@@ -84,7 +84,7 @@ dashboardApp.directive('graphExample', ['GraphRes', function(GraphRes) {
 
       /* načtení serie dat ze služby GraphRes */
       var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
-      var graphData = GraphRes.send(relativeUrl).query();
+      var graphData = GraphRes.send(relativeUrl, true).query();
 
       graphData.$promise.then(addSerie);
     },

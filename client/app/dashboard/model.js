@@ -4,7 +4,7 @@ var model = {
       type: 'linechart',
       settings: {
         tittle: 'Linechart',
-        relativeUrl: 'data/graph1.json'
+        relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=linechart'
       }
     },
     {
@@ -26,7 +26,7 @@ var model = {
       type: 'graph',
       settings: {
         tittle: 'Jednoduchý graf 2',
-        relativeUrl: 'http://localhost/skola/op/dashboard-op/server/'
+        relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=hightchart'
       }
     }
   ]
