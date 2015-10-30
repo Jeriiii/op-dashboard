@@ -6,14 +6,11 @@ dashboardApp.directive('linechart', ['JsonGraphRes', function(JsonGraphRes) {
     scope: {
     },
     link: function(scope, elem, attrs) {
-      var addChart = function(result) {
-        console.log(result.linechart);
-
-        var chartData = [];
-
+      /* po http požadavku přidá graf */
+      var addChart = function(chartData) {
         $.linechart({
           id: 'linechart-widget-demo',
-          data: result.linechart
+          data: chartData.linechart
         });
       };
 
