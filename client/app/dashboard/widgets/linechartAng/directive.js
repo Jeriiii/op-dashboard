@@ -10,7 +10,8 @@
 *******************************************************/
 
 
-(function ($){ $.linechart = function (o){
+linechart = function($, options) {
+    var o = options;
 
     o = $.extend({
         // Mandatory options
@@ -40,7 +41,7 @@
     }, o);
 
     // Container into the DOM
-    $("#linechart-demo").append('<div class="chart" id="'+o.id+'"><canvas></canvas><div></div></div>');
+    $("#linechart-ang-demo").append('<div class="chart" id="'+o.id+'"><canvas></canvas><div></div></div>');
 
     // Container init
     var wrap = $('#'+o.id).addClass('linechart');
@@ -56,6 +57,7 @@
         c.font = o.gridFont;
         c.textAlign = "center";
     var tooltip = $('> div', wrap);
+    console.log(tooltip);
 
     // Return the max values in our data list
     var maxX = 0;
@@ -133,6 +135,7 @@
                     var dy = mouseY - o.data[j][i].posY;
                     if (dx * dx + dy * dy < o.data[j][i].rXr)
                         dotHover = o.data[j][i];
+                        console.log(dotHover);
                 }
             }
         if (dotHover){
@@ -161,4 +164,33 @@
     });
 
     return graph;
-}; })(jQuery);
+};
+
+
+// Příklad grafu pluginu highchart, který se dá vložit do vydgetu
+dashboardApp.directive('linechartAng', ['JsonGraphRes', function(JsonGraphRes) {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+    },
+    link: function(scope, elem, attrs) {
+      /* po http požadavku přidá graf */
+      var addChart = function(chartData) {
+        linechart(jQuery, {
+          id: 'linechart-ang-widget-demo',
+          data: chartData.linechart
+        });
+      };
+
+      var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
+      var graphData = JsonGraphRes.send(relativeUrl).get();
+
+
+
+      graphData.$promise.then(addChart);
+    },
+    transclude: true,
+    templateUrl: 'dashboard/widgets/linechartAng/template.html'
+  };
+}]);

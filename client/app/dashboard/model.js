@@ -8,6 +8,13 @@ var model = {
       }
     },
     {
+      type: 'linechart-ang',
+      settings: {
+        tittle: 'Linechart Angular',
+        relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=linechart'
+      }
+    },
+    {
       type: 'simpleText',
       settings: {
         tittle: 'Jednoduchý widget 1',
