@@ -15,7 +15,7 @@ dashboardApp.directive('linechart', ['JsonGraphRes', function(JsonGraphRes) {
       };
 
       var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
-      var graphData = JsonGraphRes.send(relativeUrl, false).get();
+      var graphData = JsonGraphRes.send(relativeUrl).get();
 
       graphData.$promise.then(addChart);
     },
