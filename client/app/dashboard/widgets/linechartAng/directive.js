@@ -40,9 +40,6 @@ linechart = function($, options) {
         tooltipMarginY: 15                      // tooltip vertical margin from cursor
     }, o);
 
-    // Container into the DOM
-    $("#linechart-ang-demo").append('<div class="chart" id="'+o.id+'"><canvas></canvas><div></div></div>');
-
     // Container init
     var wrap = $('#'+o.id).addClass('linechart');
     var wrapOffset = wrap.offset();
@@ -174,19 +171,20 @@ dashboardApp.directive('linechartAng', ['JsonGraphRes', function(JsonGraphRes) {
     replace: true,
     scope: {
     },
-    link: function(scope, elem, attrs) {
+    link: function($scope, elem, attrs) {
+      var lineChartId = 'linechart-ang-widget-demo';
+      $scope.lineChartId = lineChartId;
+
       /* po http požadavku přidá graf */
       var addChart = function(chartData) {
         linechart(jQuery, {
-          id: 'linechart-ang-widget-demo',
+          id: lineChartId,
           data: chartData.linechart
         });
       };
 
       var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
       var graphData = JsonGraphRes.send(relativeUrl).get();
-
-
 
       graphData.$promise.then(addChart);
     },
