@@ -7,7 +7,7 @@ dashboardApp.directive('linechart', ['GraphRes', function(GraphRes) {
     },
     link: function(scope, elem, attrs) {
       $.linechart({
-        id: 'linechart-demo',
+        id: 'linechart-widget-demo',
         data: [
             [
                 {

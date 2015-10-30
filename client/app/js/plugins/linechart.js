@@ -56,6 +56,7 @@
         c.font = o.gridFont;
         c.textAlign = "center";
     var tooltip = $('> div', wrap);
+    console.log(tooltip);
 
     // Return the max values in our data list
     var maxX = 0;
@@ -133,6 +134,7 @@
                     var dy = mouseY - o.data[j][i].posY;
                     if (dx * dx + dy * dy < o.data[j][i].rXr)
                         dotHover = o.data[j][i];
+                        console.log(dotHover);
                 }
             }
         if (dotHover){
