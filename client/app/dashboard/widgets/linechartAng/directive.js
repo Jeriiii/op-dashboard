@@ -10,10 +10,10 @@
 *******************************************************/
 
 
-linechart = function($, $scope, elem, options) {
+linechart = function($scope, elem, options) {
     var o = options;
 
-    o = $.extend({
+    o = angular.extend({
         // Mandatory options
         id: '',                                 // id given to the chart
         data: [                                 // datas arrays
@@ -49,8 +49,6 @@ linechart = function($, $scope, elem, options) {
     // wrapRect = wrap.getBoundingClientRect(); //objekt TextRange, který zajišťuje zjištění relativní pozice k levému a hornímu rohu (asi předka?)
 
     $scope.canvas = {"width": 452, "height": 155};
-    // $scope.canvas.width = wrap.clientWidth;
-    // $scope.canvas.height = wrap.clientHeight();
 
     // Canvas size iso container
     var graph = elem;//$('> canvas', wrap);
@@ -104,7 +102,7 @@ linechart = function($, $scope, elem, options) {
     {
         // Add position properties to the dots
         for (i=0;i<o.data[j].length;i++)
-        jQuery.extend(o.data[j][i],{
+        angular.extend(o.data[j][i],{
             posX: getPixelX(o.data[j][i].X),
             posY: getPixelY(o.data[j][i].Y),
             rXr: 16
@@ -186,7 +184,7 @@ dashboardApp.directive('linechartAng', ['JsonGraphRes', function(JsonGraphRes) {
 
       /* po http požadavku přidá graf */
       var addChart = function(chartData) {
-        linechart(jQuery, $scope, elem, {
+        linechart($scope, elem, {
           id: lineChartId,
           data: chartData.linechart
         });
