@@ -15,9 +15,9 @@ var options = null;
  * Vrátí nastavení pluginu.
  */
 var getOptions = function(o) {
-  if(options != null) {
-    return options;
-  }
+  // if(options != null) {
+  //   return options;
+  // }
 
   o = angular.extend({
       // Mandatory options
@@ -83,7 +83,9 @@ var canvasInit = function(graph, o) {
       c.strokeStyle = o.gridColor;
       c.fillStyle = o.gridFontColor;
       c.font = o.gridFont;
-      c.textAlign = "center";
+      //c.textAlign = "center";
+      c.textAlign = "right"
+      c.textBaseline = "middle";
 
       return c;
 }
@@ -147,8 +149,6 @@ var linechartCanvas = function($scope, elem, options) {
         c.fillText(i, getPointX(i, o, maxXY), o.graph.height - o.gridPaddingY + 20);
 
     // Draw the Y value texts
-    c.textAlign = "right"
-    c.textBaseline = "middle";
     for (i=0;i<maxXY.Y;i+= 10)
         c.fillText(i, o.gridPaddingX - 10, getPointY(i, o, maxXY));
 
@@ -204,9 +204,24 @@ var linechartWarper = function($scope, elem, options) {
   //var tooltip = $('> div', wrap); //dodělat přes scope
 
   $scope.tooltip = {'html': '', 'css': ''};
+  o.graph = {"width": 452, "height": 155};
+  var maxXY = maxXYFn(o.data);
+
+  console.log(o.data);
+
+  for (j=0;j<o.data.length;j++)
+  {
+    // Add position properties to the dots
+    for (i=0;i<o.data[j].length;i++)
+    angular.extend(o.data[j][i],{
+        posX: getPointX(o.data[j][i].X, o, maxXY),
+        posY: getPointY(o.data[j][i].Y, o, maxXY),
+        rXr: 16
+    });
+  };
 
   // Dots hover function
-  wrap.bind("mouseover", function (e){
+  wrap.bind("mousemove", function (e){
       var dotHover = false;
 
       mouseX = parseInt(e.clientX - wrapRect.left);
@@ -216,19 +231,16 @@ var linechartWarper = function($scope, elem, options) {
           for (i=0;i<o.data[j].length;i++){
               if (typeof o.data[j][i].tip == 'string' && o.data[j][i].tip != '')
               {
-                console.log(o.data[j][i]);
                   var dx = mouseX - o.data[j][i].posX;
                   var dy = mouseY - o.data[j][i].posY;
 
-                  // console.log(dx * dx + dy * dy);
-                  // console.log(o.data[j][i].rXr);
                   if (dx * dx + dy * dy < o.data[j][i].rXr)
                       dotHover = o.data[j][i];
 
               }
           }
       if (dotHover){
-        // console.log(dotHover);
+          console.log("johoho");
           dotClick = dotHover;
           $scope.tooltip.html = dotHover.tip;
           $scope.tooltip.css = 'position: absolute; ' +
@@ -287,7 +299,7 @@ dashboardApp.directive('linechartAngCanvas', ['JsonGraphRes', function(JsonGraph
 dashboardApp.directive('linechartNg', ['JsonGraphRes', function(JsonGraphRes) {
   return {
     restrict: 'E',
-    replace: true,
+    //replace: true,
     scope: {
     },
     link: function($scope, elem, attrs) {

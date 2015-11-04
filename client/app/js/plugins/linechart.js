@@ -131,6 +131,7 @@
                 {
                     var dx = mouseX - o.data[j][i].posX;
                     var dy = mouseY - o.data[j][i].posY;
+                    console.log(dx * dx + dy * dy < o.data[j][i].rXr);
                     if (dx * dx + dy * dy < o.data[j][i].rXr)
                         dotHover = o.data[j][i];
                 }
