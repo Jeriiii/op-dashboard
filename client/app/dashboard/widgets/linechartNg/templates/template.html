@@ -1,3 +1,4 @@
-<div class="chart linechart" id="{{ lineChartId }}">
+<div ng-mouseover="tooltipFn" class="chart linechart" id="{{ lineChartId }}">
   <canvas class="canvas" id="canvas{{ lineChartId }}"></canvas>
+  <div style="{{ tooltip.css }}">{{ tooltip.html }}</div>
 <div>

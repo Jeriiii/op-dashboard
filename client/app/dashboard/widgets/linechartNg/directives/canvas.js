@@ -9,7 +9,16 @@
 
 *******************************************************/
 /* Vrátí nastavení s defaultními hodnotami */
+var options = null;
+
+/**
+ * Vrátí nastavení pluginu.
+ */
 var getOptions = function(o) {
+  if(options != null) {
+    return options;
+  }
+
   o = angular.extend({
       // Mandatory options
       id: '',                                 // id given to the chart
@@ -38,67 +47,118 @@ var getOptions = function(o) {
   }, o);
 
   return o;
+};
+
+/**
+ * Vrátí maximální hodnotu Xové a Yové souřadnice.
+ */
+var maxXYFn = function(data) {
+  // Return the max values in our data list
+  var maxX = 0;
+  var maxY = 0;
+  for (j=0;j<data.length;j++)
+  {
+      for (i=0;i<data[j].length; i++)
+      {
+          if (data[j][i].X > maxX) maxX = data[j][i].X;
+          if (data[j][i].Y > maxY) maxY = data[j][i].Y;
+      }
+      maxY += 10 - maxY % 10;
+  }
+
+  return {
+    'X': maxX,
+    'Y': maxY,
+  };
+};
+
+/**
+ * Inicializuje canvas.
+ * @param {Element} graph Graf do kterého se má kreslit
+ * @param {Object} o Nastavení pluginu.
+ * @return {Canvas} Canvas grafu.
+ */
+var canvasInit = function(graph, o) {
+  var c = graph[0].getContext('2d');
+      c.strokeStyle = o.gridColor;
+      c.fillStyle = o.gridFontColor;
+      c.font = o.gridFont;
+      c.textAlign = "center";
+
+      return c;
 }
 
+/**
+ * Nakreslí osy X a Y
+ * @param {Canvas} c Canvas grafu.
+ * @return {Object} Nastavení pluginu.
+ */
+var drawAxises = function(c, o) {
+  c.beginPath();
+  c.moveTo(o.gridPaddingX, 0);
+  c.lineTo(o.gridPaddingX, o.graph.height - o.gridPaddingY);
+  c.lineTo(o.graph.width, o.graph.height - o.gridPaddingY);
+  c.linesWidth = o.gridWidth;
+  c.stroke();
+}
+
+/**
+ * Vrátí X souřadnici bodu v grafu.
+ * @param {Number} val Xová souřadnice.
+ * @param {Object} o Nastavení pluginu.
+ * @param {Object} maxXY Maximální souřednice X a Y pro tuto křivku
+ * @return {Number} Xová souřadnice bodu v grafu v pixelech.
+ */
+var getPointX = function(val, o, maxXY){
+  return (((o.graph.width - o.gridPaddingX) / (maxXY.X + 1)) * val + (o.gridPaddingX * 1.5));
+};
+
+/**
+ * Vrátí Y souřadnici bodu v grafu.
+ * @param {Number} val Xová souřadnice.
+ * @param {Object} o Nastavení pluginu.
+ * @param {Object} maxXY Maximální souřednice X a Y pro tuto křivku
+ * @return {Number} Yová souřadnice bodu v grafu v pixelech.
+ */
+var getPointY = function(val, o, maxXY){
+  return (o.graph.height - (((o.graph.height - o.gridPaddingY) / maxXY.Y) * val) - o.gridPaddingY);
+};
+
+/**
+ * Nakreslí graf do cavasu.
+ */
 var linechartCanvas = function($scope, elem, options) {
     var o = getOptions(options);
 
-    $scope.canvas = {"width": 452, "height": 155};
+    o.graph = {"width": 452, "height": 155};
 
     // Canvas size iso container
     var graph = elem;//$('> canvas', wrap);
-    graph.attr('width',$scope.canvas.width);
-    graph.attr('height',$scope.canvas.height);
+    graph.attr('width',o.graph.width);
+    graph.attr('height',o.graph.height);
 
-    // Canvas init
-    var c = graph[0].getContext('2d');
-        c.strokeStyle = o.gridColor;
-        c.fillStyle = o.gridFontColor;
-        c.font = o.gridFont;
-        c.textAlign = "center";
+    var c = canvasInit(graph, o);
+    drawAxises(c, o);
 
-    // Return the max values in our data list
-    var maxX = 0;
-    var maxY = 0;
-    for (j=0;j<o.data.length;j++)
-    {
-        for (i=0;i<o.data[j].length; i++)
-        {
-            if (o.data[j][i].X > maxX) maxX = o.data[j][i].X;
-            if (o.data[j][i].Y > maxY) maxY = o.data[j][i].Y;
-        }
-        maxY += 10 - maxY % 10;
-    }
-
-    // Return the pixel position (x or y) for a graph point
-    var getPixelX = function(val){ return ((($scope.canvas.width - o.gridPaddingX) / (maxX + 1)) * val + (o.gridPaddingX * 1.5)); };
-    var getPixelY = function(val){ return ($scope.canvas.height - ((($scope.canvas.height - o.gridPaddingY) / maxY) * val) - o.gridPaddingY); };
-
-    // Draw the axises
-    c.beginPath();
-    c.moveTo(o.gridPaddingX, 0);
-    c.lineTo(o.gridPaddingX, $scope.canvas.height - o.gridPaddingY);
-    c.lineTo($scope.canvas.width, $scope.canvas.height - o.gridPaddingY);
-    c.linesWidth = o.gridWidth;
-    c.stroke();
+    var maxXY = maxXYFn(o.data);
 
     // Draw the X value texts
-    for (i=0;i<=maxX;i++)
-        c.fillText(i, getPixelX(i), $scope.canvas.height - o.gridPaddingY + 20);
+    for (i=0;i<=maxXY.X;i++)
+        c.fillText(i, getPointX(i, o, maxXY), o.graph.height - o.gridPaddingY + 20);
 
     // Draw the Y value texts
     c.textAlign = "right"
     c.textBaseline = "middle";
-    for (i=0;i<maxY;i+= 10)
-        c.fillText(i, o.gridPaddingX - 10, getPixelY(i));
+    for (i=0;i<maxXY.Y;i+= 10)
+        c.fillText(i, o.gridPaddingX - 10, getPointY(i, o, maxXY));
 
     for (j=0;j<o.data.length;j++)
     {
         // Add position properties to the dots
         for (i=0;i<o.data[j].length;i++)
         angular.extend(o.data[j][i],{
-            posX: getPixelX(o.data[j][i].X),
-            posY: getPixelY(o.data[j][i].Y),
+            posX: getPointX(o.data[j][i].X, o, maxXY),
+            posY: getPointY(o.data[j][i].Y, o, maxXY),
             rXr: 16
         });
 
@@ -134,48 +194,62 @@ var linechartWarper = function($scope, elem, options) {
   var o = getOptions(options);
 
   // Container init
-  // var wrap = document.getElementById(o.id);
-  //
-  // console.log(o.id);
-  // console.log(wrap);
-  // //var wrapOffset = wrap.offset();
-  // wrapRect = wrap.getBoundingClientRect(); //objekt TextRange, který zajišťuje zjištění relativní pozice k levému a hornímu rohu (asi předka?)
+  var wrap = elem;
 
-  //var tooltip = $('> div', wrap);
+  console.log(o.id);
+  console.log(wrap);
+  //var wrapOffset = wrap.offset();
+  wrapRect = wrap.offset(); //objekt TextRange, který zajišťuje zjištění relativní pozice k levému a hornímu rohu (asi předka?)
+
+  //var tooltip = $('> div', wrap); //dodělat přes scope
+
+  $scope.tooltip = {'html': '', 'css': ''};
 
   // Dots hover function
-  // wrap.mousemove(function (e){
-  //     var dotHover = false;
-  //     mouseX = parseInt(e.clientX - wrapRect.left);
-  //     mouseY = parseInt(e.clientY - wrapRect.top);
-  //     for (j=0;j<o.data.length;j++)
-  //         for (i=0;i<o.data[j].length;i++){
-  //             if (typeof o.data[j][i].tip == 'string' && o.data[j][i].tip != '')
-  //             {
-  //                 var dx = mouseX - o.data[j][i].posX;
-  //                 var dy = mouseY - o.data[j][i].posY;
-  //                 if (dx * dx + dy * dy < o.data[j][i].rXr)
-  //                     dotHover = o.data[j][i];
-  //                     console.log(dotHover);
-  //             }
-  //         }
-  //     if (dotHover){
-  //         dotClick = dotHover;
-  //         tooltip.html(dotHover.tip).css({
-  //             'position': 'absolute',
-  //             'left': mouseX + o.tooltipMarginX,
-  //             'top': mouseY + o.tooltipMarginY
-  //         }).show();
-  //         o.dotsHover(dotHover);
-  //     } else {
-  //         dotClick = false;
-  //         tooltip.hide().html('').css({
-  //             'position': 'static',
-  //             'positionLeft': 0,
-  //             'positionTop': 0
-  //         });
-  //     }
-  // });
+  wrap.bind("mouseover", function (e){
+      var dotHover = false;
+
+      mouseX = parseInt(e.clientX - wrapRect.left);
+      mouseY = parseInt(e.clientY - wrapRect.top);
+
+      for (j=0;j<o.data.length;j++)
+          for (i=0;i<o.data[j].length;i++){
+              if (typeof o.data[j][i].tip == 'string' && o.data[j][i].tip != '')
+              {
+                console.log(o.data[j][i]);
+                  var dx = mouseX - o.data[j][i].posX;
+                  var dy = mouseY - o.data[j][i].posY;
+
+                  // console.log(dx * dx + dy * dy);
+                  // console.log(o.data[j][i].rXr);
+                  if (dx * dx + dy * dy < o.data[j][i].rXr)
+                      dotHover = o.data[j][i];
+
+              }
+          }
+      if (dotHover){
+        // console.log(dotHover);
+          dotClick = dotHover;
+          $scope.tooltip.html = dotHover.tip;
+          $scope.tooltip.css = 'position: absolute; ' +
+              'left: ' + (mouseX + o.tooltipMarginX) + ";" +
+              'top: ' + (mouseY + o.tooltipMarginY) + ";" +
+              'display: block;'
+          ;
+          o.dotsHover(dotHover);
+          // console.log($scope.tooltip.html);
+      } else {
+          // console.log(dotHover);
+          dotClick = false;
+          $scope.tooltip.html = '';
+          $scope.tooltip.css = 'position: static;' +
+              'positionLeft: 0;' +
+              'positionTop: 0;' +
+              'display: block;'
+          ;
+
+      }
+  });
 
 }
 
