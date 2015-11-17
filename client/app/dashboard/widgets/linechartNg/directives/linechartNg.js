@@ -1,32 +1,14 @@
-var linechartWarper = function($scope, elem, options) {
-  var o = getOptions(options);
-
-  // Container init
-  var wrap = elem;
-
-  console.log(o.id);
-  console.log(wrap);
+/**
+ * Nabinduje na tečky v grafu titulky, které se zobrazí při najetí myší.
+ * @param {Object} o Nastavení pluginu.
+ * @param {element} wrap Element nad kterým se direktiva spouští.
+ * @param {scope} $scope
+ */
+var dotsHover = function(o, wrap, $scope) {
   //var wrapOffset = wrap.offset();
   wrapRect = wrap.offset(); //objekt TextRange, který zajišťuje zjištění relativní pozice k levému a hornímu rohu (asi předka?)
 
   //var tooltip = $('> div', wrap); //dodělat přes scope
-
-  $scope.tooltip = {'html': '', 'css': ''};
-  o.graph = {"width": 452, "height": 155};
-  var maxXY = maxXYFn(o.data);
-
-  console.log(o.data);
-
-  for (j=0;j<o.data.length;j++)
-  {
-    // Add position properties to the dots
-    for (i=0;i<o.data[j].length;i++)
-    angular.extend(o.data[j][i],{
-        posX: getPointX(o.data[j][i].X, o, maxXY),
-        posY: getPointY(o.data[j][i].Y, o, maxXY),
-        rXr: 16
-    });
-  };
 
   // Dots hover function
   wrap.bind("mousemove", function (e){
@@ -70,7 +52,29 @@ var linechartWarper = function($scope, elem, options) {
 
       }
   });
+}
 
+var linechartWarper = function($scope, elem, options) {
+  var o = getOptions(options);
+
+  $scope.tooltip = {'html': '', 'css': ''};
+  o.graph = {"width": elem.parent().width(), "height": elem.parent().height()};
+  var maxXY = maxXYFn(o.data);
+
+  for (j=0;j<o.data.length;j++)
+  {
+    // Add position properties to the dots
+    for (i=0;i<o.data[j].length;i++)
+    angular.extend(o.data[j][i],{
+        posX: getPointX(o.data[j][i].X, o, maxXY),
+        posY: getPointY(o.data[j][i].Y, o, maxXY),
+        rXr: 16
+    });
+  };
+
+  // Container init
+  var wrap = elem;
+  dotsHover(o, wrap, $scope);
 }
 
 // Prázdný widget

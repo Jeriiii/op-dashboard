@@ -63,7 +63,6 @@ var drawAxises = function(c, o) {
 var drawLine = function(c, o, lineColor) {
   var lineColor = ((typeof o.linesColors[j] !== 'undefined')?o.linesColors[j]:'#000000');
   c.strokeStyle = lineColor;
-  console.log(c.strokeStyle);
   c.beginPath();
   c.moveTo(o.data[j][0].posX, o.data[j][0].posY);
   for (i=1;i<o.data[j].length;i++) {
