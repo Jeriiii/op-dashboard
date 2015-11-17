@@ -163,7 +163,9 @@ var linechartCanvas = function($scope, elem, options) {
         });
 
         // Draw the line graph
-        c.strokeStyle = ((typeof o.linesColors[j] !== 'undefined')?o.linesColors[j]:'#000000');
+        var lineColor = ((typeof o.linesColors[j] !== 'undefined')?o.linesColors[j]:'#000000');
+        c.strokeStyle = lineColor;
+        console.log(c.strokeStyle);
         c.beginPath();
         c.moveTo(o.data[j][0].posX, o.data[j][0].posY);
         for (i=1;i<o.data[j].length;i++)
@@ -172,10 +174,10 @@ var linechartCanvas = function($scope, elem, options) {
         c.stroke();
 
         // Draw the dots
-        c.fillStyle = o.dotsColor;
+        c.fillStyle = lineColor;//o.dotsColor;
         for (i=0;i<o.data[j].length;i++){
             c.beginPath();
-            c.arc(o.data[j][i].posX, o.data[j][i].posY, o.dotsWidth, 0, Math.PI * 2, true);
+            c.arc(o.data[j][i].posX, o.data[j][i].posY, o.dotsWidth + 0.5, 0, Math.PI * 2, true);
             c.fill();
         }
     }
