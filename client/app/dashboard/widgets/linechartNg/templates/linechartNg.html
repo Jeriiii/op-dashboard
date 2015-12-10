@@ -2,5 +2,6 @@
   <div ng-transclude>
     <!-- tady je vnitrek widgetu -->
   </div>
-  <div ngStyle="{{ tooltip.css }}">{{ tooltip.html }}</div>
+  <div ng-style="{'position': tcss.position, 'left': tcss.left, 'top': tcss.top, 'display': tcss.display, 'color': tcss.color}">
+    {{ thtml }}</div>
 </div>

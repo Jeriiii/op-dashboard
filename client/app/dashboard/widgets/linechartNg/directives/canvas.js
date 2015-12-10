@@ -55,7 +55,7 @@ var getOptions = function(o) {
 var linechartCanvas = function($scope, elem, options) {
     var o = getOptions(options);
 
-    o.graph = {"width": 452, "height": 155};
+    o.graph = {"width": elem.parent().width(), "height": elem.parent().height()};
 
     // Canvas size iso container
     var graph = elem;//$('> canvas', wrap);
@@ -70,16 +70,28 @@ var linechartCanvas = function($scope, elem, options) {
     drawAxisesValue(c, o, maxXY);
     drawLines(c, o, maxXY);
 
-    // Dots click function
-    var dotClick = false;
-    graph.click(function(){
-        if (dotClick)
-            o.dotsClick(dotClick);
-    });
-
     return graph;
 };
 
+/** link fce této direktivy */
+var linechartLink = function($scope, elem, attrs, JsonGraphRes) {
+  var lineChartId = 'linechart-ang-widget-demo';
+  $scope.lineChartId = lineChartId;
+
+  /* po http požadavku přidá graf */
+  var addChart = function(chartData) {
+    linechartCanvas($scope, elem, {
+      id: lineChartId,
+      data: chartData.linechart
+    });
+  };
+
+  var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
+  var graphData = JsonGraphRes.send(relativeUrl).get();
+
+  graphData.$promise.then(addChart);
+
+}
 
 // Příklad grafu pluginu highchart, který se dá vložit do vydgetu
 dashboardApp.directive('linechartNgCanvas', ['JsonGraphRes', function(JsonGraphRes) {
@@ -89,23 +101,9 @@ dashboardApp.directive('linechartNgCanvas', ['JsonGraphRes', function(JsonGraphR
     scope: {
     },
     link: function($scope, elem, attrs) {
-      var lineChartId = 'linechart-ang-widget-demo';
-      $scope.lineChartId = lineChartId;
-
-      /* po http požadavku přidá graf */
-      var addChart = function(chartData) {
-        linechartCanvas($scope, elem, {
-          id: lineChartId,
-          data: chartData.linechart
-        });
-      };
-
-      var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
-      var graphData = JsonGraphRes.send(relativeUrl).get();
-
-      graphData.$promise.then(addChart);
+      return linechartLink($scope, elem, attrs, JsonGraphRes);
     },
     transclude: true,
     // templateUrl: 'dashboard/widgets/linechartAng/template.html'
-  };
+    }
 }]);
