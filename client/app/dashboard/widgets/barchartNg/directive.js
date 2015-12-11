@@ -1,5 +1,5 @@
 // Příklad grafu pluginu highchart, který se dá vložit do vydgetu
-dashboardApp.directive('csschart', ['JsonGraphRes', function(JsonGraphRes) {
+dashboardApp.directive('barchartNg', ['JsonGraphRes', function(JsonGraphRes) {
   return {
     restrict: 'E',
     replace: true,
@@ -8,7 +8,7 @@ dashboardApp.directive('csschart', ['JsonGraphRes', function(JsonGraphRes) {
     link: function(scope, elem, attrs) {
       /* po http požadavku přidá graf */
       var addChart = function(chartData) {
-        $('.bar-chart-jq').cssCharts({
+        $('.bar-chart-ng').cssCharts({
           type:"bar",
           bars: [[4,2],[4,5],[8,3],[4,2]],
           max:"8",
@@ -26,6 +26,6 @@ dashboardApp.directive('csschart', ['JsonGraphRes', function(JsonGraphRes) {
       // graphData.$promise.then(addChart);
     },
     transclude: true,
-    templateUrl: 'dashboard/widgets/barchart/template.html'
+    templateUrl: 'dashboard/widgets/barchartNg/template.html'
   };
 }]);
