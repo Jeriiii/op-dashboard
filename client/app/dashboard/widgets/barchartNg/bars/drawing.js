@@ -23,7 +23,7 @@ var thychart = {
   bar: function(node, opts){
     var $node = node;
 
-
+    console.log(opts.nodeParent);
 
     var data = opts.bars;
     var unit = opts.unit;
@@ -32,16 +32,10 @@ var thychart = {
     var barWidth = opts.width;
     var max = opts.max;
 
-    console.log('neco0');
-
     if(parseInt(grid,10) === 0) $node.css("background", "none");
-
-    console.log(opts.type);
 
     if(!data) return("No data to work with");
     if(!unit) unit = "%";
-
-    console.log('neco2');
 
     // get max data point
     var maxData = function(){
@@ -49,16 +43,12 @@ var thychart = {
       return Math.max.apply(Math, arr.map(function(i) { return i[0]; }));
     };
 
-    console.log('neco3');
-
     // If "data-max" is not specified or if the heighest data-point is greater than data-max
     if(maxData() > max || !max){ max = maxData(); }
 
     //data = JSON.parse("[" + data + "]");
     data = [data];
     var barsNo = data[0].length;
-
-    console.log('neco4');
 
     $.each(data, function(i, v) {
       // first dimension
@@ -96,6 +86,6 @@ var thychart = {
       }
     });
 
-    opts.parentNode.width(node.width());
+    opts.nodeParent.width(node.width());
   }
 };

@@ -3,13 +3,9 @@ dashboardApp.directive('barsChNg', ['JsonGraphRes', function(JsonGraphRes) {
   return {
     restrict: 'E',
     replace: true,
-    scope: {
-      opts: "@"
-    },
     link: function(scope, elem, attrs) {
 
-      alert(attrs.opts);
-      opts = angular.fromJson(attrs.opts);
+      opts = angular.fromJson(scope.opts);
       /* po http požadavku přidá graf */
       var addChart = function(chartData) {
         console.log('addChart');
@@ -17,11 +13,7 @@ dashboardApp.directive('barsChNg', ['JsonGraphRes', function(JsonGraphRes) {
         thychart.bar(elem, opts);
       };
 
-
-      alert(opts.type);
-
       if(opts.type != undefined) {
-        console.log('johoho');
         addChart();
       }
 
