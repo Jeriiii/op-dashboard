@@ -105,7 +105,6 @@ var linechartWarper = function($scope, elem, options) {
   var o = getOptions(options);
 
   $scope.tooltip = {'html': '', 'css': ''};
-  console.log(elem.parent().width());
   o.graph = {"width": elem.parent().width(), "height": elem.parent().height()};
   var maxXY = maxXYFn(o.data);
 
