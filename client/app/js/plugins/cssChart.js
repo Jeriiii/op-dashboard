@@ -271,9 +271,6 @@ var thychart = {
     var barWidth = opts.width;
     var max = opts.max;
 
-console.log(node);
-    console.log(height);
-
     if(parseInt(grid,10) === 0) $node.css("background", "none");
 
     if(!data) return("No data to work with");
