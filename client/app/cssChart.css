@@ -21,6 +21,7 @@
 .chart.bar{
   margin-top: 20px;
   height:200px;
+  width: 100%;
 }
 .bar-chart{
   display: table;
@@ -31,6 +32,7 @@
   z-index:20;
   position:absolute;
   left:0px;
+    width: 100%;
 }
 
 .bar-chart ul{
