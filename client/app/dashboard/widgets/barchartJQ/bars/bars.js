@@ -19,6 +19,6 @@ dashboardApp.directive('barsChJq', ['JsonGraphRes', function(JsonGraphRes) {
       // graphData.$promise.then(addChart);
     },
     transclude: true,
-    templateUrl: 'dashboard/widgets/barchartNg/bars/bars.html'
+    templateUrl: 'dashboard/widgets/barchartJQ/bars/bars.html'
   };
 }]);

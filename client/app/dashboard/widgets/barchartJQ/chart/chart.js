@@ -1,4 +1,4 @@
-// Příklad grafu pluginu highchart, který se dá vložit do vydgetu
+// Sloupcový graf
 dashboardApp.directive('barchartJq', ['JsonGraphRes', function(JsonGraphRes) {
   return {
     restrict: 'E',
@@ -25,6 +25,6 @@ dashboardApp.directive('barchartJq', ['JsonGraphRes', function(JsonGraphRes) {
       // graphData.$promise.then(addChart);
     },
     transclude: true,
-    templateUrl: 'dashboard/widgets/barchartNg/chart/template.html'
+    templateUrl: 'dashboard/widgets/barchartJQ/chart/template.html'
   };
 }]);
