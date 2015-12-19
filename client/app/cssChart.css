@@ -341,7 +341,7 @@
 
 .chart hr:before{
   position:absolute;
-  right:100%;
+  /*right:100%;*/
   top:0px;
   margin-right:20px;
   color:rgba(0,0,0,0.4);

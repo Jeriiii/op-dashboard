@@ -1,18 +1,23 @@
 // Příklad grafu pluginu highchart, který se dá vložit do vydgetu
-dashboardApp.directive('barsChNg', ['JsonGraphRes', function(JsonGraphRes) {
+dashboardApp.directive('barchartNg', ['JsonGraphRes', function(JsonGraphRes) {
   return {
     restrict: 'E',
     replace: true,
+    scope: {
+    },
     link: function(scope, elem, attrs) {
-
-      opts = angular.fromJson(scope.opts);
-      /* po http požadavku přidá graf */
-      var addChart = function(chartData) {
-        //$('.bar-chart-ng').ngChart(attrs.opts);
-        createBarChart(elem, opts);
+      var opts = {
+        bars: [[4,2,7,9],[4,5,2,1],[8,3,5,2],[4,2,2,4]],
+        unit:"k",
+        grid:"1"
       };
 
-      addChart();
+      correctOptsVal(opts);
+
+      chartGrid(elem, opts);
+
+      opts.nodeParent = elem;
+      scope.opts = opts;
 
       // var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
       // var graphData = JsonGraphRes.send(relativeUrl).get();
@@ -20,6 +25,6 @@ dashboardApp.directive('barsChNg', ['JsonGraphRes', function(JsonGraphRes) {
       // graphData.$promise.then(addChart);
     },
     transclude: true,
-    templateUrl: 'dashboard/widgets/barchartNg/bars/bars.html'
+    templateUrl: 'dashboard/widgets/barchartNg/chart/template.html'
   };
 }]);
