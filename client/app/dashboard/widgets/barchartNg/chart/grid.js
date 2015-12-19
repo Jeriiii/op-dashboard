@@ -43,16 +43,20 @@ var correctOptsValNg = function(opts) {
  * @param {object} opts Nastavení pluginu.
  */
 var chartGridNg = function (scope, node, opts) {
+  var lines = [];
+
   for(var i = 0; i <= 10; i++) {
-    var toPerc = (i*10).toFixed(0);
+    var percent = i*10;
     var converter = opts.max/100;
-    var toUnit = (toPerc * converter).toFixed(0);
+    var toUnit = (percent * converter).toFixed(0);
 
     if(i % 2 === 0){
-      var line = $("<hr/>").css({bottom: toPerc+"%"}).attr("data-y", toUnit + opts.unit);
-      node.find(".grid").append(line);
+      var line = {"toPerc": percent + "%", "dataY": toUnit + opts.unit}
+
+      lines.push(line);
     }
   }
 
-  node.width('100%');
+  scope.lines = lines;
+  // node.width('100%');
 }
