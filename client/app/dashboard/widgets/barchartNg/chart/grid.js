@@ -1,3 +1,7 @@
+/*******************************************************************************/
+/***********************  vykreslení mřížky gridu ******************************/
+/*******************************************************************************/
+
 /**
  * Vypočítá počet sloupců, který je v uvedených datech. Pokud je maximální počet
  * sloupců v nastavení menší, než je skutečný počet, opraví maximální počet na skutečný.

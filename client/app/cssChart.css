@@ -18,7 +18,10 @@
 
 /* bar chart */
 
-.chart.bar{height:200px;}
+.chart.bar{
+  margin-top: 20px;
+  height:200px;
+}
 .bar-chart{
   display: table;
   table-layout: fixed;
