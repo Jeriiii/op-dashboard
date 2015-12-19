@@ -17,17 +17,6 @@
    var unit = opts.unit;
    var max = opts.max;
 
-   // get max data point
-   var maxData = function(){
-     var arr = data;
-     return Math.max.apply(Math, arr.map(function(i) { return i[0]; }));
-   };
-
-   // If "data-max" is not specified or if the heighest data-point is greater than data-max
-   if(maxData() > max || !max){ max = maxData(); }
-
-
-
    if(!unit) unit = "%";
 
    $.each([ 52, 97 ], function(index, val) {
@@ -55,7 +44,7 @@
    });
 
    return ul;
-  }
+ };
 
 /**
  * Vytvoří skupiny sloupců. V každé skupině se pak porovnávají data od různých zdrojů (např. data různých společností).
@@ -74,7 +63,7 @@ var createGroupsBars = function(data, opts, $node) {
     var ul = createBars(data[i], opts, uls, lis);
     $node.append(ul);
   }
-}
+};
 
   // $.fn.extend({
   //   ngChart: function(opts) {
@@ -88,11 +77,33 @@ var createGroupsBars = function(data, opts, $node) {
   //   }
   // });
 
+/**
+ * Vypočítá počet sloupců, který je v uvedených datech. Pokud je maximální počet
+ * sloupců v nastavení menší, než je skutečný počet, opraví maximální počet na skutečný.
+ * @param {object} opts Nastavení pluginu.
+ */
+var correctMaxBars = function(opts) {
+  var max = opts.max;
+
+  // get max data point
+  var maxData = function(){
+    var arr = opts.bars;
+    return Math.max.apply(Math, arr.map(function(i) { return i[0]; }));
+  };
+
+  // If "data-max" is not specified or if the heighest data-point is greater than data-max
+  if(maxData() > max || !max){ max = maxData(); }
+
+  opts.max = max;
+};
+
 var thychart = {
   bar: function(node, opts){
     var $node = node;
     var data = opts.bars;
     var grid = opts.grid;
+
+    correctMaxBars(opts);
 
     if(parseInt(grid,10) === 0) $node.css("background", "none");
 
