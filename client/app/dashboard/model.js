@@ -8,6 +8,13 @@ var model = {
       }
     },
     {
+      type: 'barchartJQ',
+      settings: {
+        tittle: 'Bar chart JQ',
+        relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=csschart'
+      }
+    },
+    {
       type: 'barchartNg',
       settings: {
         tittle: 'Bar chart ng',

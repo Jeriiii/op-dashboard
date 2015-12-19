@@ -15,6 +15,9 @@
           <div ng-switch-when="csschart">
             <widget-base dbw-title="{{widget.settings.tittle}}"><csschart  relative-url="{{widget.settings.relativeUrl}}" /></widget-base>
           </div>
+          <div ng-switch-when="barchartJQ">
+            <widget-base dbw-title="{{widget.settings.tittle}}"><barchart-jq  relative-url="{{widget.settings.relativeUrl}}" /></widget-base>
+          </div>
           <div ng-switch-when="barchartNg">
             <widget-base dbw-title="{{widget.settings.tittle}}"><barchart-ng  relative-url="{{widget.settings.relativeUrl}}" /></widget-base>
           </div>
