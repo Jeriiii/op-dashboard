@@ -9,7 +9,7 @@
   * @param {integer} percent Procentuální výška sloupce oproti velikosti widgetu.
   * @param {integer} barWrapperWidth Prostor pro jeden sloupec - kolik má místa na šířku + margin + padding.
   */
-var createBarElement = function (li, title, percent, barWrapperWidth) {
+var createBarElementNg = function (li, title, percent, barWrapperWidth) {
   li.find("span").attr("title", title);
   // if(!barWidth){
   var barWidth = barWrapperWidth / 5 * 3; // 3/4 prostoru pro sloupec bude jeho sirka
@@ -30,7 +30,7 @@ var createBarElement = function (li, title, percent, barWrapperWidth) {
  * @param {element} lis JQuery element položky v seznamu, ze kterého se klonuje nový sloupec.
  * @param {element} ul JQuery element seznamu, do kterého se má přidat sloupec.
  */
-var createBar = function(opts, lis, ul) {
+var createBarNg = function(opts, lis, ul) {
   var barWidth = opts.width;
   var unit = opts.unit;
   var max = opts.max;
@@ -43,7 +43,7 @@ var createBar = function(opts, lis, ul) {
     var title = val + unit;
     var percent = (val/max) * 100;
 
-    createBarElement(li, title, percent, barWidth);
+    createBarElementNg(li, title, percent, barWidth);
 
     ul.append(li);
   }
@@ -57,10 +57,10 @@ var createBar = function(opts, lis, ul) {
   * @param {element} uls JQuery element seznamu, ze kterého se klonuje.
   * @param {element} lis JQuery element položky v seznamu, ze kterého se klonuje.
   */
- var createBars = function(bars, opts, uls, lis) {
+ var createBarsNg = function(bars, opts, uls, lis) {
    var ul = uls.clone();
 
-   $.each(bars, createBar(opts, lis, ul));
+   $.each(bars, createBarNg(opts, lis, ul));
 
    return ul;
  };
@@ -71,7 +71,7 @@ var createBar = function(opts, lis, ul) {
  * @param {object} opts Nastavení pluginu.
  * @param {element} $node Element direktivy předaný angularem.
  */
-var createGroupsBars = function(data, opts, $node) {
+var createGroupsBarsNg = function(data, opts, $node) {
   var height = $node.height();
 
   /* Vytvoří jednu univerzální skupinu pro sloupce */
@@ -91,7 +91,7 @@ var createGroupsBars = function(data, opts, $node) {
 
   for (i = 0; i < data.length; i++){
 
-    var ul = createBars(data[i], opts, uls, lis);
+    var ul = createBarsNg(data[i], opts, uls, lis);
     $node.append(ul);
   }
 };
@@ -101,7 +101,7 @@ var createGroupsBars = function(data, opts, $node) {
  * @param {element} node Element direktivy předaný angularem, ve kterém se má vytvořit graf.
  * @param {object} opts Nastavení pluginu.
  */
-var createBarChart = function(node, opts){
+var createBarChartNg = function(node, opts){
   var data = opts.bars;
   var grid = opts.grid;
   opts.parentWidth = opts.nodeParent.width();
@@ -110,5 +110,5 @@ var createBarChart = function(node, opts){
   if(parseInt(grid,10) === 0) node.css("background", "none");
   if(!data) return("No data to work with");
 
-  createGroupsBars(data, opts, node);
+  createGroupsBarsNg(data, opts, node);
 };

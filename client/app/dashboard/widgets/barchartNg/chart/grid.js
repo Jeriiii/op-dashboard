@@ -7,7 +7,7 @@
  * sloupců v nastavení menší, než je skutečný počet, opraví maximální počet na skutečný.
  * @param {object} opts Nastavení pluginu.
  */
-var correctOptsVal = function(opts) {
+var correctOptsValNg = function(opts) {
   var max = opts.max;
 
   var arr = opts.bars;
@@ -38,13 +38,11 @@ var correctOptsVal = function(opts) {
 
 /**
  * Vytvoří mřížku na pozadí grafu.
+ * @param {scope} scope
  * @param {element} node Element direktivy předaný angularem, ve kterém se má vytvořit graf.
  * @param {object} opts Nastavení pluginu.
  */
-var chartGrid = function (node, opts) {
-  var $grid = $("<div class='grid'></div>");
-      node.append($grid);
-
+var chartGridNg = function (scope, node, opts) {
   for(var i = 0; i <= 10; i++) {
     var toPerc = (i*10).toFixed(0);
     var converter = opts.max/100;
