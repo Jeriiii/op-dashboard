@@ -7,6 +7,75 @@
  * Released under the MIT license
  */
 
+ /**
+  * Vytvoří jednotlivé sloupce v každé skupině sloupců.
+  *
+  */
+ var createBars = function(data, opts, uls, lis) {
+   var barWidth = opts.width;
+   var ul = uls.clone();
+   var unit = opts.unit;
+   var max = opts.max;
+
+   // get max data point
+   var maxData = function(){
+     var arr = data;
+     return Math.max.apply(Math, arr.map(function(i) { return i[0]; }));
+   };
+
+   // If "data-max" is not specified or if the heighest data-point is greater than data-max
+   if(maxData() > max || !max){ max = maxData(); }
+
+
+
+   if(!unit) unit = "%";
+
+   $.each([ 52, 97 ], function(index, val) {
+     // second dimension
+     var li = lis.clone();
+
+     var value = (data[index]);
+     var title = value + unit;
+     var percent = (value/max) * 100;
+
+     li.find("span").attr("title", title);
+     if(!barWidth){
+       li.find("span").attr(
+         "style",
+         "height:" + percent + "%"
+         );
+     }else{
+       li.find("span").attr(
+         "style",
+         "height:" + percent + "%;" +
+         "width:" + barWidth + "px"
+         );
+     }
+     ul.append(li);
+   });
+
+   return ul;
+  }
+
+/**
+ * Vytvoří skupiny sloupců. V každé skupině se pak porovnávají data od různých zdrojů (např. data různých společností).
+ * @param {object} data Data pro skupiny sloupců ve formátu [[x1, x2], [y1, y2], [z1, z2]]
+ * @param {object} opts Nastavení pluginu.
+ * @param {element} $node Element direktivy předaný angularem.
+ */
+var createGroupsBars = function(data, opts, $node) {
+  var height = $node.height();
+
+  var uls = $("<ul></ul>");
+  var lis = $("<li><span></span></li>").height(height);
+
+  for (i = 0; i < data.length; i++){
+
+    var ul = createBars(data[i], opts, uls, lis);
+    $node.append(ul);
+  }
+}
+
   // $.fn.extend({
   //   ngChart: function(opts) {
   //     var defs = {};
@@ -22,69 +91,18 @@
 var thychart = {
   bar: function(node, opts){
     var $node = node;
-
-    console.log(opts.nodeParent);
-
     var data = opts.bars;
-    var unit = opts.unit;
-    var height = $node.height();
     var grid = opts.grid;
-    var barWidth = opts.width;
-    var max = opts.max;
 
     if(parseInt(grid,10) === 0) $node.css("background", "none");
 
     if(!data) return("No data to work with");
-    if(!unit) unit = "%";
 
-    // get max data point
-    var maxData = function(){
-      var arr = data;
-      return Math.max.apply(Math, arr.map(function(i) { return i[0]; }));
-    };
-
-    // If "data-max" is not specified or if the heighest data-point is greater than data-max
-    if(maxData() > max || !max){ max = maxData(); }
 
     //data = JSON.parse("[" + data + "]");
-    data = [data];
     var barsNo = data[0].length;
 
-    $.each(data, function(i, v) {
-      // first dimension
-      var uls = $("<ul></ul>");
-      var lis = $("<li><span></span></li>").height(height);
-
-      for (i = 0; i < data[0].length; i++){
-        var ul = uls.clone();
-
-        $.each(v[i], function(index, val) {
-          // second dimension
-          var li = lis.clone();
-
-          var value = (data[0][i][index]);
-          var title = value + unit;
-          var percent = (value/max) * 100;
-
-          li.find("span").attr("title", title);
-          if(!barWidth){
-            li.find("span").attr(
-              "style",
-              "height:" + percent + "%"
-              );
-          }else{
-            li.find("span").attr(
-              "style",
-              "height:" + percent + "%;" +
-              "width:" + barWidth + "px"
-              );
-          }
-          ul.append(li);
-        });
-
-        $node.append(ul);
-      }
-    });
+    createGroupsBars(data, opts, $node);
 
     opts.nodeParent.width(node.width());
   }
