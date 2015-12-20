@@ -1,1 +1,8 @@
-<ul class="bar-chart bar-chart-ng"></ul>
+<ul class="bar-chart bar-chart-ng" >
+  <ul ng-repeat="group in groups" ng-style="{{ group.style }}">
+    <li ng-repeat="bar in group.bars" ng-style="{{ bar.style }}">
+      <span ng-style="{{ bar.span.style }}" title="{{ bar.title }}">
+      </span>
+    </li>
+  </ul>
+</ul>

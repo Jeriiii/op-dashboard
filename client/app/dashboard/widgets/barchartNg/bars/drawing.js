@@ -4,22 +4,25 @@
 
  /**
   * Vytvoří HTML element = jeden sloupec
-  * @param {element} li JQuery element - nový sloupec.
-  * @param {element} title Popisek sloupce - zobrazený nad sloupcem.
   * @param {integer} percent Procentuální výška sloupce oproti velikosti widgetu.
   * @param {integer} barWrapperWidth Prostor pro jeden sloupec - kolik má místa na šířku + margin + padding.
+  * @param {integer} chartHeight Výška celého grafu.
   */
-var createBarElementNg = function (li, title, percent, barWrapperWidth) {
-  li.find("span").attr("title", title);
-  // if(!barWidth){
+var createBarElementNg = function (percent, barWrapperWidth, chartHeight) {
+  var li = {};
+
   var barWidth = barWrapperWidth / 5 * 3; // 3/4 prostoru pro sloupec bude jeho sirka
   var barMargin = barWrapperWidth / 5 * 2; // 1/4 prostoru pro sloupec bude jeho okraj
-  li.find("span").attr(
-    "style",
-    "height:" + percent + "%;" +
-    "width:" + barWidth + "px;" +
-    "margin: 0 " +  barMargin / 2 + "px" // /2 = půl marginu z leva a pul z prava
-    );
+
+  li.style = {"height": chartHeight + "px",};
+  li.span = {};
+  li.span.style = {
+    "height": percent + "%",
+    "width": barWidth + "px",
+    "margin":" 0 " +  barMargin / 2 + "px" // /2 = půl marginu z leva a pul z prava
+  };
+
+  return li;
 }
 
 /**
@@ -27,42 +30,36 @@ var createBarElementNg = function (li, title, percent, barWrapperWidth) {
  * může být tato fce použita ve fci each a přitom pracovat s dalšími daty
  * jako je např. šířka sloupce barWidth.
  * @param {object} opts Nastavení pluginu.
- * @param {element} lis JQuery element položky v seznamu, ze kterého se klonuje nový sloupec.
- * @param {element} ul JQuery element seznamu, do kterého se má přidat sloupec.
+ * @param {array} bars Sloupce ve skupině.
  */
-var createBarNg = function(opts, lis, ul) {
-  var barWidth = opts.width;
+var createBarNg = function(opts, bars) {
+  var barWidth = opts.barWidth;
   var unit = opts.unit;
   var max = opts.max;
 
   if(!unit) unit = "%";
 
-  return function(index, val) {
-    var li = lis.clone();
-
-    var title = val + unit;
+  return function(val, index) {
     var percent = (val/max) * 100;
 
-    createBarElementNg(li, title, percent, barWidth);
+    var li = createBarElementNg(percent, barWidth, opts.chartHeight);
+    li.title = val + unit;
 
-    ul.append(li);
+    bars.push(li);
   }
 }
 
-
  /**
   * Vytvoří jednotlivé sloupce v každé skupině sloupců.
-  * @param {array} bars Data která se mají vykreslit so sloupců.
+  * @param {array} barsData Data která se mají vykreslit so sloupců.
   * @param {object} opts Nastavení pluginu.
-  * @param {element} uls JQuery element seznamu, ze kterého se klonuje.
-  * @param {element} lis JQuery element položky v seznamu, ze kterého se klonuje.
   */
- var createBarsNg = function(bars, opts, uls, lis) {
-   var ul = uls.clone();
+ var createBarsNg = function(barsData, opts) {
+   var bars = [];
 
-   $.each(bars, createBarNg(opts, lis, ul));
+   angular.forEach(barsData, createBarNg(opts, bars));
 
-   return ul;
+   return bars;
  };
 
 /**
@@ -70,31 +67,28 @@ var createBarNg = function(opts, lis, ul) {
  * @param {scope} scope
  * @param {object} data Data pro skupiny sloupců ve formátu [[x1, x2], [y1, y2], [z1, z2]]
  * @param {object} opts Nastavení pluginu.
- * @param {element} $node Element direktivy předaný angularem.
+ * @param {element} node Element direktivy předaný angularem.
  */
-var createGroupsBarsNg = function(scope, data, opts, $node) {
-  var height = $node.height();
+var createGroupsBarsNg = function(scope, data, opts, node) {
+  opts.chartHeight = node.innerHeight(); //výška celého grafu
 
-  /* Vytvoří jednu univerzální skupinu pro sloupce */
-  var uls = $("<ul></ul>");
+  /* Vypočítá univerzální šířky skupin */
+  var gWrapperWidth = opts.parentWidth / (opts.countGroups); //šířka kterou může zabrat jedna skupina sloupců
+  var gWidth = gWrapperWidth / 3 * 2;
+  var gMargin = gWrapperWidth / 3 * 1;
+  opts.barWidth = gWidth / opts.maxBarsInGroup;
 
-  var ulWrapperWidth = opts.parentWidth / (opts.countGroups); //šířka kterou může zabrat jedna skupina sloupců
-  var ulWidth = ulWrapperWidth / 3 * 2;
-  var ulMargin = ulWrapperWidth / 3 * 1;
-  opts.ulWidth = ulWidth;
-
-  uls.attr('style', 'width: ' + ulWidth +'px; margin: 0 ' + (ulMargin / 2) + 'px;');
-
-  /* vytvoří univerzální sloupec */
-  var lis = $("<li><span></span></li>").height(height);
-
-  opts.width = ulWidth / opts.maxBarsInGroup;
+  var groups = [];
 
   for (i = 0; i < data.length; i++){
+    var group = {};
+    group.bars = createBarsNg(data[i], opts);
+    group.styles = {'width': gWidth +'px', 'margin:': '0 ' + (gMargin / 2) + ' px;'};
 
-    var ul = createBarsNg(data[i], opts, uls, lis);
-    $node.append(ul);
+    groups.push(group);
   }
+
+  scope.groups = groups;
 };
 
 /**
