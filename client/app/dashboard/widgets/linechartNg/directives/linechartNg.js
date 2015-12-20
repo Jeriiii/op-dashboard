@@ -14,13 +14,24 @@ var showDotTittle = function(o, dotHover, mouseX, mouseY, $scope) {
   //     '"display": "block",' +
   //     '"color": "red"}'
   // ;
+
+  var cssLeft = (mouseX + o.tooltipMarginX);
+  var cssTop = (mouseY + o.tooltipMarginY) - 10;
+
   $scope.tcss = {
-    "position": "absolute",
-    "left": (mouseX + o.tooltipMarginX),
-    "top": (mouseY + o.tooltipMarginY),
+    'position': 'absolute',
+    'left': cssLeft + 'px',
+    'top': cssTop + 'px',
     'display': 'block',
-    "color": "red"
+    'color': 'white',
+    'max-width': '200px',
+    'padding': '3px 8px',
+    'text-align': 'center',
+    'background-color': '#000',
+    'border-radius': '4px',
+    'cursor': 'pointer'
   };
+
   o.dotsHover(dotHover);
   // console.log($scope.tooltip.html);
 }
@@ -33,11 +44,12 @@ var showDotTittle = function(o, dotHover, mouseX, mouseY, $scope) {
 var hideDotTittle = function(o, $scope) {
   // console.log(dotHover);
   $scope.thtml = '';
-  $scope.tcss = 'position: static;' +
-      'positionLeft: 0;' +
-      'positionTop: 0;' +
-      'display: none;'
-  ;
+  $scope.tcss = {
+    'position': 'static',
+    'positionLeft': '0',
+    'positionTop': '0',
+    'display': 'none'
+  };
 }
 
 /**
