@@ -67,11 +67,12 @@ var createBarNg = function(opts, lis, ul) {
 
 /**
  * Vytvoří skupiny sloupců. V každé skupině se pak porovnávají data od různých zdrojů (např. data různých společností).
+ * @param {scope} scope
  * @param {object} data Data pro skupiny sloupců ve formátu [[x1, x2], [y1, y2], [z1, z2]]
  * @param {object} opts Nastavení pluginu.
  * @param {element} $node Element direktivy předaný angularem.
  */
-var createGroupsBarsNg = function(data, opts, $node) {
+var createGroupsBarsNg = function(scope, data, opts, $node) {
   var height = $node.height();
 
   /* Vytvoří jednu univerzální skupinu pro sloupce */
@@ -98,17 +99,18 @@ var createGroupsBarsNg = function(data, opts, $node) {
 
 /**
  * Vytvoří sloupcový graf.
+ * @param {scope} scope
  * @param {element} node Element direktivy předaný angularem, ve kterém se má vytvořit graf.
  * @param {object} opts Nastavení pluginu.
  */
-var createBarChartNg = function(node, opts){
+var createBarChartNg = function(scope, node, opts){
   var data = opts.bars;
   var grid = opts.grid;
   opts.parentWidth = opts.nodeParent.width();
-  // node.width(opts.parentWidth);
+  node.width(opts.parentWidth);
 
   if(parseInt(grid,10) === 0) node.css("background", "none");
   if(!data) return("No data to work with");
 
-  createGroupsBarsNg(data, opts, node);
+  createGroupsBarsNg(scope, data, opts, node);
 };

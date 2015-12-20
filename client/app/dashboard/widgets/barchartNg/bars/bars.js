@@ -8,7 +8,7 @@ dashboardApp.directive('barsChNg', ['JsonGraphRes', function(JsonGraphRes) {
       opts = angular.fromJson(scope.opts);
       /* po http požadavku přidá graf */
       var addChart = function(chartData) {
-        createBarChart(elem, opts);
+        createBarChartNg(scope, elem, opts);
       };
 
       addChart();
