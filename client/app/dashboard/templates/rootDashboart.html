@@ -21,6 +21,11 @@
           <div ng-switch-when="barchartNg">
             <widget-base dbw-title="{{widget.settings.tittle}}"><barchart-ng  relative-url="{{widget.settings.relativeUrl}}" /></widget-base>
           </div>
+          <div ng-switch-when="barchartReact">
+            <widget-base dbw-title="{{widget.settings.tittle}}">
+              <barchart-react  fname="{{widget.settings.tittle}}" lname="{{widget.settings.tittle}}" relative-url="{{widget.settings.relativeUrl}}"  watch-depth="reference" />
+            </widget-base>
+          </div>
           <div ng-switch-when="linechart">
             <widget-base dbw-title="{{widget.settings.tittle}}"><linechart  relative-url="{{widget.settings.relativeUrl}}" /></widget-base>
           </div>

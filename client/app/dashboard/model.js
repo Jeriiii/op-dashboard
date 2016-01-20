@@ -22,6 +22,13 @@ var model = {
       }
     },
     {
+      type: 'barchartReact',
+      settings: {
+        tittle: 'Barchartreact',
+        relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=csschart'
+      }
+    },
+    {
       type: 'linechart',
       settings: {
         tittle: 'Linechart',

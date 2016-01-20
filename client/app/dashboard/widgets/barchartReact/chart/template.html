@@ -1,0 +1,11 @@
+<div class="chart bar">
+
+  <div><bars-ch-ng opts="{{ opts }}" /></div>
+
+  <div class="grid">
+    <div ng-repeat="line in lines">
+      <hr ng-style="{'bottom': line.toPerc}" data-y="{{ line.dataY }}" />
+    </div>
+  </div>
+
+</div>
