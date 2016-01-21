@@ -11,6 +11,9 @@ use Models\Chart;
  */
 class DashboardSettingsGetterController {
 
+	/**
+	 * Vytiskne na výstup nastavení konkrétního typu grafu.
+	 */
 	public function printSettings() {
 		if (!array_key_exists('type', $_GET)) {
 			echo 'You must fill parametr type';
@@ -38,6 +41,9 @@ class DashboardSettingsGetterController {
 		}
 	}
 
+	/**
+	 * Vytiskne nastavení pro Hightchart grafy.
+	 */
 	private function printHightchartSettings() {
 		$chart = new Chart();
 
@@ -46,6 +52,9 @@ class DashboardSettingsGetterController {
 		echo json_encode($json);
 	}
 
+	/**
+	 * Vytiskne nastavení spojnicového grafu
+	 */
 	private function printLinechartSettings() {
 		$chart = new Chart();
 
@@ -54,6 +63,9 @@ class DashboardSettingsGetterController {
 		echo json_encode($json);
 	}
 
+	/**
+	 * Vytiskne nastavení sloupcového grafu
+	 */
 	private function printBarchartSettings() {
 		$chart = new Chart();
 
