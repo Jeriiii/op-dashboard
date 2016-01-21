@@ -104,8 +104,6 @@ var createBarChartReact = function (node, opts) {
   var data = opts.bars;
   var grid = opts.grid;
 
-  console.log(opts.chartHeight);
-
   if (parseInt(grid, 10) === 0) node.css("background", "none");
   if (!data) return "No data to work with";
 

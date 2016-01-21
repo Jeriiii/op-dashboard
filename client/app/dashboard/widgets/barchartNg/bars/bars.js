@@ -4,21 +4,16 @@ dashboardApp.directive('barsChNg', ['JsonGraphRes', function(JsonGraphRes) {
     restrict: 'E',
     replace: true,
     link: function(scope, elem, attrs) {
+      opts = scope.opts;
 
-      opts = angular.fromJson(scope.opts);
-      /* po http požadavku přidá graf */
-      var addChart = function(chartData) {
-        createBarChartNg(scope, elem, opts);
-      };
+      scope.$watch('opts', function(opts, oldValue) {
+        /* po http požadavku přidá graf */
+        if(opts) {
+          createBarChartNg(scope, elem, opts);
+        }
+      });
 
-      addChart();
-
-      // var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
-      // var graphData = JsonGraphRes.send(relativeUrl).get();
-      //
-      // graphData.$promise.then(addChart);
     },
-    // transclude: true,
     templateUrl: 'dashboard/widgets/barchartNg/bars/bars.html'
   };
 }]);

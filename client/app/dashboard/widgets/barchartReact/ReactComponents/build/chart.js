@@ -54,19 +54,11 @@ var Bars = React.createClass({
 var BarchartReact = React.createClass({
   displayName: 'BarchartReact',
 
-  propTypes: {
-    fname: React.PropTypes.string.isRequired,
-    lname: React.PropTypes.string.isRequired
-  },
   componentWillMount: function () {
     correctOptsValReact(this.state.opts);
   },
   getInitialState: function () {
-    var opts = {
-      bars: [[4, 2, 1, 1], [4, 5, 2, 1], [8, 9, 9, 2], [4, 4]],
-      unit: "k",
-      grid: "1"
-    };
+    var opts = this.props.opts;
     correctOptsValReact(opts);
     var lines = chartGridReact(opts);
 
