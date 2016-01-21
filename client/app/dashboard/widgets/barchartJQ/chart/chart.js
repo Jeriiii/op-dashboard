@@ -13,8 +13,6 @@ dashboardApp.directive('barchartJq', ['JsonGraphRes', function(JsonGraphRes) {
 
         opts.nodeParent = elem;
         scope.opts = opts;
-
-
       };
 
       var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
