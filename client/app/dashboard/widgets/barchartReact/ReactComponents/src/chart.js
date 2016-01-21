@@ -47,8 +47,8 @@ var Bars = React.createClass({
   }
 });
 
-//grid - mříška (stupnice) grafu
-var HelloComponent = React.createClass({
+//Grid - mříška (stupnice) grafu
+var BarchartReact = React.createClass({
   propTypes: {
     fname : React.PropTypes.string.isRequired,
     lname : React.PropTypes.string.isRequired
@@ -91,4 +91,4 @@ var HelloComponent = React.createClass({
     );
   }
 })
-dashboardApp.value('HelloComponent', HelloComponent);
+dashboardApp.value('BarchartReact', BarchartReact);
