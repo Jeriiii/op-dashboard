@@ -1,12 +1,10 @@
-var React = require('react');
-
 // Sloupcový graf
 var Bars = React.createClass({
-  displayName: "Bars",
+  displayName: 'Bars',
 
   getInitialState: function () {
     var opts = this.props.opts;
-    var groups = createBarChartReact(elem, opts);
+    var groups = createBarChartReact(opts);
 
     return { opts: opts, groups: groups };
   },
@@ -16,38 +14,47 @@ var Bars = React.createClass({
       var bars = group.bars.map(function (bar) {
         //jednotlivé sloupce
         return React.createElement(
-          "li",
-          { style: bar.style },
-          React.createElement("span", { style: bar.span.style, title: bar.title })
+          'li',
+          { style: bar.style, key: bar.id },
+          React.createElement('span', { style: bar.span.style, title: bar.title })
         );
       });
 
       var styles = group.style;
       return React.createElement(
-        "ul",
-        { style: group.style },
+        'ul',
+        { style: group.style, key: group.id },
         bars
       );
     });
 
     return React.createElement(
-      "ul",
-      { "class": "bar-chart bar-chart-ng" },
-      bars
+      'ul',
+      { className: 'bar-chart bars-react' },
+      groups
     );
   }
 });
 
 //grid - mříška (stupnice) grafu
 var HelloComponent = React.createClass({
-  displayName: "HelloComponent",
+  displayName: 'HelloComponent',
 
   propTypes: {
     fname: React.PropTypes.string.isRequired,
     lname: React.PropTypes.string.isRequired
   },
-  componentDidMount: function () {
+  componentWillMount: function () {
     correctOptsValReact(this.state.opts);
+  },
+  componentDidMount: function () {
+    var chartBarsReact = $('.chart-bars-react');
+    var barsReact = chartBarsReact.find('bars-react');
+
+    if (parseInt(this.state.opts.grid, 10) === 0) barsReact.css("background", "none");
+
+    chartBarsReact.width(barsReact.width());
+    //opts.chartHeight = node.innerHeight(); //výška celého grafu
   },
   getInitialState: function () {
     var opts = {
@@ -60,45 +67,36 @@ var HelloComponent = React.createClass({
 
     return { opts: opts, lines: lines };
   },
-  /////////
-  measureWelcome() {
-    this.refs.welcome.measure(this.logWelcomeLayout);
-  },
-
-  logWelcomeLayout(ox, oy, width, height, px, py) {
-    console.log("ox: " + ox);
-    console.log("oy: " + oy);
-    console.log("width: " + width);
-    console.log("height: " + height);
-    console.log("px: " + px);
-    console.log("py: " + py);
-  },
-  ////////
   render: function () {
     var lines = this.state.lines.map(function (line) {
       var styles = { bottom: line.toPerc };
-      return React.createElement("hr", { style: styles, "data-y": line.dataY, key: line.id });
+      return React.createElement('hr', { style: styles, 'data-y': line.dataY, key: line.id });
     });
-    //<div><Bars opts={this.state.opts} /></div>
+
     return React.createElement(
-      "div",
-      null,
+      'div',
+      { className: 'chart-bars-react' },
       React.createElement(
-        "div",
-        { className: "chart bar", ref: "welcome" },
+        'div',
+        null,
+        React.createElement(Bars, { opts: this.state.opts })
+      ),
+      React.createElement(
+        'div',
+        { className: 'chart bar', ref: 'welcome' },
         React.createElement(
-          "div",
-          { className: "grid" },
+          'div',
+          { className: 'grid' },
           lines
         )
       ),
       React.createElement(
-        "div",
+        'div',
         { onClick: this.measureWelcome },
         React.createElement(
-          "div",
+          'div',
           null,
-          "Measure it"
+          'Measure it'
         )
       )
     );

@@ -44,6 +44,7 @@ var createBarReact = function(opts, bars) {
 
     var li = createBarElementReact(percent, barWidth, opts.chartHeight);
     li.title = val + unit;
+    li.id = index;
 
     bars.push(li);
   }
@@ -86,6 +87,7 @@ var createGroupsBarsReact = function(data, opts, node) {
     var group = {};
     group.bars = createBarsReact(data[i], opts);
     group.styles = {'width': gWidth +'px', 'margin:': '0 ' + (gMargin / 2) + ' px;'};
+    group.id = i;
 
     groups.push(group);
   }

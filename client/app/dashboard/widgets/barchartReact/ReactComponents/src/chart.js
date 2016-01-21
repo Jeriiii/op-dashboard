@@ -1,12 +1,8 @@
-var React = require('react');
-var React = require('react-dom');
-var React = require('react-native');
-
 // Sloupcový graf
 var Bars = React.createClass({
   getInitialState: function() {
     var opts = this.props.opts;
-    var groups = createBarChartReact(elem, opts);
+    var groups = createBarChartReact(opts);
 
     return {opts: opts, groups: groups};
   },
@@ -14,7 +10,7 @@ var Bars = React.createClass({
     var groups = this.state.groups.map(function(group) { //skupiny sloupců
       var bars = group.bars.map(function(bar) { //jednotlivé sloupce
         return (
-          <li style={bar.style}>
+          <li style={bar.style} key={bar.id}>
             <span style={bar.span.style} title={bar.title}>
             </span>
           </li>
@@ -23,15 +19,15 @@ var Bars = React.createClass({
 
       var styles = group.style;
       return (
-        <ul style={group.style}>
+        <ul style={group.style} key={group.id}>
           {bars}
         </ul>
       );
     });
 
     return (
-      <ul class="bar-chart bar-chart-ng" >
-        {bars}
+      <ul className="bar-chart bars-react" >
+        {groups}
       </ul>
     );
   }
@@ -43,8 +39,17 @@ var HelloComponent = React.createClass({
     fname : React.PropTypes.string.isRequired,
     lname : React.PropTypes.string.isRequired
   },
-  componentDidMount: function() {
+  componentWillMount: function() {
     correctOptsValReact(this.state.opts);
+  },
+  componentDidMount: function() {
+    var chartBarsReact = $('.chart-bars-react');
+    var barsReact = chartBarsReact.find('bars-react');
+
+    if(parseInt(this.state.opts.grid,10) === 0) barsReact.css("background", "none");
+
+    chartBarsReact.width(barsReact.width());
+    //opts.chartHeight = node.innerHeight(); //výška celého grafu
   },
   getInitialState: function() {
     var opts = {
@@ -57,20 +62,6 @@ var HelloComponent = React.createClass({
 
     return {opts: opts, lines: lines};
   },
-  ///////// https://github.com/facebook/react-native/issues/953
-  measureWelcome() {
-    this.refs.welcome.measure(this.logWelcomeLayout);
-  },
-
-  logWelcomeLayout(ox, oy, width, height, px, py) {
-    console.log("ox: " + ox);
-    console.log("oy: " + oy);
-    console.log("width: " + width);
-    console.log("height: " + height);
-    console.log("px: " + px);
-    console.log("py: " + py);
-  },
-  ////////
   render: function() {
     var lines = this.state.lines.map(function(line) {
       var styles = {bottom: line.toPerc};
@@ -78,10 +69,10 @@ var HelloComponent = React.createClass({
         <hr style={styles} data-y={line.dataY} key={line.id} />
       );
     });
-//<div><Bars opts={this.state.opts} /></div>
-    return (
-      <div>
 
+    return (
+      <div className="chart-bars-react">
+        <div><Bars opts={this.state.opts} /></div>
         <div className="chart bar" ref="welcome">
           <div className="grid">
             {lines}
