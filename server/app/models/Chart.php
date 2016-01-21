@@ -24,6 +24,13 @@ class Chart {
 	}
 
 	/**
+	 * Vrátí nastavení linechart grafu ve formátu json
+	 */
+	public function getBarchartSettings() {
+		return $this->getSettings('barchart.json');
+	}
+
+	/**
 	 * Vrátí nastavení grafu ve formátu json
 	 */
 	private function getSettings($file) {

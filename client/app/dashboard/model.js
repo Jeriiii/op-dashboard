@@ -4,28 +4,28 @@ var model = {
       type: 'csschart',
       settings: {
         tittle: 'Csschart',
-        relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=csschart'
+        relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=barchart'
       }
     },
     {
       type: 'barchartJQ',
       settings: {
         tittle: 'Bar chart JQ',
-        relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=csschart'
+        relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=barchart'
       }
     },
     {
       type: 'barchartNg',
       settings: {
         tittle: 'Bar chart ng',
-        relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=csschart'
+        relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=barchart'
       }
     },
     {
       type: 'barchartReact',
       settings: {
         tittle: 'Barchartreact',
-        relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=csschart'
+        relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=barchart'
       }
     },
     {

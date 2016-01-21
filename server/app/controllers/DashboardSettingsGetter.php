@@ -28,6 +28,10 @@ class DashboardSettingsGetterController {
 				$this->printLinechartSettings();
 				break;
 
+			case 'barchart':
+				$this->printBarchartSettings();
+				break;
+
 			default:
 				echo "Settings for chart type $type not found";
 				break;
@@ -46,6 +50,14 @@ class DashboardSettingsGetterController {
 		$chart = new Chart();
 
 		$json = $chart->getLinechartSettings();
+
+		echo json_encode($json);
+	}
+
+	private function printBarchartSettings() {
+		$chart = new Chart();
+
+		$json = $chart->getBarchartSettings();
 
 		echo json_encode($json);
 	}

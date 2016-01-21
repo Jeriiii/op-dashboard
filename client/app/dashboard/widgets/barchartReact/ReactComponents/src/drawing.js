@@ -103,8 +103,7 @@ var createGroupsBarsReact = function(data, opts, node) {
 var createBarChartReact = function(node, opts){
   var data = opts.bars;
   var grid = opts.grid;
-  //opts.parentWidth = opts.nodeParent.width();
-  
+
   console.log(opts.chartHeight);
 
   if(parseInt(grid,10) === 0) node.css("background", "none");

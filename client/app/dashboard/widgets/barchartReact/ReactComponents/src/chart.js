@@ -56,10 +56,6 @@ var BarchartReact = React.createClass({
   componentWillMount: function() {
     correctOptsValReact(this.state.opts);
   },
-  componentDidMount: function() {
-
-    //opts.chartHeight = node.innerHeight(); //výška celého grafu
-  },
   getInitialState: function() {
     var opts = {
       bars: [[4,2,1,1],[4,5,2,1],[8,9,9,2],[4,4]],

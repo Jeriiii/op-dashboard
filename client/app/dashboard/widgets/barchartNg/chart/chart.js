@@ -6,22 +6,21 @@ dashboardApp.directive('barchartNg', ['JsonGraphRes', function(JsonGraphRes) {
     scope: {
     },
     link: function(scope, elem, attrs) {
-      var opts = {
-        bars: [[4,2,1,1],[4,5,2,1],[8,9,9,2],[4,4]],
-        unit:"k",
-        grid:"1"
+      /* po http požadavku přidá graf */
+      var addChart = function(opts) {
+        correctOptsVal(opts);
+        chartGridNg(scope, elem, opts);
+
+        opts.nodeParent = elem;
+        scope.opts = opts;
+
+
       };
 
-      correctOptsVal(opts);
-      chartGridNg(scope, elem, opts);
+      var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
+      var graphData = JsonGraphRes.send(relativeUrl).get();
 
-      opts.nodeParent = elem;
-      scope.opts = opts;
-
-      // var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
-      // var graphData = JsonGraphRes.send(relativeUrl).get();
-      //
-      // graphData.$promise.then(addChart);
+      graphData.$promise.then(addChart);
     },
     // transclude: true,
     templateUrl: 'dashboard/widgets/barchartNg/chart/template.html'
