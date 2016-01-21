@@ -73,8 +73,6 @@ var createBarsReact = function (barsData, opts) {
  * @return {array} Skupiny sloupců. V každé skupině se pak porovnávají data od různých zdrojů (např. data různých společností).
  */
 var createGroupsBarsReact = function (data, opts, node) {
-  opts.chartHeight = node.innerHeight(); //výška celého grafu
-
   /* Vypočítá univerzální šířky skupin */
   var gWrapperWidth = opts.parentWidth / opts.countGroups; //šířka kterou může zabrat jedna skupina sloupců
   var gWidth = gWrapperWidth / 3 * 2;
@@ -106,7 +104,8 @@ var createBarChartReact = function (node, opts) {
   var data = opts.bars;
   var grid = opts.grid;
   //opts.parentWidth = opts.nodeParent.width();
-  node.width(opts.parentWidth);
+
+  console.log(opts.chartHeight);
 
   if (parseInt(grid, 10) === 0) node.css("background", "none");
   if (!data) return "No data to work with";

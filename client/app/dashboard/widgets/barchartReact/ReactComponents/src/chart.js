@@ -1,21 +1,10 @@
 // Sloupcový graf
 var Bars = React.createClass({
   getInitialState: function() {
-    var opts = this.props.opts;
-
-    var chartBarsReact = $('.chart-bars-react');
-    var barsReact = chartBarsReact.find('bars-react');
-
-    // if(parseInt(this.state.opts.grid,10) === 0) barsReact.css("background", "none");
-    //
-    // chartBarsReact.width(barsReact.width());
-
-    opts.parentWidth = chartBarsReact.width();
-    console.log(chartBarsReact.width());
-
-    var groups = createBarChartReact(barsReact, opts);
-
-    return {opts: opts, groups: groups};
+    return {
+      opts: this.props.opts,
+      groups: []
+    };
   },
   componentDidMount: function() {
     var opts = this.state.opts;
@@ -23,12 +12,10 @@ var Bars = React.createClass({
     var chartBarsReact = $('.chart-bars-react');
     var barsReact = chartBarsReact.find('bars-react');
 
-    // if(parseInt(this.state.opts.grid,10) === 0) barsReact.css("background", "none");
-    //
-    // chartBarsReact.width(barsReact.width());
-
+    /* nastavení výšek a šířek grafu */
     opts.parentWidth = chartBarsReact.width();
-    console.log(chartBarsReact.width());
+    barsReact.width(opts.parentWidth);
+    opts.chartHeight = chartBarsReact.height(); //výška celého grafu
 
     var groups = createBarChartReact(barsReact, opts);
     this.state.groups = groups;
@@ -99,9 +86,6 @@ var HelloComponent = React.createClass({
           <div className="grid">
             {lines}
           </div>
-        </div>
-        <div onClick={this.measureWelcome}>
-          <div>Measure it</div>
         </div>
       </div>
     );
