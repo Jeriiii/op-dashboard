@@ -2,9 +2,36 @@
 var Bars = React.createClass({
   getInitialState: function() {
     var opts = this.props.opts;
-    var groups = createBarChartReact(opts);
+
+    var chartBarsReact = $('.chart-bars-react');
+    var barsReact = chartBarsReact.find('bars-react');
+
+    // if(parseInt(this.state.opts.grid,10) === 0) barsReact.css("background", "none");
+    //
+    // chartBarsReact.width(barsReact.width());
+
+    opts.parentWidth = chartBarsReact.width();
+    console.log(chartBarsReact.width());
+
+    var groups = createBarChartReact(barsReact, opts);
 
     return {opts: opts, groups: groups};
+  },
+  componentDidMount: function() {
+    var opts = this.state.opts;
+
+    var chartBarsReact = $('.chart-bars-react');
+    var barsReact = chartBarsReact.find('bars-react');
+
+    // if(parseInt(this.state.opts.grid,10) === 0) barsReact.css("background", "none");
+    //
+    // chartBarsReact.width(barsReact.width());
+
+    opts.parentWidth = chartBarsReact.width();
+    console.log(chartBarsReact.width());
+
+    var groups = createBarChartReact(barsReact, opts);
+    this.state.groups = groups;
   },
   render: function() {
     var groups = this.state.groups.map(function(group) { //skupiny sloupců
@@ -43,12 +70,7 @@ var HelloComponent = React.createClass({
     correctOptsValReact(this.state.opts);
   },
   componentDidMount: function() {
-    var chartBarsReact = $('.chart-bars-react');
-    var barsReact = chartBarsReact.find('bars-react');
 
-    if(parseInt(this.state.opts.grid,10) === 0) barsReact.css("background", "none");
-
-    chartBarsReact.width(barsReact.width());
     //opts.chartHeight = node.innerHeight(); //výška celého grafu
   },
   getInitialState: function() {
