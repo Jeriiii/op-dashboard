@@ -21,8 +21,6 @@ dashboardApp.directive('pieNg', ['JsonGraphRes', 'createSVGNode', function(JsonG
 		console.log("něco");
 
 		var drawArcs = function (pieData){
-			//var paper = Raphael("holder");
-			var arc;
 			var colorArr = ["#468966","#FFF0A5","#FFB03B","#B64926","#8E2800"];
 			var startAngle = 0;
 			var endAngle = 0;
@@ -41,13 +39,50 @@ dashboardApp.directive('pieNg', ['JsonGraphRes', 'createSVGNode', function(JsonG
 				y2 = parseInt(200 + 180*Math.sin(Math.PI*endAngle/180));
 
 				var d = "M200,200  L" + x1 + "," + y1 + "  A180,180 0 0,1 " + x2 + "," + y2 + " z"; //1 means clockwise
-				alert(d);
+				//alert(d);
 
 				var path = createSVGNode('path', elem, []);
 
-				angular.element(path).attr('d', d);
-				angular.element(path).attr("fill",colorArr[i]);
-				elem.append(path);
+				var apath = angular.element(path);
+				apath.attr('d', d);
+
+				var colorI = i;
+				if(colorI >= colorArr.length) {
+					colorI = colorI % colorArr.length;
+				}
+
+				apath.attr("fill",colorArr[i]);
+
+
+				//element.on('mouseenter', function() {
+				//	element.addClass(scope.hoverClass);
+				//});
+				//element.on('mouseleave', function() {
+				//	element.removeClass(scope.hoverClass);
+				//});
+
+				apath.on('mouseenter', function(e) {
+					console.log(e.target);
+					var target = angular.element(e.target);
+					target.data('fill', target.attr("fill"));
+					//target.attr("fill", '#000000');
+					//target.attr('transform', "translate(75,25)");
+					target.attr('stroke', target.attr("fill"));
+					target.attr('stroke-width', '7');
+					//alert('enter to element');
+				});
+				apath.on('mousemove', function(e) {
+					var target = angular.element(e.target);
+
+				});
+				apath.on('mouseleave', function(e) {
+					var target = angular.element(e.target);
+					target.attr("fill", target.data('fill'));
+					target.attr('stroke-width', '0');
+				//	alert('leave element');
+				});
+
+				elem.append(apath);
 				//var path = makeNode('path', tElement, tAttr);
 
 				//arc = paper.path(d);
