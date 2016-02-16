@@ -8,6 +8,13 @@ var model = {
       }
     },
     {
+      type: 'pieNg',
+      settings: {
+        tittle: 'Pie chart Ng',
+        relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=pie'
+      }
+    },
+    {
       type: 'barchartJQ',
       settings: {
         tittle: 'Bar chart JQ',
@@ -24,7 +31,7 @@ var model = {
     {
       type: 'barchartReact',
       settings: {
-        tittle: 'Barchartreact',
+        tittle: 'Bar chart React',
         relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=barchart'
       }
     },

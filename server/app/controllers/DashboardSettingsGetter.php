@@ -24,8 +24,8 @@ class DashboardSettingsGetterController {
 
 		switch ($type) {
 			case 'hightchart':
-				$this->printHightchartSettings();
-				break;
+			$this->printHightchartSettings();
+			break;
 
 			case 'linechart':
 				$this->printLinechartSettings();
@@ -33,6 +33,10 @@ class DashboardSettingsGetterController {
 
 			case 'barchart':
 				$this->printBarchartSettings();
+				break;
+
+			case 'pie':
+				$this->printPieSettings();
 				break;
 
 			default:
@@ -70,6 +74,17 @@ class DashboardSettingsGetterController {
 		$chart = new Chart();
 
 		$json = $chart->getBarchartSettings();
+
+		echo json_encode($json);
+	}
+
+	/**
+	 * Vytiskne nastavení koláčového grafu
+	 */
+	private function printPieSettings() {
+		$chart = new Chart();
+
+		$json = $chart->getPieSettings();
 
 		echo json_encode($json);
 	}

@@ -31,6 +31,13 @@ class Chart {
 	}
 
 	/**
+	 * Vrátí nastavení pie grafu ve formátu json
+	 */
+	public function getPieSettings() {
+		return $this->getSettings('pie.json');
+	}
+
+	/**
 	 * Vrátí nastavení grafu ve formátu json
 	 */
 	private function getSettings($file) {

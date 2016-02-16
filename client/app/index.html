@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,19 +29,6 @@
   <div ng-app="dashboardApp" class="jumbotron">
     <div ng-controller="dashboard1Ctrl">
     <dashboard-root db-model="{{model}}" />
-    <!-- <dashboard-root>
-      <dashboard-widget dbw-title="Toto je titulek">toto je libovolny vnitrek widgetu napsany v index.html</dashboard-widget>
-
-      <dashboard-widget dbw-title="Toto je jiný titulek">jiný vnitrek widgetu napsany v index.html</dashboard-widget>
-
-       <dashboard-widget dbw-title="Graf"><dbw-graph /></dashboard-widget>
-
-      <dashboard-widget dbw-title="Graf"><graph-example /></dashboard-widget>
-
-      <div style="clear:both"></div>
-    </dashboard-root> -->
-
-
   </div>
 
   <widget-base dbw-title="Samostatný widget bez použití dashboardu"><widget-clock format="HH:mm:ss" /></widget-base>
@@ -78,22 +65,26 @@
   <script src="dashboard/controllers/controllers.js"></script>
   <script src="dashboard/directives/dashboardRoot.js"></script>
 
+  <!-- Připojení widgetů -->
   <script src="dashboard/widgets/graph/directive.js"></script>
   <script src="dashboard/widgets/simpleText/directive.js"></script>
   <script src="dashboard/widgets/clock/directive.js"></script>
   <script src="dashboard/widgets/linechart/directive.js"></script>
   <script src="dashboard/widgets/barchart/directive.js"></script>
 
+  <!-- Připojení sloupcového grafu pro Angular -->
   <script src="dashboard/widgets/barchartNg/chart/grid.js"></script>
   <script src="dashboard/widgets/barchartNg/chart/chart.js"></script>
   <script src="dashboard/widgets/barchartNg/bars/bars.js"></script>
   <script src="dashboard/widgets/barchartNg/bars/drawing.js"></script>
 
+  <!-- Připojení sloupcového grafu pro JQuery -->
   <script src="dashboard/widgets/barchartJQ/chart/grid.js"></script>
   <script src="dashboard/widgets/barchartJQ/chart/chart.js"></script>
   <script src="dashboard/widgets/barchartJQ/bars/bars.js"></script>
   <script src="dashboard/widgets/barchartJQ/bars/drawing.js"></script>
 
+  <!-- Připojení React komponenty na sloupcový graf a její direktivy -->
   <script src="bower_components/react/react.js"></script>
   <script src="bower_components/react/react-dom.js"></script>
   <script src="bower_components/ngReact/ngReact.js"></script>
@@ -102,10 +93,14 @@
   <script src="dashboard/widgets/barchartReact/ReactComponents/build/drawing.js"></script>
   <script src="dashboard/widgets/barchartReact/ReactComponents/build/chart.js"></script>
 
+  <!-- Připojení spojnicového grafu -->
   <script src="dashboard/widgets/linechartNg/directives/canvasDrawingFn.js"></script>
   <script src="dashboard/widgets/linechartNg/directives/canvas.js"></script>
   <script src="dashboard/widgets/linechartNg/directives/linechartNg.js"></script>
   <script src="dashboard/widgets/baseWidget/directive.js"></script>
+
+  <!-- Připojení koláčového grafu -->
+  <script src="dashboard/widgets/pieNg/directive.js"></script>
 
   <script src="dashboard/init.js"></script>
 
@@ -113,9 +108,11 @@
   <script src="bower_components/highcharts/highcharts.js"></script>
   <script src="bower_components/highcharts/modules/exporting.js"></script>
   <script src="bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
+
   <!-- linechart -->
   <script src="js/plugins/linechart.js"></script>
   <script src="js/plugins/cssChart.js"></script>
+  
   <!-- bootstrap -->
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
