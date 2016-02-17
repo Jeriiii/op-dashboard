@@ -1,0 +1,11 @@
+<svg width="400" height="400">
+  <path ng-repeat="path in paths"
+        d="{{path.d}}" fill="{{path.color}}" stroke="{{path.color}}" stroke-width="{{path.strokeWidth}}" ng-style="{{path.style}}"
+        ng-mouseenter="mEnter(path)" ng-mouseleave="mLeave(path)" ng-mousemove="mMove($event)"
+  ></path>
+  <!--<path d="M200,200  L380,200  A180,180 0 0,1 89,341 z" fill="#468966" stroke="#468966" stroke-width="0"></path>-->
+  <!--<path d="M200,200  L89,341  A180,180 0 0,1 115,41 z" fill="#FFF0A5" stroke="#FFF0A5" stroke-width="0"></path>-->
+  <!--<path d="M200,200  L115,41  A180,180 0 0,1 287,42 z" fill="#FFB03B" stroke="#FFB03B" stroke-width="0"></path>-->
+  <!--<path d="M200,200  L287,42  A180,180 0 0,1 357,112 z" fill="#B64926" stroke="#B64926" stroke-width="0"></path>-->
+  <!--<path d="M200,200  L357,112  A180,180 0 0,1 379,206 z" fill="#8E2800" stroke="#8E2800" stroke-width="0"></path>-->
+</svg>

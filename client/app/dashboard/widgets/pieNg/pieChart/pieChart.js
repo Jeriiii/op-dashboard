@@ -11,20 +11,20 @@ dashboardApp.value('createSVGNode', function(name, element, settings) {
 	return node;
 });
 
-dashboardApp.directive('pieNg', ['JsonGraphRes', 'createSVGNode', function(JsonGraphRes, createSVGNode) {
+dashboardApp.directive('pieChartNg', ['JsonGraphRes', 'createSVGNode', function(JsonGraphRes, createSVGNode) {
   return {
 	restrict: 'E',
 	replace: true,
-	scope: {
-	},
 	link: function(scope, elem, attrs) {
-		console.log("něco");
+		console.log(scope.label);
 
 		var drawArcs = function (pieData){
 			var colorArr = ["#468966","#FFF0A5","#FFB03B","#B64926","#8E2800"];
 			var startAngle = 0;
 			var endAngle = 0;
 			var x1,x2,y1,y2 = 0;
+			var paths = [];
+			var id = 1;
 
 			for(var i=0; i <pieData.length; i++){
 				var item = pieData[i];
@@ -41,17 +41,17 @@ dashboardApp.directive('pieNg', ['JsonGraphRes', 'createSVGNode', function(JsonG
 				var d = "M200,200  L" + x1 + "," + y1 + "  A180,180 0 0,1 " + x2 + "," + y2 + " z"; //1 means clockwise
 				//alert(d);
 
-				var path = createSVGNode('path', elem, []);
+				//var path = createSVGNode('path', elem, []);
 
-				var apath = angular.element(path);
-				apath.attr('d', d);
+				//var apath = angular.element(path);
+				//apath.attr('d', d);
 
 				var colorI = i;
 				if(colorI >= colorArr.length) {
 					colorI = colorI % colorArr.length;
 				}
 
-				apath.attr("fill",colorArr[i]);
+				//apath.attr("fill",colorArr[i]);
 
 
 				//element.on('mouseenter', function() {
@@ -61,16 +61,37 @@ dashboardApp.directive('pieNg', ['JsonGraphRes', 'createSVGNode', function(JsonG
 				//	element.removeClass(scope.hoverClass);
 				//});
 
-				apath.on('mouseenter', function(e) {
-					console.log(e.target);
-					var target = angular.element(e.target);
-					target.data('fill', target.attr("fill"));
-					//target.attr("fill", '#000000');
-					//target.attr('transform', "translate(75,25)");
-					target.attr('stroke', target.attr("fill"));
-					target.attr('stroke-width', '7');
-					//alert('enter to element');
-				});
+				scope.mEnter = function(path) {
+					path.strokeWidth = 7;
+					path.style = {'z-index': 1000};
+					id = paths.indexOf(path);
+					console.log(id);
+					if(id != -1) {
+						paths.splice(id, 1);
+						paths.push(path);
+					}
+				};
+
+				scope.mLeave = function(path) {
+					path.strokeWidth = 0;
+					scope.label.style.display = 'none';
+				};
+
+				var elemLeft = elem.offset().left;
+				var elemTop = elem.offset().top;
+				scope.mMove = function (e) {
+					var mPos = {};
+
+					mPos.x = e.pageX - elemLeft;
+					mPos.y = e.pageY - elemTop;
+					scope.label.style.left = '' + mPos.x + 'px';
+					scope.label.style.top ='' +  mPos.y + 'px';
+					scope.label.style.display = 'block';
+
+					console.log(mPos);
+				}
+
+				/*apath.on('mouseenter', );
 				apath.on('mousemove', function(e) {
 					var target = angular.element(e.target);
 
@@ -80,14 +101,25 @@ dashboardApp.directive('pieNg', ['JsonGraphRes', 'createSVGNode', function(JsonG
 					target.attr("fill", target.data('fill'));
 					target.attr('stroke-width', '0');
 				//	alert('leave element');
-				});
+				});*/
 
-				elem.append(apath);
+				//elem.append(apath);
+				var pathContainer = {};
+
+				pathContainer.id = id;
+				pathContainer.d = d;
+				pathContainer.color = colorArr[i];
+				pathContainer.strokeWidth = 0;
+
+				paths.push(pathContainer);
+				id++;
 				//var path = makeNode('path', tElement, tAttr);
 
 				//arc = paper.path(d);
 				//arc.attr("fill",colorArr[i]);
 			};
+
+			scope.paths = paths;
 		}
 
 		var pieData = [
@@ -135,7 +167,6 @@ dashboardApp.directive('pieNg', ['JsonGraphRes', 'createSVGNode', function(JsonG
 	  //
 	  // graphData.$promise.then(addChart);
 	},
-	transclude: true,
-	templateUrl: 'dashboard/widgets/pieNg/template.html'
+	templateUrl: 'dashboard/widgets/pieNg/pieChart/template.html'
   };
 }]);
