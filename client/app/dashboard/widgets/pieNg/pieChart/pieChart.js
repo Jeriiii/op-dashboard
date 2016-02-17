@@ -18,15 +18,16 @@ dashboardApp.directive('pieChartNg', ['JsonGraphRes', 'createSVGNode', function(
 	link: function(scope, elem, attrs) {
 		console.log(scope.label);
 
-
+		var opts = scope.opts;
 
 		var drawArcs = function (pieData){
-			var colorArr = ["#468966","#FFF0A5","#FFB03B","#B64926","#8E2800"];
+			var colorArr = opts.pieColors;
 			var startAngle = 0;
 			var endAngle = 0;
 			var x1,x2,y1,y2 = 0;
 			var paths = [];
 			var id = 1;
+			var pieSize = opts.pieRadius;
 
 			for(var i=0; i <pieData.length; i++){
 				var item = pieData[i];
@@ -34,13 +35,13 @@ dashboardApp.directive('pieChartNg', ['JsonGraphRes', 'createSVGNode', function(
 				startAngle = endAngle;
 				endAngle = startAngle + item.angle;
 
-				x1 = parseInt(200 + 180*Math.cos(Math.PI*startAngle/180));
-				y1 = parseInt(200 + 180*Math.sin(Math.PI*startAngle/180));
+				x1 = parseInt(200 + pieSize*Math.cos(Math.PI*startAngle/180));
+				y1 = parseInt(200 + pieSize*Math.sin(Math.PI*startAngle/180));
 
-				x2 = parseInt(200 + 180*Math.cos(Math.PI*endAngle/180));
-				y2 = parseInt(200 + 180*Math.sin(Math.PI*endAngle/180));
+				x2 = parseInt(200 + pieSize*Math.cos(Math.PI*endAngle/180));
+				y2 = parseInt(200 + pieSize*Math.sin(Math.PI*endAngle/180));
 
-				var d = "M200,200  L" + x1 + "," + y1 + "  A180,180 0 0,1 " + x2 + "," + y2 + " z";
+				var d = "M200,200  L" + x1 + "," + y1 + "  A" + pieSize + "," + pieSize + " 0 0,1 " + x2 + "," + y2 + " z";
 
 				var colorI = i;
 				if(colorI >= colorArr.length) {
@@ -89,52 +90,20 @@ dashboardApp.directive('pieChartNg', ['JsonGraphRes', 'createSVGNode', function(
 			};
 
 			scope.paths = paths;
-		}
+		};
 
-		var pieData = [
-			{val: 113, tittle: 'Tohle je tittle 113'},
-			{val: 100, tittle: 'Tohle je tittle 100'},
-			{val: 50, tittle: 'Tohle je tittle 50'},
-			{val: 28, tittle: 'Tohle je tittle 28'},
-			{val: 27, tittle: 'Tohle je tittle 27'}
-		];
 		/* součet všech hodnot musí dávat dohromady 360 */
 		var total = 0; //součet všech hodnot
 
-		angular.forEach(pieData, function(item) {
+		angular.forEach(opts.data, function(item) {
 			total = total + item.val;
 		});
 
-		angular.forEach(pieData, function(item) {
+		angular.forEach(opts.data, function(item) {
 			item.angle = Math.ceil(item.val * 360 / total);
 		});
 
-
-
-		drawArcs(pieData);
-
-
-
-
-
-	  ///* po http požadavku přidá graf */
-	  //var addChart = function(chartData) {
-	  //  $('.bar-chart-jq').cssCharts({
-	  //    type:"bar",
-	  //    bars: [[4,2],[4,5],[8,3],[4,2]],
-	  //    max:"8",
-	  //    unit:"k",
-	  //    grid:"1",
-	  //    width:"20"
-	  //  });
-	  //};
-	  //
-	  //addChart();
-
-	  // var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
-	  // var graphData = JsonGraphRes.send(relativeUrl).get();
-	  //
-	  // graphData.$promise.then(addChart);
+		drawArcs(opts.data);
 	},
 	templateUrl: 'dashboard/widgets/pieNg/pieChart/template.html'
   };
