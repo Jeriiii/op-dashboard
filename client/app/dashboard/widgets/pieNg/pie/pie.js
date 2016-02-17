@@ -10,6 +10,7 @@ dashboardApp.directive('pieNg', ['JsonGraphRes', 'createSVGNode', function(JsonG
 				position: 'absolute',
 				'z-index': 1000
 			};
+			scope.label.text = 'neco';
 			//scope.label.style.position = 'absolute';
 		},
 		templateUrl: 'dashboard/widgets/pieNg/pie/template.html'

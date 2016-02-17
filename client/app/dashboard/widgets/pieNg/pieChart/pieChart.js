@@ -18,6 +18,8 @@ dashboardApp.directive('pieChartNg', ['JsonGraphRes', 'createSVGNode', function(
 	link: function(scope, elem, attrs) {
 		console.log(scope.label);
 
+
+
 		var drawArcs = function (pieData){
 			var colorArr = ["#468966","#FFF0A5","#FFB03B","#B64926","#8E2800"];
 			var startAngle = 0;
@@ -38,96 +40,63 @@ dashboardApp.directive('pieChartNg', ['JsonGraphRes', 'createSVGNode', function(
 				x2 = parseInt(200 + 180*Math.cos(Math.PI*endAngle/180));
 				y2 = parseInt(200 + 180*Math.sin(Math.PI*endAngle/180));
 
-				var d = "M200,200  L" + x1 + "," + y1 + "  A180,180 0 0,1 " + x2 + "," + y2 + " z"; //1 means clockwise
-				//alert(d);
-
-				//var path = createSVGNode('path', elem, []);
-
-				//var apath = angular.element(path);
-				//apath.attr('d', d);
+				var d = "M200,200  L" + x1 + "," + y1 + "  A180,180 0 0,1 " + x2 + "," + y2 + " z";
 
 				var colorI = i;
 				if(colorI >= colorArr.length) {
 					colorI = colorI % colorArr.length;
 				}
 
-				//apath.attr("fill",colorArr[i]);
-
-
-				//element.on('mouseenter', function() {
-				//	element.addClass(scope.hoverClass);
-				//});
-				//element.on('mouseleave', function() {
-				//	element.removeClass(scope.hoverClass);
-				//});
-
-				scope.mEnter = function(path) {
-					path.strokeWidth = 7;
-					path.style = {'z-index': 1000};
-					id = paths.indexOf(path);
-					console.log(id);
-					if(id != -1) {
-						paths.splice(id, 1);
-						paths.push(path);
-					}
-				};
-
-				scope.mLeave = function(path) {
-					path.strokeWidth = 0;
-					scope.label.style.display = 'none';
-				};
-
-				var elemLeft = elem.offset().left;
-				var elemTop = elem.offset().top;
-				scope.mMove = function (e) {
-					var mPos = {};
-
-					mPos.x = e.pageX - elemLeft;
-					mPos.y = e.pageY - elemTop;
-					scope.label.style.left = '' + mPos.x + 'px';
-					scope.label.style.top ='' +  mPos.y + 'px';
-					scope.label.style.display = 'block';
-
-					console.log(mPos);
-				}
-
-				/*apath.on('mouseenter', );
-				apath.on('mousemove', function(e) {
-					var target = angular.element(e.target);
-
-				});
-				apath.on('mouseleave', function(e) {
-					var target = angular.element(e.target);
-					target.attr("fill", target.data('fill'));
-					target.attr('stroke-width', '0');
-				//	alert('leave element');
-				});*/
-
-				//elem.append(apath);
 				var pathContainer = {};
 
 				pathContainer.id = id;
 				pathContainer.d = d;
 				pathContainer.color = colorArr[i];
 				pathContainer.strokeWidth = 0;
+				pathContainer.tittle = item.tittle;
 
 				paths.push(pathContainer);
-				id++;
-				//var path = makeNode('path', tElement, tAttr);
+			};
 
-				//arc = paper.path(d);
-				//arc.attr("fill",colorArr[i]);
+			scope.mEnter = function(path) {
+				path.strokeWidth = 7;
+				path.style = {'z-index': 1000};
+				id = paths.indexOf(path);
+
+				if(id != -1) {
+					paths.splice(id, 1);
+					paths.push(path);
+				}
+			};
+
+			scope.mLeave = function(path) {
+				path.strokeWidth = 0;
+				scope.label.style.display = 'none';
+			};
+
+			var elemLeft = elem.offset().left;
+			var elemTop = elem.offset().top;
+			scope.mMove = function (e, path) {
+				var mPos = {};
+
+				scope.label.text = path.tittle;
+
+				mPos.x = e.pageX - elemLeft;
+				mPos.y = e.pageY - elemTop;
+				scope.label.style.left = '' + mPos.x + 'px';
+				scope.label.style.top ='' +  mPos.y + 'px';
+				scope.label.style.display = 'block';
 			};
 
 			scope.paths = paths;
 		}
 
 		var pieData = [
-			{val: 113},
-			{val: 100},
-			{val: 50},
-			{val: 28},
-			{val: 27}
+			{val: 113, tittle: 'Tohle je tittle 113'},
+			{val: 100, tittle: 'Tohle je tittle 100'},
+			{val: 50, tittle: 'Tohle je tittle 50'},
+			{val: 28, tittle: 'Tohle je tittle 28'},
+			{val: 27, tittle: 'Tohle je tittle 27'}
 		];
 		/* součet všech hodnot musí dávat dohromady 360 */
 		var total = 0; //součet všech hodnot
