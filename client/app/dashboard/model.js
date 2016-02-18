@@ -82,8 +82,15 @@ settings: {
 };
 
 var model = {
-  widgets: [csschart, pieNg, barchartJQ, barchartNg, barchartReact, linechart, linechartNg,
-    simpleText, clock, graph]
+  baseWidgets: {
+    widgets: [simpleText, clock, graph]
+  },
+  allCharts: {
+    widgets: [csschart, pieNg, barchartJQ, barchartNg, barchartReact, linechart, linechartNg]
+  },
+  performanceWidgets: {
+    widgets: [barchartJQ, barchartNg, barchartReact]
+  }
 };
 
 dashboardApp.value('dModel', model);
