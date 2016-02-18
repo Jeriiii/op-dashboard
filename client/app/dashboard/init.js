@@ -1,5 +1,5 @@
 'use strict';
 
-dashboardApp.config(function(dashboardModelProvider){
+dashboardApp.config(['dashboardModelProvider', function(dashboardModelProvider){
   dashboardModelProvider.setModel(model);
-});
+}]);

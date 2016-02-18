@@ -73,3 +73,5 @@ var model = {
     }
   ]
 };
+
+dashboardApp.value('dModel', model);
