@@ -26,20 +26,28 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-  <div ng-app="dashboardApp" class="jumbotron">
-    <div ng-controller="dashboard1Ctrl">
-    <dashboard-root db-model="{{model}}" />
-  </div>
+
 
   <widget-base dbw-title="Samostatný widget bez použití dashboardu"><widget-clock format="HH:mm:ss" /></widget-base>
 
-  <!-- <div ng-app="myApp">
-    <ul class="menu">
-      <li><a href="#/view1">view1</a></li>
-      <li><a href="#/view3">view2</a></li>
-    </ul>-->
-    <!-- <div ng-view></div>
-  </div> -->
+  <div ng-app="dashboardApp">
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                  data-target="#bs-example-navbar-collapse-8" aria-expanded="false"><span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
+          <a class="navbar-brand" href="#/">Ng Grafy</a></div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-8">
+          <ul class="nav navbar-nav">
+            <li><a href="#/view1">view1</a></li>
+            <li><a href="#/view2">view2</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div ng-view></div>
+  </div>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
@@ -50,16 +58,19 @@
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
+
   <script src="dashboard/model.js"></script>
+  <script src="dashboard/app.js"></script>
+
   <script src="app.js"></script>
+  <script src="router.js"></script>
   <script src="init.js"></script>
   <script src="view1/view1.js"></script>
-  <script src="view3/view2.js"></script>
+  <script src="view2/view2.js"></script>
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
 
-  <script src="dashboard/app.js"></script>
   <script src="dashboard/providers.js"></script>
   <script src="dashboard/services/graph.js"></script>
   <script src="dashboard/controllers/controllers.js"></script>
@@ -113,7 +124,7 @@
   <!-- linechart -->
   <script src="js/plugins/linechart.js"></script>
   <script src="js/plugins/cssChart.js"></script>
-  
+
   <!-- bootstrap -->
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>

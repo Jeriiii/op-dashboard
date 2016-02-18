@@ -1,3 +1,3 @@
 'use strict';
 
-var dashboardApp = angular.module('dashboardApp', ['ngResource', 'dashboardServices', "highcharts-ng", 'react']);
+var dashboardApp = angular.module('dashboardApp', ['ngResource', 'ngRoute', 'dashboardServices', "highcharts-ng", 'react']);
