@@ -38,7 +38,6 @@ dashboardApp.directive('pieNg', ['JsonGraphRes', function(JsonGraphRes) {
 			};
 
 			var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
-			console.log(relativeUrl);
 			var graphData = JsonGraphRes.send(relativeUrl).get();
 
 			graphData.$promise.then(addChart);
