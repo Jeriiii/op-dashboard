@@ -67,11 +67,11 @@ var createBar = function(opts, lis, ul) {
 
 /**
  * Vytvoří skupiny sloupců. V každé skupině se pak porovnávají data od různých zdrojů (např. data různých společností).
- * @param {object} data Data pro skupiny sloupců ve formátu [[x1, x2], [y1, y2], [z1, z2]]
+ * @param {object} barsData Data pro skupiny sloupců ve formátu [[x1, x2], [y1, y2], [z1, z2]]
  * @param {object} opts Nastavení pluginu.
  * @param {element} $node Element direktivy předaný angularem.
  */
-var createGroupsBars = function(data, opts, $node) {
+var createGroupsBars = function(barsData, opts, $node) {
   var height = $node.height();
 
   /* Vytvoří jednu univerzální skupinu pro sloupce */
@@ -89,11 +89,55 @@ var createGroupsBars = function(data, opts, $node) {
 
   opts.width = ulWidth / opts.maxBarsInGroup;
 
-  for (i = 0; i < data.length; i++){
+  for (i = 0; i < barsData.length; i++){
 
-    var ul = createBars(data[i], opts, uls, lis);
+    var ul = createBars(barsData[i], opts, uls, lis);
     $node.append(ul);
   }
+};
+
+/**
+ * Odstraní všechny sloupce z grafu.
+ * @param {element} $node Element direktivy předaný angularem.
+ */
+var removeBars = function($node) {
+  $node.children().each(function() {
+    var barsGroup = $(this);
+    barsGroup.remove();
+  });
+}
+
+/**
+ * Test výkonosti jQuery změny dat pro jeden či více sloupců.
+ * @param {element} $node Element direktivy předaný angularem.
+ * @param {object} opts Nastavení pluginu.
+ */
+var testPerformance = function($node, opts) {
+  setTimeout(function(){
+    /* spuštění testu */
+    console.log("Začíná test výkonnosti jQuery.");
+    var start = new Date().getTime();
+
+    /* test změny pouze tří hodnot za jiné hodnoty */
+    var barsTest1 = [[3,2,7,9],[4,7,2,5],[8,3,5,2],[4,2,2,4]];
+    removeBars($node);
+    createGroupsBars(barsTest1, opts, $node);
+
+    /* test odstranění některých sloupců, zbytek ponechán beze změny */
+    var barsTest2 = [[4,2,],[4,5,2,1],[8,3],[4,2,2,4]];
+    removeBars($node);
+    createGroupsBars(barsTest2, opts, $node);
+
+    /* test vykreslení úplně jiné řady */
+    var barsTest3 = [[4,2,],[4,5,2,1],[8,3],[4,2,2,4]];
+    removeBars($node);
+    createGroupsBars(barsTest3, opts, $node);
+
+    /* ukončení testu testu */
+    var time = new Date().getTime() - start;
+    console.log("Končí test výkonnosti jQuery v čase " + time + " ms");
+  },
+  opts.performanceStart.jquery);
 };
 
 /**
@@ -102,13 +146,17 @@ var createGroupsBars = function(data, opts, $node) {
  * @param {object} opts Nastavení pluginu.
  */
 var createBarChart = function(node, opts){
-  var data = opts.bars;
+  var barsData = opts.bars;
   var grid = opts.grid;
   opts.parentWidth = opts.nodeParent.width();
   node.width(opts.parentWidth);
 
   if(parseInt(grid,10) === 0) node.css("background", "none");
-  if(!data) return("No data to work with");
+  if(!barsData) return("No data to work with");
 
-  createGroupsBars(data, opts, node);
+  createGroupsBars(barsData, opts, node);
+
+  if(opts.performanceTest == true) {
+    testPerformance(node, opts);
+  }
 };

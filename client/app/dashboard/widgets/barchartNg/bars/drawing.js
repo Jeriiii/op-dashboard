@@ -65,11 +65,11 @@ var createBarNg = function(opts, bars) {
 /**
  * Vytvoří skupiny sloupců. V každé skupině se pak porovnávají data od různých zdrojů (např. data různých společností).
  * @param {scope} scope
- * @param {object} data Data pro skupiny sloupců ve formátu [[x1, x2], [y1, y2], [z1, z2]]
+ * @param {object} barsData Data pro skupiny sloupců ve formátu [[x1, x2], [y1, y2], [z1, z2]]
  * @param {object} opts Nastavení pluginu.
  * @param {element} node Element direktivy předaný angularem.
  */
-var createGroupsBarsNg = function(scope, data, opts, node) {
+var createGroupsBarsNg = function(scope, barsData, opts, node) {
   opts.chartHeight = node.innerHeight(); //výška celého grafu
 
   /* Vypočítá univerzální šířky skupin */
@@ -80,9 +80,9 @@ var createGroupsBarsNg = function(scope, data, opts, node) {
 
   var groups = [];
 
-  for (i = 0; i < data.length; i++){
+  for (i = 0; i < barsData.length; i++){
     var group = {};
-    group.bars = createBarsNg(data[i], opts);
+    group.bars = createBarsNg(barsData[i], opts);
     group.styles = {'width': gWidth +'px', 'margin:': '0 ' + (gMargin / 2) + ' px;'};
 
     groups.push(group);
@@ -92,19 +92,62 @@ var createGroupsBarsNg = function(scope, data, opts, node) {
 };
 
 /**
+ * Test výkonosti jQuery změny dat pro jeden či více sloupců.
+ * @param {scope} scope
+ * @param {service} $timeout
+ * @param {element} $node Element direktivy předaný angularem.
+ * @param {object} opts Nastavení pluginu.
+ */
+var testPerformanceNg = function(scope, $timeout, $node, opts) {
+  $timeout(function(){
+      /* spuštění testu */
+      console.log("Začíná test výkonnosti angularu.");
+      var start = new Date().getTime();
+
+      /* test změny pouze tří hodnot za jiné hodnoty */
+      var barsTest1 = [[3,2,7,9],[4,7,2,5],[8,3,5,2],[4,2,2,4]];
+      createGroupsBarsNg(scope, barsTest1, opts, $node);
+      scope.$digest();
+      console.log(scope.groups);
+
+      /* test odstranění některých sloupců, zbytek ponechán beze změny */
+      var barsTest2 = [[4,2,],[4,5,2,1],[8,3],[4,2,2,4]];
+            createGroupsBarsNg(scope, barsTest2, opts, $node);
+      scope.$digest();
+      console.log(scope.groups);
+
+      /* test vykreslení úplně jiné řady */
+      var barsTest3 = [[4,2,],[4,5,2,1],[8,3],[4,2,2,4]];
+      createGroupsBarsNg(scope, barsTest3, opts, $node);
+      scope.$digest();
+      console.log(scope.groups);
+
+      /* ukončení testu testu */
+      var time = new Date().getTime() - start;
+      console.log("Končí test výkonnosti angularu v čase " + time + " ms");
+    },
+    opts.performanceStart.angular);
+};
+
+/**
  * Vytvoří sloupcový graf.
  * @param {scope} scope
+ * @param {service} $timeout
  * @param {element} node Element direktivy předaný angularem, ve kterém se má vytvořit graf.
  * @param {object} opts Nastavení pluginu.
  */
-var createBarChartNg = function(scope, node, opts){
-  var data = opts.bars;
+var createBarChartNg = function(scope, $timeout, node, opts){
+  var barsData = opts.bars;
   var grid = opts.grid;
   opts.parentWidth = opts.nodeParent.width();
   node.width(opts.parentWidth);
 
   if(parseInt(grid,10) === 0) node.css("background", "none");
-  if(!data) return("No data to work with");
+  if(!barsData) return("No data to work with");
 
-  createGroupsBarsNg(scope, data, opts, node);
+  createGroupsBarsNg(scope, barsData, opts, node);
+
+  if(opts.performanceTest == true) {
+    testPerformanceNg(scope, $timeout, node, opts);
+  }
 };

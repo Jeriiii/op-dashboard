@@ -31,6 +31,13 @@ class Chart {
 	}
 
 	/**
+	 * Vrátí nastavení linechart grafu ve formátu json
+	 */
+	public function getBarchartTestSettings() {
+		return $this->getSettings('barchart-test.json');
+	}
+
+	/**
 	 * Vrátí nastavení pie grafu ve formátu json
 	 */
 	public function getPieSettings() {

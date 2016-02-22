@@ -34,9 +34,17 @@ var ctrlFnc = function ( $scope, $element ) {
 
 /* funkce link této direktivy */
 var linkFnc = function(scope, elem, attrs) {
-  var model = JSON.parse(attrs.dbModel);
+  //var model = JSON.parse(attrs.dbModel);
   //var model = dashboardModelProvider.getModel();
-  scope.widgets = model.widgets;
+  //scope.widgets = model.widgets;
+
+  attrs.$observe('dbModel', function (newDbModel) {
+    console.log('Změna db modelu');
+    model = JSON.parse(newDbModel);
+    console.log('root dashborard');
+    console.log(model);
+    scope.widgets = model.widgets;
+  });
 };
 
 // Hlavní direktiva, ve které se nachází celý dashboard

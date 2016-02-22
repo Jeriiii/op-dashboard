@@ -1,0 +1,12 @@
+{
+	"bars": [[4,2,7,9],[4,5,2,1],[8,3,5,2],[4,2,2,4]],
+	"unit":"k",
+	"grid":"1",
+  	"performanceTest": true,
+  	"performanceStart": {
+	  "jquery": 2000,
+	  "react": 3000,
+	  "angular": 3000
+	}
+}
+

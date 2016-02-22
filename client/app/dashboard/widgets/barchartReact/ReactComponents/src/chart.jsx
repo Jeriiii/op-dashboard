@@ -1,4 +1,4 @@
-// Sloupcový graf
+// Sloupcový graf - bez mřížky, pouze sloupce
 var Bars = React.createClass({
   getInitialState: function() {
     return {
@@ -47,8 +47,8 @@ var Bars = React.createClass({
   }
 });
 
-//Grid - mříška (stupnice) grafu
-var BarchartReact = React.createClass({
+//Celý sloupcový graf (Grid - mříška (stupnice) grafu + sloupce)
+var BarchartReact = React.createClass({displayName: "BarchartReactClass",
   componentWillMount: function() {
     correctOptsValReact(this.state.opts);
   },
@@ -58,6 +58,9 @@ var BarchartReact = React.createClass({
     var lines = chartGridReact(opts);
 
     return {opts: opts, lines: lines};
+  },
+  update: function() {
+    console.log('react was updated');
   },
   render: function() {
     var lines = this.state.lines.map(function(line) {
@@ -80,3 +83,10 @@ var BarchartReact = React.createClass({
   }
 })
 dashboardApp.value('BarchartReact', BarchartReact);
+
+//var props = {
+//  "bars": [[4,2,7,9],[4,5,2,1],[8,3,5,2],[4,2,2,4]],
+//  "unit":"k",
+//  "grid":"1"
+//};
+//ReactDOM.render(React.createElement(BarchartReact, props));

@@ -1,5 +1,5 @@
 // Příklad grafu pluginu highchart, který se dá vložit do vydgetu
-dashboardApp.directive('barsChNg', ['JsonGraphRes', function(JsonGraphRes) {
+dashboardApp.directive('barsChNg', ['JsonGraphRes', '$timeout', function(JsonGraphRes, $timeout) {
   return {
     restrict: 'E',
     replace: true,
@@ -9,7 +9,7 @@ dashboardApp.directive('barsChNg', ['JsonGraphRes', function(JsonGraphRes) {
       scope.$watch('opts', function(opts, oldValue) {
         /* po http požadavku přidá graf */
         if(opts) {
-          createBarChartNg(scope, elem, opts);
+          createBarChartNg(scope, $timeout, elem, opts);
         }
       });
 
