@@ -92,6 +92,7 @@ var model = {
   performanceWidgets: {
     widgets: [barchartJQ, barchartNg, barchartReact]
   },
+
   barchartJQ: {
     widgets: [barchartJQ]
   },
@@ -103,5 +104,9 @@ var model = {
   }
 
 };
+
+model.performanceWidgets.widgets[0].settings.relativeUrl = model.performanceWidgets.widgets[0].settings.relativeUrl + '-test';
+model.performanceWidgets.widgets[1].settings.relativeUrl = model.performanceWidgets.widgets[0].settings.relativeUrl + '-test';
+model.performanceWidgets.widgets[2].settings.relativeUrl = model.performanceWidgets.widgets[0].settings.relativeUrl + '-test';
 
 dashboardApp.value('dModel', model);
