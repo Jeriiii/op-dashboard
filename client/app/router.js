@@ -26,6 +26,18 @@ dashboardApp.config(['$routeProvider',
 			templateUrl: 'view3/view3.html',
 			controller: 'dashboardView3Ctrl'
 		}).
+		when('/view4', {
+			templateUrl: 'view4/view4.html',
+			controller: 'dashboardView4Ctrl'
+		}).
+		when('/view5', {
+			templateUrl: 'view5/view5.html',
+			controller: 'dashboardView5Ctrl'
+		}).
+		when('/view6', {
+			templateUrl: 'view6/view6.html',
+			controller: 'dashboardView6Ctrl'
+		}).
 		otherwise({
 			redirectTo: '/view1'
 		});
