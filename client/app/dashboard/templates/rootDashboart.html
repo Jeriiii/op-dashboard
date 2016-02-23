@@ -1,7 +1,9 @@
 <div>
-  <div class="btn btn-primary" ng-click="addTextWidget(textSettings)">Přidá textový widget</div>
-  <div class="btn btn-primary" ng-click="addGraphWidget(graphSettings)">Přidá graf</div>
-  <div class="btn btn-primary" ng-click="addClockWidget(clockSettings)">Přidá hodiny</div>
+  <div ng-show="dynamicAdd">
+    <div class="btn btn-primary" ng-click="addTextWidget(textSettings)">Přidat textový widget</div>
+    <div class="btn btn-primary" ng-click="addGraphWidget(graphSettings)">Přidat graf</div>
+    <div class="btn btn-primary" ng-click="addClockWidget(clockSettings)">Přidat hodiny</div>
+  </div>
   <div>
     <div id="content">
       <div ng-repeat="widget in widgets">

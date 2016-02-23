@@ -83,14 +83,25 @@ settings: {
 
 var model = {
   baseWidgets: {
-    widgets: [simpleText, clock, graph]
+    widgets: [simpleText, clock, graph],
+    dynamicAdd: true
   },
   allCharts: {
     widgets: [csschart, pieNg, barchartJQ, barchartNg, barchartReact, linechart, linechartNg]
   },
   performanceWidgets: {
     widgets: [barchartJQ, barchartNg, barchartReact]
+  },
+  barchartJQ: {
+    widgets: [barchartJQ]
+  },
+  barchartNg: {
+    widgets: [barchartNg]
+  },
+  barchartReact: {
+    widgets: [barchartReact]
   }
+
 };
 
 dashboardApp.value('dModel', model);

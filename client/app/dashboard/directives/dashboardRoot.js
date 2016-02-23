@@ -1,7 +1,7 @@
 /* funkce controleru této direktivy */
 var ctrlFnc = function ( $scope, $element ) {
   $scope.addTextWidget = function () {
-    $scope.widgets.push({
+    $scope.widgets.unshift({
         type: 'simpleText',
         settings: {
           tittle: 'Vygenerovaný textový widget',
@@ -12,7 +12,7 @@ var ctrlFnc = function ( $scope, $element ) {
   };
 
   $scope.addGraphWidget = function () {
-    $scope.widgets.push({
+    $scope.widgets.unshift({
       type: 'graph',
       settings: {
         tittle: 'Vygenerované graf',
@@ -22,7 +22,7 @@ var ctrlFnc = function ( $scope, $element ) {
   };
 
   $scope.addClockWidget = function () {
-    $scope.widgets.push({
+    $scope.widgets.unshift({
       type: 'clock',
       settings: {
         tittle: 'Vygenerované hodiny',
@@ -34,8 +34,9 @@ var ctrlFnc = function ( $scope, $element ) {
 
 /* funkce link této direktivy */
 var linkFnc = function(scope, elem, attrs) {
-  //var model = JSON.parse(attrs.dbModel);
   //var model = dashboardModelProvider.getModel();
+
+  //var model = JSON.parse(attrs.dbModel);
   //scope.widgets = model.widgets;
 
   attrs.$observe('dbModel', function (newDbModel) {
@@ -44,6 +45,7 @@ var linkFnc = function(scope, elem, attrs) {
     console.log('root dashborard');
     console.log(model);
     scope.widgets = model.widgets;
+    scope.dynamicAdd = model.dynamicAdd
   });
 };
 
