@@ -16,7 +16,6 @@ dashboardApp.controller('dashboardView6Ctrl', ['$scope', '$timeout','dModel', fu
   $scope.reloadWidget = function() {
     console.log('změna modelu');
     $scope.model = {widgets: [barchartReact]};
-    $scope.$apply();
     console.log('konec změny modelu');
   };
 }]);
