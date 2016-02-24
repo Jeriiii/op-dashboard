@@ -15,10 +15,17 @@ dashboardApp.directive('barchartJq', ['JsonGraphRes', function(JsonGraphRes) {
         scope.opts = opts;
       };
 
-      var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
-      var graphData = JsonGraphRes.send(relativeUrl).get();
+      //var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
+      //var graphData = JsonGraphRes.send(relativeUrl).get();
+      //
+      //graphData.$promise.then(addChart);
 
-      graphData.$promise.then(addChart);
+      attrs.$observe('relativeUrl', function (newRelativeUrl) {
+        console.log('změna relativeUrl');
+        relativeUrl = newRelativeUrl;
+        graphData = JsonGraphRes.send(relativeUrl).get();
+        graphData.$promise.then(addChart);
+      });
     },
     transclude: true,
     templateUrl: 'dashboard/widgets/barchartJQ/chart/template.html'

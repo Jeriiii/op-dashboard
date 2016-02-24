@@ -24,17 +24,24 @@ class Chart {
 	}
 
 	/**
-	 * Vrátí nastavení linechart grafu ve formátu json
+	 * Vrátí nastavení barchart grafu ve formátu json
 	 */
 	public function getBarchartSettings() {
 		return $this->getSettings('barchart.json');
 	}
 
 	/**
-	 * Vrátí nastavení linechart grafu ve formátu json
+	 * Vrátí nastavení barchart grafu ve formátu json
 	 */
 	public function getBarchartTestSettings() {
 		return $this->getSettings('barchart-test.json');
+	}
+
+	/**
+	 * Vrátí další (odlišné) nastavení barchart grafu ve formátu json
+	 */
+	public function getBarchartAnotherSettings() {
+		return $this->getSettings('barchart-another.json');
 	}
 
 	/**

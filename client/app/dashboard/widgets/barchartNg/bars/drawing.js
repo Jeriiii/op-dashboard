@@ -99,35 +99,58 @@ var createGroupsBarsNg = function(scope, barsData, opts, node) {
  * @param {object} opts Nastavení pluginu.
  */
 var testPerformanceNg = function(scope, $timeout, $node, opts) {
-  $timeout(function(){
+    setTimeout(function(){
       /* spuštění testu */
+      console.log("*****************");
       console.log("Začíná test výkonnosti angularu.");
-      var start = new Date().getTime();
+      console.log("*****************");
+      var timeAll = 0;
+      var start; var time;
 
       /* test změny pouze tří hodnot za jiné hodnoty */
-      var barsTest1 = [[3,2,7,9],[4,7,2,5],[8,3,5,2],[4,2,2,4]];
-      createGroupsBarsNg(scope, barsTest1, opts, $node);
-      scope.$digest();
-      console.log(scope.groups);
+      timeAll = timeAll +  measuringTimeTester(function() {
+        var barsTest1 = [[3,2,7,9],[4,7,2,5],[8,3,5,2],[4,2,2,4]];
+        createGroupsBarsNg(scope, barsTest1, opts, $node);
+        scope.$apply();
+      }, 'změny pouze tří hodnot za jiné hodnoty');
 
+      /*****************************************************************/
       /* test odstranění některých sloupců, zbytek ponechán beze změny */
-      var barsTest2 = [[4,2,],[4,5,2,1],[8,3],[4,2,2,4]];
-            createGroupsBarsNg(scope, barsTest2, opts, $node);
-      scope.$digest();
-      console.log(scope.groups);
 
+      timeAll = timeAll +  measuringTimeTester(function() {
+          var barsTest2 = [[4,2,],[4,5,2,1],[8,3],[4,2,2,4]];
+          createGroupsBarsNg(scope, barsTest2, opts, $node);
+          scope.$apply();
+      }, 'odstranění některých sloupců, zbytek ponechán beze změny');
+
+      /*****************************************************************/
       /* test vykreslení úplně jiné řady */
-      var barsTest3 = [[4,2,],[4,5,2,1],[8,3],[4,2,2,4]];
-      createGroupsBarsNg(scope, barsTest3, opts, $node);
-      scope.$digest();
-      console.log(scope.groups);
+      timeAll = timeAll +  measuringTimeTester(function() {
+        var barsTest3 = [[4,2,],[4,5,2,1],[8,3],[4,2,2,4]];
+        createGroupsBarsNg(scope, barsTest3, opts, $node);
+        scope.$apply();
+      }, 'vykreslení úplně jiné řady');
 
       /* ukončení testu testu */
-      var time = new Date().getTime() - start;
-      console.log("Končí test výkonnosti angularu v čase " + time + " ms");
+      console.log("Končí test výkonnosti angularu v čase " + timeAll + " ms");
     },
     opts.performanceStart.angular);
 };
+
+var measuringTimeTester = function(callback, testMessage) {
+  var time; var start;
+
+  console.log("Začíná test " + testMessage + ".");
+  start = new Date().getTime();
+
+  callback();
+
+  time = new Date().getTime() - start;
+  console.log("Doba trvání " + time + " ms");
+  console.log("-----------------");
+
+  return time;
+}
 
 /**
  * Vytvoří sloupcový graf.
@@ -147,7 +170,8 @@ var createBarChartNg = function(scope, $timeout, node, opts){
 
   createGroupsBarsNg(scope, barsData, opts, node);
 
-  if(opts.performanceTest == true) {
+  if(opts.performanceTest == true && opts.testStarted == undefined) {
+    opts.testStarted = true;
     testPerformanceNg(scope, $timeout, node, opts);
   }
 };

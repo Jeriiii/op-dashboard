@@ -3,18 +3,20 @@
 dashboardApp.controller('dashboardView4Ctrl', ['$scope', '$timeout', 'dModel', function($scope, $timeout, dModel) {
 
   $scope.model = dModel.barchartJQ;
+  $scope.count = 0;
 
-  var barchartJQ = {
+  var barchartJQ2 = {
     type: 'barchartJQ',
     settings: {
-      tittle: 'Bar chart JQ Změněný',
-      relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=barchart'
+      tittle: 'Bar chart JQ 2 Změněný',
+      relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=barchart-another'
     }
   };
 
-  $timeout(function() {
+  $scope.reloadWidget = function() {
     console.log('změna modelu');
-    $scope.model = {widgets: [barchartJQ]};
+    $scope.model = {widgets: [barchartJQ2]};
+
     console.log('konec změny modelu');
-  }, 1000);
+  };
 }]);

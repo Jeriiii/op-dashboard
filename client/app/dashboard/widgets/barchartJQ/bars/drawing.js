@@ -115,27 +115,38 @@ var removeBars = function($node) {
 var testPerformance = function($node, opts) {
   setTimeout(function(){
     /* spuštění testu */
+    console.log("*****************");
     console.log("Začíná test výkonnosti jQuery.");
-    var start = new Date().getTime();
+    console.log("*****************");
+    var timeAll = 0;
+    var start; var time;
 
     /* test změny pouze tří hodnot za jiné hodnoty */
-    var barsTest1 = [[3,2,7,9],[4,7,2,5],[8,3,5,2],[4,2,2,4]];
-    removeBars($node);
-    createGroupsBars(barsTest1, opts, $node);
+    timeAll = timeAll +  measuringTimeTester(function() {
+      var barsTest1 = [[3,2,7,9],[4,7,2,5],[8,3,5,2],[4,2,2,4]];
+      removeBars($node);
+      createGroupsBars(barsTest1, opts, $node);
+    }, 'změny pouze tří hodnot za jiné hodnoty');
 
+    /*****************************************************************/
     /* test odstranění některých sloupců, zbytek ponechán beze změny */
-    var barsTest2 = [[4,2,],[4,5,2,1],[8,3],[4,2,2,4]];
-    removeBars($node);
-    createGroupsBars(barsTest2, opts, $node);
 
+    timeAll = timeAll +  measuringTimeTester(function() {
+      var barsTest2 = [[4,2,],[4,5,2,1],[8,3],[4,2,2,4]];
+      removeBars($node);
+      createGroupsBars(barsTest2, opts, $node);
+    }, 'odstranění některých sloupců, zbytek ponechán beze změny');
+
+    /*****************************************************************/
     /* test vykreslení úplně jiné řady */
-    var barsTest3 = [[4,2,],[4,5,2,1],[8,3],[4,2,2,4]];
-    removeBars($node);
-    createGroupsBars(barsTest3, opts, $node);
+    timeAll = timeAll +  measuringTimeTester(function() {
+      var barsTest3 = [[4,2,],[4,5,2,1],[8,3],[4,2,2,4]];
+      removeBars($node);
+      createGroupsBars(barsTest3, opts, $node);
+    }, 'vykreslení úplně jiné řady');
 
     /* ukončení testu testu */
-    var time = new Date().getTime() - start;
-    console.log("Končí test výkonnosti jQuery v čase " + time + " ms");
+    console.log("Končí test výkonnosti jQuery v čase " + timeAll + " ms");
   },
   opts.performanceStart.jquery);
 };

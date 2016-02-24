@@ -37,6 +37,9 @@ class DashboardSettingsGetterController {
 			case 'barchart-test':
 				$this->printBarchartTestSettings();
 				break;
+			case 'barchart-another':
+				$this->printBarchartAnotherSettings();
+				break;
 
 			case 'pie':
 				$this->printPieSettings();
@@ -88,6 +91,17 @@ class DashboardSettingsGetterController {
 		$chart = new Chart();
 
 		$json = $chart->getBarchartTestSettings();
+
+		echo json_encode($json);
+	}
+
+	/**
+	 * Vytiskne další nastavení sloupcového grafu
+	 */
+	private function printBarchartAnotherSettings() {
+		$chart = new Chart();
+
+		$json = $chart->getBarchartAnotherSettings();
 
 		echo json_encode($json);
 	}

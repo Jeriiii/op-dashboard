@@ -81,6 +81,16 @@ settings: {
   }
 };
 
+var testBarchartJQ = {
+  type: barchartJQ.type,
+  settings: {tittle: barchartJQ.settings.tittle, relativeUrl:  barchartJQ.settings.relativeUrl + '-test'}
+};
+
+var testBarchartNg = {
+  type: barchartNg.type,
+  settings: {tittle: barchartNg.settings.tittle, relativeUrl:  barchartNg.settings.relativeUrl + '-test'}
+};
+
 var model = {
   baseWidgets: {
     widgets: [simpleText, clock, graph],
@@ -90,7 +100,7 @@ var model = {
     widgets: [csschart, pieNg, barchartJQ, barchartNg, barchartReact, linechart, linechartNg]
   },
   performanceWidgets: {
-    widgets: [barchartJQ, barchartNg, barchartReact]
+    widgets: [testBarchartJQ, testBarchartNg]
   },
 
   barchartJQ: {
@@ -104,9 +114,5 @@ var model = {
   }
 
 };
-
-model.performanceWidgets.widgets[0].settings.relativeUrl = model.performanceWidgets.widgets[0].settings.relativeUrl + '-test';
-model.performanceWidgets.widgets[1].settings.relativeUrl = model.performanceWidgets.widgets[0].settings.relativeUrl + '-test';
-model.performanceWidgets.widgets[2].settings.relativeUrl = model.performanceWidgets.widgets[0].settings.relativeUrl + '-test';
 
 dashboardApp.value('dModel', model);

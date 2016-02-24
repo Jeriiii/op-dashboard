@@ -16,14 +16,14 @@ dashboardApp.directive('barchartNg', ['JsonGraphRes', function(JsonGraphRes) {
         scope.opts = opts;
       };
 
-      var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
-      var graphData = JsonGraphRes.send(relativeUrl).get();
-
-      graphData.$promise.then(addChart);
+      //var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
+      //var graphData = JsonGraphRes.send(relativeUrl).get();
+      //
+      //graphData.$promise.then(addChart);
 
       attrs.$observe('relativeUrl', function (newRelativeUrl) {
-        relativeUrl = newRelativeUrl;
-        graphData = JsonGraphRes.send(relativeUrl).get();
+        var relativeUrl = newRelativeUrl;
+        var graphData = JsonGraphRes.send(relativeUrl).get();
         graphData.$promise.then(addChart);
       });
     },
