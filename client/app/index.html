@@ -97,7 +97,7 @@
   <script src="dashboard/directives/dashboardRoot.js"></script>
 
   <!-- Připojení widgetů -->
-  <script src="dashboard/widgets/graph/directive.js"></script>
+  <script src="dashboard/widgets/hightChart/directive.js"></script>
   <script src="dashboard/widgets/simpleText/directive.js"></script>
   <script src="dashboard/widgets/clock/directive.js"></script>
   <script src="dashboard/widgets/linechart/directive.js"></script>
@@ -147,5 +147,12 @@
 
   <!-- bootstrap -->
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script> <!--Zapne bootstrap tooltip pro vybrané prvky-->
+    jQuery(function($) {
+      $(document).tooltip({
+        selector: '[data-toggle="tooltip"]'
+      });
+    });
+  </script>
 </body>
 </html>

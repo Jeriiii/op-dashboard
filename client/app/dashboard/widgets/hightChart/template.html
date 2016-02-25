@@ -1,0 +1,28 @@
+<div class="hightchart">
+    <div class="span12">
+        <div class="top-menu">
+            <input class="form-control pull-left" ng-model="chartConfig.title.text">
+            <button type="button" class="btn btn-primary pull-right" ng-click="swapChartType()"
+                data-toggle="tooltip" data-placement="top" title="Přepíná mezi zobrazením sloupcového / spojnicového grafu">
+            Spojnicový / sloupcový graf</button>
+            <div class="clearfix"></div>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default" ng-click="addSeries()"
+                                            data-toggle="tooltip" data-placement="top" title="Vygeneruje novou řadu a přidá ji do grafu">
+            Přidat řadu</button>
+
+            <button type="button" class="btn btn-default" ng-click="addPoints()"
+                    data-toggle="tooltip" data-placement="top" title="Přidá body náhodné sérii">
+                Přidat body</button>
+
+            <button type="button" class="btn btn-default" ng-click="removeRandomSeries()"
+                    data-toggle="tooltip" data-placement="top" title="Odstraní náhodnou řadu">
+                Odstranit řadu</button>
+        </div>
+
+    </div>
+    <div class="row">
+        <highchart id="chart1" config="chartConfig" class="span10"></highchart>
+    </div>
+</div>

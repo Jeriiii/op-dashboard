@@ -19,7 +19,7 @@ var clock = {
 var graph = {
   type: 'graph',
   settings: {
-    tittle: 'Jednoduchý graf 2',
+    tittle: 'Hightchart',
     relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=hightchart'
   }
 };

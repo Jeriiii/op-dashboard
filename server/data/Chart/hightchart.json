@@ -1,5 +1,8 @@
-[
-  ["ideas1", 1],
-  ["ideas2", 8],
-  ["ideas3", 5]
-]
+{
+  "serieName": "Testovací serie",
+  "data": [
+    {"name": "ideas1", "data": 1},
+    {"name": "ideas2", "data": 8},
+    {"name": "ideas3", "data": 5}
+  ]
+}
