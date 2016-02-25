@@ -137,7 +137,7 @@ var linechartWarper = function($scope, elem, options) {
 }
 
 /** link fce této direktivy */
-var linechartNgLink = function($scope, elem, attrs, JsonGraphRes) {
+var linechartNgLink = function($scope, elem, attrs, JsonChartResource) {
     var lineChartId = 'linechart-ang-widget-demo';
 
     /* funkce co smaže widget. V této fci se ještě dá udělat ošetření smazání, či vyhodit modal okno */
@@ -156,20 +156,20 @@ var linechartNgLink = function($scope, elem, attrs, JsonGraphRes) {
     };
 
     var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
-    var graphData = JsonGraphRes.send(relativeUrl).get();
+    var graphData = JsonChartResource.send(relativeUrl).get();
 
     graphData.$promise.then(addWarper);
 };
 
 // Prázdný widget
-dashboardApp.directive('linechartNg', ['JsonGraphRes', function(JsonGraphRes) {
+dashboardApp.directive('linechartNg', ['JsonChartResource', function(JsonChartResource) {
   return {
     restrict: 'E',
     //replace: true,
     scope: {
     },
     link: function($scope, elem, attrs) {
-      return linechartNgLink($scope, elem, attrs, JsonGraphRes);
+      return linechartNgLink($scope, elem, attrs, JsonChartResource);
     },
     templateUrl: 'dashboard/widgets/linechartNg/templates/linechartNg.html',
     transclude: true

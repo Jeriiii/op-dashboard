@@ -1,5 +1,5 @@
 // Sloupcový graf
-dashboardApp.directive('barchartNg', ['JsonGraphRes', function(JsonGraphRes) {
+dashboardApp.directive('barchartNg', ['JsonChartResource', function(JsonChartResource) {
   return {
     restrict: 'E',
     replace: true,
@@ -17,13 +17,13 @@ dashboardApp.directive('barchartNg', ['JsonGraphRes', function(JsonGraphRes) {
       };
 
       //var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
-      //var graphData = JsonGraphRes.send(relativeUrl).get();
+      //var graphData = JsonChartResource.send(relativeUrl).get();
       //
       //graphData.$promise.then(addChart);
 
       attrs.$observe('relativeUrl', function (newRelativeUrl) {
         var relativeUrl = newRelativeUrl;
-        var graphData = JsonGraphRes.send(relativeUrl).get();
+        var graphData = JsonChartResource.send(relativeUrl).get();
         graphData.$promise.then(addChart);
       });
     },

@@ -1,6 +1,6 @@
 // Sloupcový graf React
 
-var barchartReact = function(reactDirective, JsonGraphRes) {
+var barchartReact = function(reactDirective, JsonChartResource) {
   var reactDir = reactDirective('BarchartReact', ['opts']);
 
   var link = reactDir.link;
@@ -15,13 +15,13 @@ var barchartReact = function(reactDirective, JsonGraphRes) {
     };
 
     var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
-    var graphData = JsonGraphRes.send(relativeUrl).get();
+    var graphData = JsonChartResource.send(relativeUrl).get();
 
     graphData.$promise.then(addChart);
   }
 
   return reactDir;
 };
-barchartReact.$inject = ['reactDirective', 'JsonGraphRes'];
+barchartReact.$inject = ['reactDirective', 'JsonChartResource'];
 
 dashboardApp.directive('barchartReact', barchartReact);

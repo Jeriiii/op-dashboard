@@ -23,7 +23,7 @@ var pieChartNg =  function(scope, pieData) {
 	return opts;
 }
 
-dashboardApp.directive('pieNg', ['JsonGraphRes', function(JsonGraphRes) {
+dashboardApp.directive('pieNg', ['JsonChartResource', function(JsonChartResource) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -38,7 +38,7 @@ dashboardApp.directive('pieNg', ['JsonGraphRes', function(JsonGraphRes) {
 			};
 
 			var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
-			var graphData = JsonGraphRes.send(relativeUrl).get();
+			var graphData = JsonChartResource.send(relativeUrl).get();
 
 			graphData.$promise.then(addChart);
 		},

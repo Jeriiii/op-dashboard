@@ -74,7 +74,7 @@ var linechartCanvas = function($scope, elem, options) {
 };
 
 /** link fce této direktivy */
-var linechartLink = function($scope, elem, attrs, JsonGraphRes) {
+var linechartLink = function($scope, elem, attrs, JsonChartResource) {
   var lineChartId = 'linechart-ang-widget-demo';
   $scope.lineChartId = lineChartId;
 
@@ -87,21 +87,21 @@ var linechartLink = function($scope, elem, attrs, JsonGraphRes) {
   };
 
   var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
-  var graphData = JsonGraphRes.send(relativeUrl).get();
+  var graphData = JsonChartResource.send(relativeUrl).get();
 
   graphData.$promise.then(addChart);
 
 }
 
 // Příklad grafu pluginu highchart, který se dá vložit do vydgetu
-dashboardApp.directive('linechartNgCanvas', ['JsonGraphRes', function(JsonGraphRes) {
+dashboardApp.directive('linechartNgCanvas', ['JsonChartResource', function(JsonChartResource) {
   return {
     restrict: 'A',
     // replace: true,
     scope: {
     },
     link: function($scope, elem, attrs) {
-      return linechartLink($scope, elem, attrs, JsonGraphRes);
+      return linechartLink($scope, elem, attrs, JsonChartResource);
     },
     transclude: true,
     // templateUrl: 'dashboard/widgets/linechartAng/template.html'

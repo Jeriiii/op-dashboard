@@ -1,5 +1,5 @@
 // Příklad grafu pluginu highchart, který se dá vložit do vydgetu
-dashboardApp.directive('barsChJq', ['JsonGraphRes', function(JsonGraphRes) {
+dashboardApp.directive('barsChJq', ['JsonChartResource', function(JsonChartResource) {
   return {
     restrict: 'E',
     replace: true,

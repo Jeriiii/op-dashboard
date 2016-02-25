@@ -1,5 +1,5 @@
 // Příklad grafu pluginu highchart, který se dá vložit do vydgetu
-dashboardApp.directive('linechart', ['JsonGraphRes', function(JsonGraphRes) {
+dashboardApp.directive('linechart', ['JsonChartResource', function(JsonChartResource) {
   return {
     restrict: 'E',
     replace: true,
@@ -15,7 +15,7 @@ dashboardApp.directive('linechart', ['JsonGraphRes', function(JsonGraphRes) {
       };
 
       var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
-      var graphData = JsonGraphRes.send(relativeUrl).get();
+      var graphData = JsonChartResource.send(relativeUrl).get();
 
       graphData.$promise.then(addChart);
     },

@@ -105,7 +105,7 @@ var createPieChartNg = function(scope, elem, opts) {
 	drawArcs(opts.data);
 };
 
-dashboardApp.directive('pieChartNg', ['JsonGraphRes', 'createSVGNode', function(JsonGraphRes, createSVGNode) {
+dashboardApp.directive('pieChartNg', ['JsonChartResource', 'createSVGNode', function(JsonChartResource, createSVGNode) {
   return {
 	restrict: 'E',
 	replace: true,

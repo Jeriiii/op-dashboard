@@ -1,6 +1,6 @@
 var services = angular.module('dashboardServices', ['ngResource']);
 
-services.factory('GraphRes', ['$resource',
+services.factory('ChartResource', ['$resource',
   function($resource){
     return {
       send:function (relativeUrl) {
@@ -13,7 +13,7 @@ services.factory('GraphRes', ['$resource',
   }
 ]);
 
-services.factory('JsonGraphRes', ['$resource',
+services.factory('JsonChartResource', ['$resource',
   function($resource){
     return {
       send:function (relativeUrl, isArray) {
