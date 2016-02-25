@@ -2,8 +2,8 @@
 var simpleText = {
   type: 'simpleText',
   settings: {
-    tittle: 'Jednoduchý widget 1',
-      text: 'Toto je opravdu jednoduchý dashboard 1 jen s textem <b>ahoj</b>',
+    tittle: 'Informační widget',
+      text: 'Toto je opravdu jednoduchý informační widget s <b>vypnutým</b> escapováním. <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/AngularJS_logo.svg/2000px-AngularJS_logo.svg.png" width="300px">',
       escapeHtml: false
   }
 };
