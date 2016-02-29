@@ -1,11 +1,9 @@
- {"piechart": [
-   	{"val": 113, "tittle": "Tohle je titulek 113"},
-   	{"val": 100, "tittle": "Tohle je titulek 100"},
-   	{"val": 50, "tittle": "Tohle je titulek 50"},
-   	{"val": 28, "tittle": "Tohle je titulek 28"},
-   	{"val": 27, "tittle": "Tohle je titulek 27"},
-   	{"val": 27, "tittle": "Tohle je titulek 27"},
-   	{"val": 27, "tittle": "Tohle je titulek 27"},
-   	{"val": 27, "tittle": "Tohle je titulek 27"}
-   ]
+{"piechart": [
+	{"val": 2643, "tittle": "15 - 19 let"},
+	{"val": 22165, "tittle": "20 - 24 let"},
+	{"val": 5118, "tittle": "25 - 29 let"},
+	{"val": 785, "tittle": "30 - 34 let"},
+	{"val": 510, "tittle": "35 - 39 let"},
+	{"val": 572, "tittle": "40 let a starší"}
+  ]
 }
