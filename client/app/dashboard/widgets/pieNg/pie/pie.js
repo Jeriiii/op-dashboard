@@ -1,8 +1,8 @@
 var pieChartNg =  function(scope, pieData) {
 	var opts = {};
 	opts.data = pieData;
-	opts.pieRadius = 180;
-	opts.pieColors = ["#468966", "#FFF0A5", "#FFB03B", "#B64926", "#8E2800"];
+	opts.pieRadius = 140;
+	opts.pieColors = ["#468966", "#FFF0A5", "#FFB03B", "#B64926", "#8E2800", '#F49AC2', '#CB99C9', '#C23B22', '#DEA5A4'];
 
 	scope.opts = opts;
 

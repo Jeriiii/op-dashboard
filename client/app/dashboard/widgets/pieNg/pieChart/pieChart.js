@@ -1,16 +1,3 @@
-// Příklad grafu pluginu highchart, který se dá vložit do vydgetu
-dashboardApp.value('createSVGNode', function(name, element, settings) {
-	var namespace = 'http://www.w3.org/2000/svg';
-	var node = document.createElementNS(namespace, name);
-	for (var attribute in settings) {
-		var value = settings[attribute];
-		if (value !== null && !attribute.match(/\$/) && (typeof value !== 'string' || value !== '')) {
-			node.setAttribute(attribute, value);
-		}
-	}
-	return node;
-});
-
 /**
  * Dopočítá souřadnice jednotlivých výsečí a nakreslí graf.
  * @param {scope} scope Scope.
@@ -27,6 +14,10 @@ var createPieChartNg = function(scope, elem, opts) {
 		var paths = [];
 		var id = 1;
 		var pieSize = opts.pieRadius;
+		var piePadding = 10; //volné místo nad a pod grafem
+		var m = pieSize + piePadding; //souřadnice poč. bodu
+		scope.pieSize = pieSize;
+		scope.piePadding = piePadding;
 
 		for(var i=0; i <pieData.length; i++){
 			var item = pieData[i];
@@ -34,13 +25,14 @@ var createPieChartNg = function(scope, elem, opts) {
 			startAngle = endAngle;
 			endAngle = startAngle + item.angle;
 
-			x1 = parseInt(200 + pieSize*Math.cos(Math.PI*startAngle/180));
-			y1 = parseInt(200 + pieSize*Math.sin(Math.PI*startAngle/180));
+			x1 = parseInt(m + pieSize*Math.cos(Math.PI*startAngle/180));
+			y1 = parseInt(m + pieSize*Math.sin(Math.PI*startAngle/180));
 
-			x2 = parseInt(200 + pieSize*Math.cos(Math.PI*endAngle/180));
-			y2 = parseInt(200 + pieSize*Math.sin(Math.PI*endAngle/180));
+			x2 = parseInt(m + pieSize*Math.cos(Math.PI*endAngle/180));
+			y2 = parseInt(m + pieSize*Math.sin(Math.PI*endAngle/180));
 
-			var d = "M200,200  L" + x1 + "," + y1 + "  A" + pieSize + "," + pieSize + " 0 0,1 " + x2 + "," + y2 + " z";
+			var largeArch = ((endAngle-startAngle > 180) ? 1 : 0);
+			var d = "M" + m + "," + m + "  L" + x1 + "," + y1 + "  A" + pieSize + "," + pieSize + " 0 " + largeArch + ",1 " + x2 + "," + y2 + " z";
 
 			var colorI = i;
 			if(colorI >= colorArr.length) {
@@ -53,7 +45,7 @@ var createPieChartNg = function(scope, elem, opts) {
 			pathContainer.d = d;
 			pathContainer.color = colorArr[colorI];
 			pathContainer.strokeWidth = 0;
-			pathContainer.tittle = item.tittle;
+			pathContainer.tittle = item.tittle + ': ' + item.val;
 
 			paths.push(pathContainer);
 		};
@@ -105,7 +97,7 @@ var createPieChartNg = function(scope, elem, opts) {
 	drawArcs(opts.data);
 };
 
-dashboardApp.directive('pieChartNg', ['JsonChartResource', 'createSVGNode', function(JsonChartResource, createSVGNode) {
+dashboardApp.directive('pieChartNg', ['JsonChartResource', function(JsonChartResource) {
   return {
 	restrict: 'E',
 	replace: true,

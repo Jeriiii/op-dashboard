@@ -36,7 +36,7 @@ var csschart = {
 var pieNg = {
   type: 'pieNg',
   settings: {
-    tittle: 'Pie chart Ng',
+    tittle: 'Věk studentů magisterského studia v roce 2015',
     relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=pie'
   }
 };
