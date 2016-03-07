@@ -16,8 +16,12 @@ var createPieChartNg = function(scope, elem, opts) {
 		var pieSize = opts.pieRadius;
 		var piePadding = 10; //volné místo nad a pod grafem
 		var m = pieSize + piePadding; //souřadnice poč. bodu
-		scope.pieSize = pieSize;
-		scope.piePadding = piePadding;
+
+		var pieHeight = 2 * (pieSize + piePadding);
+		var pieWidth = 2 * (pieSize + piePadding);
+
+		scope.pieHeight = pieHeight;
+		scope.pieWidth = pieWidth;
 
 		for(var i=0; i <pieData.length; i++){
 			var item = pieData[i];

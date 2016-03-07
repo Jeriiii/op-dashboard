@@ -1,4 +1,4 @@
-<svg width="{{2 * (pieSize +piePadding)}}" height="{{2 * (pieSize + piePadding)}}" >
+<svg ng-attr-width="{{pieWidth}}" ng-attr-height="{{pieHeight}}">
   <path ng-repeat="path in paths"
         ng-attr-d="{{path.d}}" fill="{{path.color}}" stroke="{{path.color}}" stroke-width="{{path.strokeWidth}}" ng-style="{{path.style}}"
         ng-mouseenter="mEnter(path)" ng-mouseleave="mLeave(path)" ng-mousemove="mMove($event, path)"
