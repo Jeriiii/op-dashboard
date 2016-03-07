@@ -1,5 +1,9 @@
 {
-	"bars": [[7,3,1,5],[4,6,7,8],[1,4,5,2],[2,2,2,4]],
+	"bars": [
+	  [{"data":11, "name": "přihláš."},{"data":15, "name": "přijat."},{"data":25, "name": "zapsa."}],
+	  [{"data":33, "name": "přihláš."},{"data":66, "name": "přijat."},{"data":55, "name": "zapsa."}],
+	  [{"data":12, "name": "přihláš."},{"data":40, "name": "přijat."},{"data":20, "name": "zapsa."}]
+	],
 	"unit":"k",
 	"grid":"1"
 }

@@ -22,8 +22,8 @@ var correctOptsValReact = function (opts) {
     for (j = 0; j < arr[i].length; j++) {
       countBars++;
       barsInGroup++;
-      if (maxVal < arr[i][j]) {
-        maxVal = arr[i][j];
+      if (maxVal < arr[i][j].data) {
+        maxVal = arr[i][j].data;
       }
     }
 

@@ -44,7 +44,7 @@ var pieNg = {
 var barchartJQ = {
   type: 'barchartJQ',
   settings: {
-    tittle: 'Bar chart JQ',
+    tittle: 'Přehled o přijimacím řízení 2013 / 2014 / 2015 JQ',
     relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=barchart'
   }
 };
@@ -52,7 +52,7 @@ var barchartJQ = {
 var barchartNg = {
   type: 'barchartNg',
   settings: {
-    tittle: 'Bar chart ng',
+    tittle: 'Přehled o přijimacím řízení 2013 / 2014 / 2015 Ng',
     relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=barchart'
     }
 };
@@ -60,7 +60,7 @@ var barchartNg = {
 var barchartReact = {
   type: 'barchartReact',
   settings: {
-    tittle: 'Bar chart React',
+    tittle: 'Přehled o přijimacím řízení 2013 / 2014 / 2015 React',
     relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=barchart'
     }
 };

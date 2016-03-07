@@ -40,10 +40,10 @@ var createBarNg = function(opts, bars) {
   if(!unit) unit = "%";
 
   return function(val, index) {
-    var percent = (val/max) * 100;
+    var percent = (val.data/max) * 100;
 
     var li = createBarElementNg(percent, barWidth, opts.chartHeight);
-    li.title = val + unit;
+    li.title = val.name + ' ' + val.data + unit;
 
     bars.push(li);
   }
@@ -74,8 +74,8 @@ var createGroupsBarsNg = function(scope, barsData, opts, node) {
 
   /* Vypočítá univerzální šířky skupin */
   var gWrapperWidth = opts.parentWidth / (opts.countGroups); //šířka kterou může zabrat jedna skupina sloupců
-  var gWidth = gWrapperWidth / 3 * 2;
-  var gMargin = gWrapperWidth / 3 * 1;
+  var gWidth = gWrapperWidth / 3 * 2; // 2/3
+  var gMargin = gWrapperWidth / 3 * 1;// 1/3
   opts.barWidth = gWidth / opts.maxBarsInGroup;
 
   var groups = [];
@@ -109,7 +109,11 @@ var testPerformanceNg = function(scope, $timeout, $node, opts) {
 
       /* test změny pouze tří hodnot za jiné hodnoty */
       timeAll = timeAll +  measuringTimeTester(function() {
-        var barsTest1 = [[3,2,7,9],[4,7,2,5],[8,3,5,2],[4,2,2,4]];
+        var barsTest1 = [
+          [{"data":11, "name": "přihláš."},{"data":94, "name": "přijat."},{"data":88, "name": "zapsa."}],
+          [{"data":121, "name": "přihláš."},{"data":7, "name": "přijat."},{"data":79, "name": "zapsa."}],
+          [{"data":113, "name": "přihláš."},{"data":80, "name": "přijat."},{"data":55, "name": "zapsa."}]
+        ];
         createGroupsBarsNg(scope, barsTest1, opts, $node);
         scope.$apply();
       }, 'změny pouze tří hodnot za jiné hodnoty');
@@ -118,7 +122,11 @@ var testPerformanceNg = function(scope, $timeout, $node, opts) {
       /* test odstranění některých sloupců, zbytek ponechán beze změny */
 
       timeAll = timeAll +  measuringTimeTester(function() {
-          var barsTest2 = [[4,2,],[4,5,2,1],[8,3],[4,2,2,4]];
+          var barsTest2 = [
+            [{"data":11, "name": "přihláš."},{"data":88, "name": "zapsa."}],
+            [{"data":121, "name": "přihláš."},{"data":7, "name": "přijat."}],
+            [{"data":113, "name": "přihláš."},{"data":80, "name": "přijat."},{"data":55, "name": "zapsa."}]
+          ];
           createGroupsBarsNg(scope, barsTest2, opts, $node);
           scope.$apply();
       }, 'odstranění některých sloupců, zbytek ponechán beze změny');
@@ -126,7 +134,11 @@ var testPerformanceNg = function(scope, $timeout, $node, opts) {
       /*****************************************************************/
       /* test vykreslení úplně jiné řady */
       timeAll = timeAll +  measuringTimeTester(function() {
-        var barsTest3 = [[4,2,],[4,5,2,1],[8,3],[4,2,2,4]];
+        var barsTest3 = [
+          [{"data":11, "name": "přihláš."},{"data":15, "name": "přijat."},{"data":25, "name": "zapsa."}],
+          [{"data":33, "name": "přihláš."},{"data":66, "name": "přijat."},{"data":55, "name": "zapsa."}],
+          [{"data":12, "name": "přihláš."},{"data":40, "name": "přijat."},{"data":20, "name": "zapsa."}]
+        ];
         createGroupsBarsNg(scope, barsTest3, opts, $node);
         scope.$apply();
       }, 'vykreslení úplně jiné řady');

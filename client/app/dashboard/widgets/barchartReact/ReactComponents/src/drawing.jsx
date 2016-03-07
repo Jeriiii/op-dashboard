@@ -40,10 +40,10 @@ var createBarReact = function(opts, bars) {
   if(!unit) unit = "%";
 
   return function(val, index) {
-    var percent = (val/max) * 100;
+    var percent = (val.data/max) * 100;
 
     var li = createBarElementReact(percent, barWidth, opts.chartHeight);
-    li.title = val + unit;
+    li.title = val.name + ' ' + val.data + unit;
     li.id = index;
 
     bars.push(li);
