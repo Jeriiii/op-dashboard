@@ -39,7 +39,7 @@ var getOptions = function(o) {
       dotsHover: function(dot){},             // dots hover function
       dotsClick: function(dot){},             // dots click function
       dotsColor: '#333333',                   // dots color
-      dotsWidth: 2,                           // dots width (radius)
+      dotsWidth: 3,                           // dots width (radius)
       linesColors: [['#CC3333'],['#3333CC']], // lines colors
       linesWidth: 2,                          // lines width
       tooltipMarginX: 15,                     // tooltip horizontal margin from cursor
@@ -55,6 +55,7 @@ var getOptions = function(o) {
 var linechartCanvas = function($scope, elem, options) {
     var o = getOptions(options);
 
+    o.mmXY = maxXYFn(o.data);
     o.graph = {"width": elem.parent().width(), "height": elem.parent().height()};
 
     // Canvas size iso container
@@ -65,10 +66,8 @@ var linechartCanvas = function($scope, elem, options) {
     var c = canvasInit(graph, o);
     drawAxises(c, o);
 
-    var maxXY = maxXYFn(o.data);
-
-    drawAxisesValue(c, o, maxXY);
-    drawLines(c, o, maxXY);
+    drawAxisesValue(c, o);
+    drawLines(c, o);
 
     return graph;
 };

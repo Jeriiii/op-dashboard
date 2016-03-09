@@ -1,26 +1,34 @@
 /********************** funkce pro kreslení v canvasu  a práci se souřadnicemi**************************/
 
 /**
- * Vrátí maximální hodnotu Xové a Yové souřadnice.
+ * Vrátí minimální a maximální hodnotu Xové a Yové souřadnice.
  */
 var maxXYFn = function(data) {
-  // Return the max values in our data list
-  var maxX = 0;
-  var maxY = 0;
-  for (j=0;j<data.length;j++)
-  {
-      for (i=0;i<data[j].length; i++)
-      {
+    var maxX = 0;
+    var maxY = 0;
+
+    var minX = data[0][0].X;
+    var minY = data[0][0].Y;
+
+    for (j=0;j<data.length;j++)
+    {
+        for (i=0;i<data[j].length; i++)
+        {
           if (data[j][i].X > maxX) maxX = data[j][i].X;
           if (data[j][i].Y > maxY) maxY = data[j][i].Y;
-      }
-      maxY += 10 - maxY % 10;
-  }
 
-  return {
-    'X': maxX,
-    'Y': maxY,
-  };
+          if (data[j][i].X < minX) minX = data[j][i].X;
+          if (data[j][i].Y < minY) minY = data[j][i].Y;
+        }
+        maxY += 10 - maxY % 10;
+    }
+
+    return {
+        'maxX': maxX,
+        'maxY': maxY,
+        'minX': minX,
+        'minY': minY,
+    };
 };
 
 /**
@@ -93,16 +101,15 @@ var drawDots = function(c, o, dotsColor) {
  * Nakreslí všechny křivky grafu.
  * @param {Canvas} c Canvas grafu.
  * @param {Object} o Nastavení pluginu.
- * @param {Object} maxXY Maximální hodnotu Xové a Yové souřadnice.
  */
-var drawLines = function(c, o, maxXY) {
+var drawLines = function(c, o) {
   for (j=0;j<o.data.length;j++)
   {
       // Add position properties to the dots
       for (i=0;i<o.data[j].length;i++)
       angular.extend(o.data[j][i],{
-          posX: getPointX(o.data[j][i].X, o, maxXY),
-          posY: getPointY(o.data[j][i].Y, o, maxXY),
+          posX: getPointX(o.data[j][i].X, o),
+          posY: getPointY(o.data[j][i].Y, o),
           rXr: 16
       });
 
@@ -115,39 +122,56 @@ var drawLines = function(c, o, maxXY) {
 }
 
 /**
- * Nakreslí popisky Xových a Yových os.
+ * Nakreslí popisky Xových a Yových .
  * @param {Canvas} c Canvas grafu.
  * @param {Object} o Nastavení pluginu.
- * @param {Object} maxXY Maximální hodnotu Xové a Yové popisku (hodnoty na ose).
  */
-var drawAxisesValue = function(c, o, maxXY) {
-  // Draw the X value texts
-  for (i=0;i<=maxXY.X;i++)
-      c.fillText(i, getPointX(i, o, maxXY), o.graph.height - o.gridPaddingY + 20);
+var drawAxisesValue = function(c, o) {
+    var mmXY = o.mmXY;
 
-  // Draw the Y value texts
-  for (i=0;i<maxXY.Y;i+= 10)
-      c.fillText(i, o.gridPaddingX - 10, getPointY(i, o, maxXY));
+    /* Nakreslí popisky Xových os*/
+    for (i= mmXY.minX;i<=mmXY.maxX;i++)
+        c.fillText(i, getPointX(i, o), o.graph.height - o.gridPaddingY + 20);
+
+    /* Nakreslí popisky Yových os*/
+    for (j=mmXY.minY;j<mmXY.maxY;j+= 10)
+        c.fillText(j, o.gridPaddingX - 10, getPointY(j, o));
+
 }
 
 /**
  * Vrátí X souřadnici bodu v grafu.
  * @param {Number} val Xová souřadnice.
  * @param {Object} o Nastavení pluginu.
- * @param {Object} maxXY Maximální souřednice X a Y pro tuto křivku
+ * @param {Object}  mmXY Minimální a maximální souřednice X a Y pro tuto křivku
  * @return {Number} Xová souřadnice bodu v grafu v pixelech.
  */
-var getPointX = function(val, o, maxXY){
-  return (((o.graph.width - o.gridPaddingX) / (maxXY.X + 1)) * val + (o.gridPaddingX * 1.5));
+var getPointX = function(val, o){
+    var mmXY = o.mmXY; //Minimální a maximální souřednice X a Y pro tuto křivku
+
+    var graphWidth = o.graph.width - o.gridPaddingX;
+    var maxValue = mmXY.maxX - mmXY.minX + 1;
+    var val = val - mmXY.minX; //korekce hodnoty, aby nezačínala od nuly ale od nejnižší zadané hodnoty = 0
+
+    var pointX = ((graphWidth / maxValue) * val + (o.gridPaddingX * 1.5));
+
+    return pointX;
 };
 
 /**
  * Vrátí Y souřadnici bodu v grafu.
  * @param {Number} val Xová souřadnice.
  * @param {Object} o Nastavení pluginu.
- * @param {Object} maxXY Maximální souřednice X a Y pro tuto křivku
  * @return {Number} Yová souřadnice bodu v grafu v pixelech.
  */
-var getPointY = function(val, o, maxXY){
-  return (o.graph.height - (((o.graph.height - o.gridPaddingY) / maxXY.Y) * val) - o.gridPaddingY);
+var getPointY = function(val, o){
+    var mmXY = o.mmXY; //Minimální a maximální souřednice X a Y pro tuto křivku
+
+    var graphHeight = o.graph.height - o.gridPaddingY;
+    var maxValue = mmXY.maxY - mmXY.minY; //když nastavím mmXY.minY = 0, bude graf začínat od nuly
+    var val = val - mmXY.minY; //korekce hodnoty, aby nezačínala od nuly ale od nejnižší zadané hodnoty = 0
+
+    var pointY = (graphHeight - ((graphHeight / maxValue) * val));
+
+    return pointY;
 };
