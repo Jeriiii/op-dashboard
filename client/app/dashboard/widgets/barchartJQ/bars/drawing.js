@@ -11,7 +11,7 @@
   */
 var createBarElement = function (li, title, percent, barWrapperWidth) {
   li.find("span").attr("title", title);
-  // if(!barWidth){
+
   var barWidth = barWrapperWidth / 5 * 3; // 3/4 prostoru pro sloupec bude jeho sirka
   var barMargin = barWrapperWidth / 5 * 2; // 1/4 prostoru pro sloupec bude jeho okraj
   li.find("span").attr(
@@ -119,7 +119,6 @@ var testPerformance = function($node, opts) {
     console.log("Začíná test výkonnosti jQuery.");
     console.log("*****************");
     var timeAll = 0;
-    var start; var time;
 
     /* test změny pouze tří hodnot za jiné hodnoty */
     timeAll = timeAll +  measuringTimeTester(function() {
@@ -161,6 +160,27 @@ var testPerformance = function($node, opts) {
     console.log("Končí test výkonnosti jQuery v čase " + timeAll + " ms");
   },
   opts.performanceStart.jquery);
+};
+
+/**
+ * Pomocná metoda, která provede záznam času před spuštěním a po spuštění. Časy vypíše a spustí callback.
+ * @param callback Callback, jehož časy se mají měřit.
+ * @param testMessage Zpráva, která se má před spuštěním vypsat.
+ * @returns {time} Doba trvání testu.
+ */
+var measuringTimeTester = function(callback, testMessage) {
+  var time; var start;
+
+  console.log("Začíná test " + testMessage + ".");
+  start = new Date().getTime();
+
+  callback();
+
+  time = new Date().getTime() - start;
+  console.log("Doba trvání " + time + " ms");
+  console.log("-----------------");
+
+  return time;
 };
 
 /**

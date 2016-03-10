@@ -31,7 +31,6 @@ var Bars = React.createClass({
         );
       });
 
-      var styles = group.style;
       return (
         <ul style={group.style} key={group.id}>
           {bars}
@@ -83,10 +82,3 @@ var BarchartReact = React.createClass({displayName: "BarchartReactClass",
   }
 })
 dashboardApp.value('BarchartReact', BarchartReact);
-
-//var props = {
-//  "bars": [[4,2,7,9],[4,5,2,1],[8,3,5,2],[4,2,2,4]],
-//  "unit":"k",
-//  "grid":"1"
-//};
-//ReactDOM.render(React.createElement(BarchartReact, props));

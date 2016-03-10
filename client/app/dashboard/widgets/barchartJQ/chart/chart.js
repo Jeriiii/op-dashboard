@@ -1,4 +1,4 @@
-// Sloupcový graf
+// Hlavní direktive sloupcového grafu v jQuery
 dashboardApp.directive('barchartJq', ['JsonChartResource', function(JsonChartResource) {
   return {
     restrict: 'E',
@@ -6,7 +6,7 @@ dashboardApp.directive('barchartJq', ['JsonChartResource', function(JsonChartRes
     scope: {
     },
     link: function(scope, elem, attrs) {
-      /* po http požadavku přidá graf */
+      /* po http požadavku dojke k přidání grafu */
       var addChart = function(opts) {
         correctOptsVal(opts);
         chartGrid(elem, opts);
@@ -15,13 +15,7 @@ dashboardApp.directive('barchartJq', ['JsonChartResource', function(JsonChartRes
         scope.opts = opts;
       };
 
-      //var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
-      //var graphData = JsonChartResource.send(relativeUrl).get();
-      //
-      //graphData.$promise.then(addChart);
-
       attrs.$observe('relativeUrl', function (newRelativeUrl) {
-        console.log('změna relativeUrl');
         relativeUrl = newRelativeUrl;
         graphData = JsonChartResource.send(relativeUrl).get();
         graphData.$promise.then(addChart);

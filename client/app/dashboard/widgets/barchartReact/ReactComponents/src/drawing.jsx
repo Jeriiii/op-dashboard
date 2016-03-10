@@ -58,8 +58,6 @@ var createBarReact = function(opts, bars) {
  var createBarsReact = function(barsData, opts) {
    var bars = [];
 
-   //angular.forEach(barsData, createBarReact(opts, bars));
-
    barsData.forEach(createBarReact(opts, bars));
 
    return bars;

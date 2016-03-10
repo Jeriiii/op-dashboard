@@ -56,5 +56,4 @@ var chartGridReact = function (opts) {
     }
   }
   return lines;
-  // node.width('100%');
 }

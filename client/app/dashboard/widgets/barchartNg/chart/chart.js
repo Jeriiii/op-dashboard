@@ -1,4 +1,4 @@
-// Sloupcový graf
+// Hlavní direktive sloupcového grafu v angularu
 dashboardApp.directive('barchartNg', ['JsonChartResource', function(JsonChartResource) {
   return {
     restrict: 'E',
@@ -6,7 +6,7 @@ dashboardApp.directive('barchartNg', ['JsonChartResource', function(JsonChartRes
     scope: {
     },
     link: function(scope, elem, attrs) {
-      /* po http požadavku přidá graf */
+      /* po http požadavku dojke k přidání grafu */
       var addChart = function(opts) {
         console.log('Vykreslení grafu');
         correctOptsVal(opts);
@@ -16,18 +16,12 @@ dashboardApp.directive('barchartNg', ['JsonChartResource', function(JsonChartRes
         scope.opts = opts;
       };
 
-      //var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
-      //var graphData = JsonChartResource.send(relativeUrl).get();
-      //
-      //graphData.$promise.then(addChart);
-
       attrs.$observe('relativeUrl', function (newRelativeUrl) {
         var relativeUrl = newRelativeUrl;
         var graphData = JsonChartResource.send(relativeUrl).get();
         graphData.$promise.then(addChart);
       });
     },
-    // transclude: true,
     templateUrl: 'dashboard/widgets/barchartNg/chart/template.html'
   };
 }]);

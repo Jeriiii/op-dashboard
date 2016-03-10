@@ -1,13 +1,12 @@
-// Příklad grafu pluginu highchart, který se dá vložit do vydgetu
+// Direktiva sloužící k vykreslení sloupců v grafu, jedná se o potomek direktivy barsNg
 dashboardApp.directive('barsChNg', ['JsonChartResource', '$timeout', function(JsonChartResource, $timeout) {
   return {
     restrict: 'E',
     replace: true,
     link: function(scope, elem, attrs) {
-      opts = scope.opts;
 
-      scope.$watch('opts', function(opts, oldValue) {
-        /* po http požadavku přidá graf */
+      scope.$watch('opts', function(opts) {
+        /* po http požadavku přidá sloupce do grafu */
         if(opts) {
           createBarChartNg(scope, $timeout, elem, opts);
         }

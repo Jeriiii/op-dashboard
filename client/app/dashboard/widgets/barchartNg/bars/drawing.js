@@ -105,7 +105,6 @@ var testPerformanceNg = function(scope, $timeout, $node, opts) {
       console.log("Začíná test výkonnosti angularu.");
       console.log("*****************");
       var timeAll = 0;
-      var start; var time;
 
       /* test změny pouze tří hodnot za jiné hodnoty */
       timeAll = timeAll +  measuringTimeTester(function() {
@@ -149,6 +148,12 @@ var testPerformanceNg = function(scope, $timeout, $node, opts) {
     opts.performanceStart.angular);
 };
 
+/**
+ * Pomocná metoda, která provede záznam času před spuštěním a po spuštění. Časy vypíše a spustí callback.
+ * @param callback Callback, jehož časy se mají měřit.
+ * @param testMessage Zpráva, která se má před spuštěním vypsat.
+ * @returns {time} Doba trvání testu.
+ */
 var measuringTimeTester = function(callback, testMessage) {
   var time; var start;
 
@@ -162,7 +167,7 @@ var measuringTimeTester = function(callback, testMessage) {
   console.log("-----------------");
 
   return time;
-}
+};
 
 /**
  * Vytvoří sloupcový graf.

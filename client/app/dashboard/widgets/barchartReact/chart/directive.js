@@ -1,5 +1,4 @@
-// Sloupcový graf React
-
+// Hlavní direktiva pro sloupcový graf v Reactu
 var barchartReact = function(reactDirective, JsonChartResource) {
   var reactDir = reactDirective('BarchartReact', ['opts']);
 

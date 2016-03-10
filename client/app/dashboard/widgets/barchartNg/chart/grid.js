@@ -58,5 +58,4 @@ var chartGridNg = function (scope, node, opts) {
   }
 
   scope.lines = lines;
-  // node.width('100%');
 }
