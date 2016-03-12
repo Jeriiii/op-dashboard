@@ -8,12 +8,6 @@
  */
 var showDotTittle = function (o, dotHover, mouseX, mouseY, $scope) {
 	$scope.thtml = dotHover.tip;
-	$scope.tooltip.css = '{"position": "absolute", ' +
-			'"left": "' + (mouseX + o.tooltipMarginX) + '",' +
-			'"top": "' + ( +o.tooltipMarginY) + '",' +
-			'"display": "block",' +
-			'"color": "red"}'
-	;
 
 	var cssLeft = (mouseX + o.tooltipMarginX);
 	var cssTop = (mouseY + o.tooltipMarginY) - 10;
@@ -32,8 +26,9 @@ var showDotTittle = function (o, dotHover, mouseX, mouseY, $scope) {
 		'cursor': 'pointer'
 	};
 
+	$scope.$apply();
+
 	o.dotsHover(dotHover);
-	// console.log($scope.tooltip.html);
 }
 
 /**
@@ -42,7 +37,6 @@ var showDotTittle = function (o, dotHover, mouseX, mouseY, $scope) {
  * @param {scope} $scope
  */
 var hideDotTittle = function (o, $scope) {
-	// console.log(dotHover);
 	$scope.thtml = '';
 	$scope.tcss = {
 		'position': 'static',
@@ -50,6 +44,7 @@ var hideDotTittle = function (o, $scope) {
 		'positionTop': '0',
 		'display': 'none'
 	};
+	$scope.$apply();
 }
 
 /**
@@ -66,6 +61,9 @@ var findHoverDot = function (o, mouseX, mouseY, $scope) {
 				var dx = mouseX - o.data[j][i].posX;
 				var dy = mouseY - o.data[j][i].posY;
 
+				//console.log('prvek X: ' + mouseX + 'souř. X: ' + o.data[j][i].posX);
+				//console.log('prvek Y: ' + mouseY + 'souř. Y: ' + o.data[j][i].posY);
+
 				if (dx * dx + dy * dy < o.data[j][i].rXr)
 					return o.data[j][i];
 
@@ -80,64 +78,50 @@ var findHoverDot = function (o, mouseX, mouseY, $scope) {
  * @param {scope} $scope
  */
 var dotsHover = function (o, wrap, $scope) {
-	// Dots click function
-	var dotClick = false;
-
-	//var wrapOffset = wrap.offset();
-	wrapRect = wrap.offset(); //objekt TextRange, který zajišťuje zjištění relativní pozice k levému a hornímu rohu (asi předka?)
-
-	//var tooltip = $('> div', wrap); //dodělat přes scope
-
-	// Dots hover function
 	wrap.bind("mousemove", function (e) {
-		var dotHover = false;
+		wrapRect = wrap.offset();
 
-		mouseX = parseInt(e.clientX - wrapRect.left);
-		mouseY = parseInt(e.clientY - wrapRect.top);
+		mouseX = parseInt(e.pageX - wrapRect.left);
+		mouseY = parseInt(e.pageY - wrapRect.top);
 
-		dotHover = findHoverDot(o, mouseX, mouseY, $scope);
+		var dotHover = findHoverDot(o, mouseX, mouseY, $scope);
+
 
 		if (dotHover) {
-			dotClick = dotHover;
+			console.log("show hover");
 			showDotTittle(o, dotHover, mouseX, mouseY, $scope);
 		} else {
-			dotClick = false;
 			hideDotTittle(o, $scope);
 		}
 	});
-
-	// graph.click(function(){
-	//     if (dotClick)
-	//         o.dotsClick(dotClick);
-	// });
 }
 
 var linechartWarper = function ($scope, elem, options) {
 	var o = getOptions(options);
 
 	$scope.tooltip = {'html': '', 'css': ''};
+	$scope.thtml = '';
+	$scope.tcss = {};
 	o.graph = {"width": elem.parent().width(), "height": elem.parent().height()};
 
+	/* nastavý souřadnice pro body grafu */
 	for (j = 0; j < o.data.length; j++) {
-		// Add position properties to the dots
-		for (i = 0; i < o.data[j].length; i++)
+		for (i = 0; i < o.data[j].length; i++) {
 			angular.extend(o.data[j][i], {
 				posX: getPointX(o.data[j][i].X, o),
 				posY: getPointY(o.data[j][i].Y, o),
 				rXr: 16
 			});
+			console.log(o.data[j][i].posY);
+		}
 	}
 	;
 
-	// Container init
-	var wrap = elem;
-	dotsHover(o, wrap, $scope);
+	dotsHover(o, elem, $scope);
 }
 
 /** link fce této direktivy */
 var linechartNgLink = function ($scope, elem, attrs, JsonChartResource) {
-	var lineChartId = 'linechart-ang-widget-demo';
-
 	/* funkce co smaže widget. V této fci se ještě dá udělat ošetření smazání, či vyhodit modal okno */
 	var deleteWidget = function () {
 		elem.remove();
@@ -146,9 +130,8 @@ var linechartNgLink = function ($scope, elem, attrs, JsonChartResource) {
 
 	$scope.remove = deleteWidget;
 
-	var addWarper = function (chartData) {
+	var addChart = function (chartData) {
 		linechartWarper($scope, elem, {
-			id: lineChartId,
 			data: chartData.linechart
 		});
 	};
@@ -156,14 +139,13 @@ var linechartNgLink = function ($scope, elem, attrs, JsonChartResource) {
 	var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
 	var graphData = JsonChartResource.send(relativeUrl).get();
 
-	graphData.$promise.then(addWarper);
+	graphData.$promise.then(addChart);
 };
 
 // Prázdný widget
 dashboardApp.directive('linechartNg', ['JsonChartResource', function (JsonChartResource) {
 	return {
 		restrict: 'E',
-		//replace: true,
 		scope: {},
 		link: function ($scope, elem, attrs) {
 			return linechartNgLink($scope, elem, attrs, JsonChartResource);

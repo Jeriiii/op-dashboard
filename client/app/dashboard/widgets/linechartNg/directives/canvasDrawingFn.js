@@ -2,6 +2,8 @@
 
 /**
  * Vrátí minimální a maximální hodnotu Xové a Yové souřadnice.
+ * @param {object} data Data o křivkách v grafu.
+ * @returns {object} Minimální a maximální hodnoty v grafu.
  */
 var maxXYFn = function(data) {
     var maxX = 0;
@@ -23,6 +25,16 @@ var maxXYFn = function(data) {
         maxY += 10 - maxY % 10;
     }
 
+    /* pokud je počátek souřadnic procentuálně hodně daleko od rozdílu */
+    /* minimální a maximální hodnoty, nastaví se na ose poč. v minimální hodnotě grafu */
+    if((2 * (maxX - minX)) > (maxX - 0)) {
+        minX = 0;
+    }
+
+    if((2 * (maxY - minY)) > (maxY - 0)) {
+        minY = 0;
+    }
+
     return {
         'maxX': maxX,
         'maxY': maxY,
@@ -42,7 +54,6 @@ var canvasInit = function(graph, o) {
       c.strokeStyle = o.gridColor;
       c.fillStyle = o.gridFontColor;
       c.font = o.gridFont;
-      //c.textAlign = "center";
       c.textAlign = "right"
       c.textBaseline = "middle";
 
@@ -89,7 +100,7 @@ var drawLine = function(c, o, lineColor) {
  * @param {string} dotsColor Barvy bodů.
  */
 var drawDots = function(c, o, dotsColor) {
-  c.fillStyle = dotsColor;//o.dotsColor;
+  c.fillStyle = dotsColor;
   for (i=0;i<o.data[j].length;i++){
       c.beginPath();
       c.arc(o.data[j][i].posX, o.data[j][i].posY, o.dotsWidth + 0.5, 0, Math.PI * 2, true);
@@ -113,10 +124,7 @@ var drawLines = function(c, o) {
           rXr: 16
       });
 
-      // Draw the line graph
       var lineColor = drawLine(c, o);
-
-      // Draw the dots
       drawDots(c, o, lineColor);
   }
 }
