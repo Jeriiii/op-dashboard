@@ -96,9 +96,7 @@ var dotsHover = function (o, wrap, $scope) {
 	});
 }
 
-var linechartWarper = function ($scope, elem, options) {
-	var o = getOptions(options);
-
+var linechartWarper = function ($scope, elem, o) {
 	$scope.tooltip = {'html': '', 'css': ''};
 	$scope.thtml = '';
 	$scope.tcss = {};
@@ -112,7 +110,6 @@ var linechartWarper = function ($scope, elem, options) {
 				posY: getPointY(o.data[j][i].Y, o),
 				rXr: 16
 			});
-			console.log(o.data[j][i].posY);
 		}
 	}
 	;
@@ -131,9 +128,10 @@ var linechartNgLink = function ($scope, elem, attrs, JsonChartResource) {
 	$scope.remove = deleteWidget;
 
 	var addChart = function (chartData) {
-		linechartWarper($scope, elem, {
-			data: chartData.linechart
-		});
+		var o = getOptions({data: chartData.linechart});
+
+		linechartWarper($scope, elem, o);
+		$scope.opts2 = o;
 	};
 
 	var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
@@ -142,7 +140,6 @@ var linechartNgLink = function ($scope, elem, attrs, JsonChartResource) {
 	graphData.$promise.then(addChart);
 };
 
-// Prázdný widget
 dashboardApp.directive('linechartNg', ['JsonChartResource', function (JsonChartResource) {
 	return {
 		restrict: 'E',
@@ -150,7 +147,6 @@ dashboardApp.directive('linechartNg', ['JsonChartResource', function (JsonChartR
 		link: function ($scope, elem, attrs) {
 			return linechartNgLink($scope, elem, attrs, JsonChartResource);
 		},
-		templateUrl: 'dashboard/widgets/linechartNg/templates/linechartNg.html',
-		transclude: true
+		templateUrl: 'dashboard/widgets/linechartNg/templates/linechartNg.html'
 	};
 }]);
