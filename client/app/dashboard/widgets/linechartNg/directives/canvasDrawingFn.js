@@ -116,14 +116,6 @@ var drawDots = function(c, o, dotsColor) {
 var drawLines = function(c, o) {
   for (j=0;j<o.data.length;j++)
   {
-      // Add position properties to the dots
-      for (i=0;i<o.data[j].length;i++)
-      angular.extend(o.data[j][i],{
-          posX: getPointX(o.data[j][i].X, o),
-          posY: getPointY(o.data[j][i].Y, o),
-          rXr: 16
-      });
-
       var lineColor = drawLine(c, o);
       drawDots(c, o, lineColor);
   }
@@ -139,7 +131,7 @@ var drawAxisesValue = function(c, o) {
 
     /* Nakreslí popisky Xových os*/
     for (i= mmXY.minX;i<=mmXY.maxX;i++)
-        c.fillText(i, getPointX(i, o), o.graph.height - o.gridPaddingY + 20);
+        c.fillText(i, getPointX(i, o) + 10, o.graph.height - o.gridPaddingY + 20);
 
     /* Nakreslí popisky Yových os*/
     for (j=mmXY.minY;j<mmXY.maxY;j+= 10)
@@ -161,7 +153,7 @@ var getPointX = function(val, o){
     var maxValue = mmXY.maxX - mmXY.minX + 1;
     var val = val - mmXY.minX; //korekce hodnoty, aby nezačínala od nuly ale od nejnižší zadané hodnoty = 0
 
-    var pointX = ((graphWidth / maxValue) * val + (o.gridPaddingX * 1.5));
+    var pointX = ((graphWidth / maxValue) * val + (o.gridPaddingX));
 
     return pointX;
 };

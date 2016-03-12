@@ -53,10 +53,9 @@ var linechartCanvas = function ($scope, graph, o) {
  * @param {service} JsonChartResource Služba pro posílání dat
  */
 var linechartLink = function ($scope, graph, attrs) {
-	$scope.$watch('opts2', function (opts) {
+	$scope.$watch('opts', function (opts) {
 		/* po http požadavku přidá křivky do grafu */
 		if (opts) {
-			console.log(opts);
 			linechartCanvas($scope, graph, opts);
 		}
 	});

@@ -4,7 +4,7 @@
  * @param {Object} dotHover Vlastnosti téhoto konkrétního bodu - např. tittle.
  * @param {integner} mouseX Xová souřadnice kurzoru.
  * @param {integner} mouseY Yová souřadnice kurzoru.
- * @param {scope} $scope
+ * @param {scope} $scope Scope direktivy linechartNg
  */
 var showDotTittle = function (o, dotHover, mouseX, mouseY, $scope) {
 	$scope.thtml = dotHover.tip;
@@ -34,7 +34,7 @@ var showDotTittle = function (o, dotHover, mouseX, mouseY, $scope) {
 /**
  * Zobrazí titulek u bodu v grafu.
  * @param {Object} o Nastavení pluginu.
- * @param {scope} $scope
+ * @param {scope} $scope Scope direktivy linechartNg
  */
 var hideDotTittle = function (o, $scope) {
 	$scope.thtml = '';
@@ -52,17 +52,13 @@ var hideDotTittle = function (o, $scope) {
  * @param {Object} o Nastavení pluginu.
  * @param {integner} mouseX Xová souřadnice kurzoru.
  * @param {integner} mouseY Yová souřadnice kurzoru.
- * @param {scope} $scope
  */
-var findHoverDot = function (o, mouseX, mouseY, $scope) {
+var findHoverDot = function (o, mouseX, mouseY) {
 	for (j = 0; j < o.data.length; j++)
 		for (i = 0; i < o.data[j].length; i++) {
 			if (typeof o.data[j][i].tip == 'string' && o.data[j][i].tip != '') {
 				var dx = mouseX - o.data[j][i].posX;
 				var dy = mouseY - o.data[j][i].posY;
-
-				//console.log('prvek X: ' + mouseX + 'souř. X: ' + o.data[j][i].posX);
-				//console.log('prvek Y: ' + mouseY + 'souř. Y: ' + o.data[j][i].posY);
 
 				if (dx * dx + dy * dy < o.data[j][i].rXr)
 					return o.data[j][i];
@@ -75,20 +71,19 @@ var findHoverDot = function (o, mouseX, mouseY, $scope) {
  * Nabinduje na tečky v grafu titulky, které se zobrazí při najetí myší.
  * @param {Object} o Nastavení pluginu.
  * @param {element} wrap Element nad kterým se direktiva spouští.
- * @param {scope} $scope
+ * @param {scope} $scope Scope direktivy linechartNg
  */
 var dotsHover = function (o, wrap, $scope) {
 	wrap.bind("mousemove", function (e) {
-		wrapRect = wrap.offset();
+		var wrapRect = wrap.offset();
 
-		mouseX = parseInt(e.pageX - wrapRect.left);
-		mouseY = parseInt(e.pageY - wrapRect.top);
+		var mouseX = parseInt(e.pageX - wrapRect.left);
+		var mouseY = parseInt(e.pageY - wrapRect.top);
 
-		var dotHover = findHoverDot(o, mouseX, mouseY, $scope);
+		var dotHover = findHoverDot(o, mouseX, mouseY);
 
 
 		if (dotHover) {
-			console.log("show hover");
 			showDotTittle(o, dotHover, mouseX, mouseY, $scope);
 		} else {
 			hideDotTittle(o, $scope);
@@ -96,13 +91,11 @@ var dotsHover = function (o, wrap, $scope) {
 	});
 }
 
-var linechartWarper = function ($scope, elem, o) {
-	$scope.tooltip = {'html': '', 'css': ''};
-	$scope.thtml = '';
-	$scope.tcss = {};
-	o.graph = {"width": elem.parent().width(), "height": elem.parent().height()};
-
-	/* nastavý souřadnice pro body grafu */
+/**
+ * Nastavý souřadnice pro body grafu
+ * @param {Object} o Nastavení pluginu.
+ */
+var setDotsPosition = function(o) {
 	for (j = 0; j < o.data.length; j++) {
 		for (i = 0; i < o.data[j].length; i++) {
 			angular.extend(o.data[j][i], {
@@ -111,13 +104,16 @@ var linechartWarper = function ($scope, elem, o) {
 				rXr: 16
 			});
 		}
-	}
-	;
+	};
+};
 
-	dotsHover(o, elem, $scope);
-}
-
-/** link fce této direktivy */
+/**
+ * Link fce linechartNg direktivy
+ * @param {scope} $scope Scope direktivy linechartNg
+ * @param {element} wrap Element nad kterým se direktiva spouští.
+ * @param {object} attrs Atributy předané direktivě.
+ * @param {service} JsonChartResource Služba na načtení dat ze serveru.
+ */
 var linechartNgLink = function ($scope, elem, attrs, JsonChartResource) {
 	/* funkce co smaže widget. V této fci se ještě dá udělat ošetření smazání, či vyhodit modal okno */
 	var deleteWidget = function () {
@@ -130,8 +126,12 @@ var linechartNgLink = function ($scope, elem, attrs, JsonChartResource) {
 	var addChart = function (chartData) {
 		var o = getOptions({data: chartData.linechart});
 
-		linechartWarper($scope, elem, o);
-		$scope.opts2 = o;
+		o.graph = {"width": elem.parent().width(), "height": elem.parent().height()};
+
+		setDotsPosition(o);
+		dotsHover(o, elem, $scope);
+
+		$scope.opts = o;
 	};
 
 	var relativeUrl = attrs.relativeUrl; //např. 'data/graph1.json'
@@ -140,6 +140,7 @@ var linechartNgLink = function ($scope, elem, attrs, JsonChartResource) {
 	graphData.$promise.then(addChart);
 };
 
+/* Hlavní direktiva grafu */
 dashboardApp.directive('linechartNg', ['JsonChartResource', function (JsonChartResource) {
 	return {
 		restrict: 'E',
