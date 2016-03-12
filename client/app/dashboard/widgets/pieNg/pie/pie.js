@@ -1,3 +1,9 @@
+/**
+ * Vytvoří nastavení grafu z přijatých dat.
+ * @param {$scope} scope Scope direktivy.
+ * @param {object} pieData Data o jednotlivých výsečích grafu přijatá ze serveru.
+ * @returns {{}}
+ */
 var pieChartNg =  function(scope, pieData) {
 	var opts = {};
 	opts.data = pieData;
@@ -23,6 +29,11 @@ var pieChartNg =  function(scope, pieData) {
 	return opts;
 }
 
+/**
+ * Hlavní stupní direktiva vytvářející celý widget
+ * Spouští vykreslení výsečí, ale nabízí i prostor pro rozšíření o
+ * další funkcionalitu např. o vykreslení legendy
+ */
 dashboardApp.directive('pieNg', ['JsonChartResource', function(JsonChartResource) {
 	return {
 		restrict: 'E',

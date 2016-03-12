@@ -101,6 +101,7 @@ var createPieChartNg = function(scope, elem, opts) {
 	drawArcs(opts.data);
 };
 
+/* Tato direktiva se již skutečně stará o vykreslení grafu samotného - tedy vakreslení jednotlivých výsečí */
 dashboardApp.directive('pieChartNg', ['JsonChartResource', function(JsonChartResource) {
   return {
 	restrict: 'E',
