@@ -76,7 +76,7 @@ var linechart = {
 var linechartNg = {
 type: 'linechart-ang',
 settings: {
-  tittle: 'Linechart Angular',
+  tittle: 'Přihlášky na vysoké školy a počty přijatých uchazečů',
   relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=linechart'
   }
 };

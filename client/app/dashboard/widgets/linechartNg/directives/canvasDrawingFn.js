@@ -27,11 +27,12 @@ var maxXYFn = function(data) {
 
     /* pokud je počátek souřadnic procentuálně hodně daleko od rozdílu */
     /* minimální a maximální hodnoty, nastaví se na ose poč. v minimální hodnotě grafu */
-    if((2 * (maxX - minX)) > (maxX - 0)) {
+    var diffConstant = 2; //určuje, kdy se má použít poč. 0 a kdy poč. nejnižší zadaná hodnota
+    if((diffConstant * (maxX - minX)) > (maxX - 0)) {
         minX = 0;
     }
 
-    if((2 * (maxY - minY)) > (maxY - 0)) {
+    if((diffConstant * (maxY - minY)) > (maxY - 0)) {
         minY = 0;
     }
 
@@ -130,14 +131,24 @@ var drawAxisesValue = function(c, o) {
     var mmXY = o.mmXY;
 
     /* Nakreslí popisky Xových os*/
-    for (i= mmXY.minX;i<=mmXY.maxX;i++)
-        c.fillText(i, getPointX(i, o) + 10, o.graph.height - o.gridPaddingY + 20);
+    for(var i = 0; i <= 10; i = i + 2) {
+        var percent = i*10;
+        var pointX = (mmXY.maxX - mmXY.minX)/100 * percent + mmXY.minX;
+
+        c.fillText(pointX.toFixed(0) + o.unitX, getPointX(pointX, o) + 10, o.graph.height - o.gridPaddingY + 20);
+    }
 
     /* Nakreslí popisky Yových os*/
-    for (j=mmXY.minY;j<mmXY.maxY;j+= 10)
-        c.fillText(j, o.gridPaddingX - 10, getPointY(j, o));
+    for(var i = 0; i <= 10; i = i + 2) {
+        var percent = i*10;
+        var corection = mmXY.maxY / 10;
+        var pointY = (mmXY.maxY - mmXY.minY - corection)/100 * percent + mmXY.minY;
 
+        c.fillText(pointY.toFixed(0) + o.unitY, o.gridPaddingX - 10, getPointY(pointY, o));
+    }
 }
+
+
 
 /**
  * Vrátí X souřadnici bodu v grafu.
@@ -153,7 +164,7 @@ var getPointX = function(val, o){
     var maxValue = mmXY.maxX - mmXY.minX + 1;
     var val = val - mmXY.minX; //korekce hodnoty, aby nezačínala od nuly ale od nejnižší zadané hodnoty = 0
 
-    var pointX = ((graphWidth / maxValue) * val + (o.gridPaddingX));
+    var pointX = ((graphWidth / maxValue) * val + o.gridPaddingX);
 
     return pointX;
 };

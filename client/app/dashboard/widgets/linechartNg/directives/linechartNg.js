@@ -70,15 +70,15 @@ var findHoverDot = function (o, mouseX, mouseY) {
 /**
  * Nabinduje na tečky v grafu titulky, které se zobrazí při najetí myší.
  * @param {Object} o Nastavení pluginu.
- * @param {element} wrap Element nad kterým se direktiva spouští.
+ * @param {element} graph Element nad kterým se direktiva spouští.
  * @param {scope} $scope Scope direktivy linechartNg
  */
-var dotsHover = function (o, wrap, $scope) {
+var dotsHover = function (o, graph, $scope) {
 	wrap.bind("mousemove", function (e) {
-		var wrapRect = wrap.offset();
+		var graphRect = graph.offset();
 
-		var mouseX = parseInt(e.pageX - wrapRect.left);
-		var mouseY = parseInt(e.pageY - wrapRect.top);
+		var mouseX = parseInt(e.pageX - graphRect.left);
+		var mouseY = parseInt(e.pageY - graphRect.top);
 
 		var dotHover = findHoverDot(o, mouseX, mouseY);
 
@@ -124,7 +124,7 @@ var linechartNgLink = function ($scope, elem, attrs, JsonChartResource) {
 	$scope.remove = deleteWidget;
 
 	var addChart = function (chartData) {
-		var o = getOptions({data: chartData.linechart});
+		var o = getOptions({data: chartData.linechart.data, unitY: chartData.linechart.unitY, unitX: chartData.linechart.unitX});
 
 		o.graph = {"width": elem.parent().width(), "height": elem.parent().height()};
 

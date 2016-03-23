@@ -10,7 +10,7 @@ dashboardApp.directive('linechart', ['JsonChartResource', function(JsonChartReso
       var addChart = function(chartData) {
         $.linechart({
           id: 'linechart-widget-demo',
-          data: chartData.linechart
+          data: chartData.linechart.data
         });
       };
 
