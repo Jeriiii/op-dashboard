@@ -97,7 +97,10 @@ var model = {
     dynamicAdd: true
   },
   allCharts: {
-    widgets: [csschart, pieNg, barchartJQ, barchartNg, barchartReact, linechart, linechartNg]
+    widgets: [pieNg, barchartJQ, barchartNg, barchartReact, linechartNg]
+  },
+  aldAndNewCharts: { //porovnání starých a nových grafů
+    widgets: [csschart, barchartNg, linechart, linechartNg]
   },
   performanceWidgets: {
     widgets: [testBarchartJQ, testBarchartNg]

@@ -74,7 +74,7 @@ var findHoverDot = function (o, mouseX, mouseY) {
  * @param {scope} $scope Scope direktivy linechartNg
  */
 var dotsHover = function (o, graph, $scope) {
-	wrap.bind("mousemove", function (e) {
+	graph.bind("mousemove", function (e) {
 		var graphRect = graph.offset();
 
 		var mouseX = parseInt(e.pageX - graphRect.left);

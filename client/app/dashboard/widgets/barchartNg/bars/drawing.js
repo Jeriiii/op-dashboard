@@ -83,7 +83,7 @@ var createGroupsBarsNg = function(scope, barsData, opts, node) {
   for (i = 0; i < barsData.length; i++){
     var group = {};
     group.bars = createBarsNg(barsData[i], opts);
-    group.styles = {'width': gWidth +'px', 'margin:': '0 ' + (gMargin / 2) + ' px;'};
+    group.style = {'width': gWidth +'px', 'margin': '0 ' + (gMargin / 2) + 'px'};
 
     groups.push(group);
   }
