@@ -1,14 +1,20 @@
 'use strict';
 
-describe('dashboardApp.view1 module', function() {
+describe('dashboardApp module', function() {
 
-  beforeEach(module('dashboardApp.view1'));
+  beforeEach(module('dashboardApp'));
+
+  var scope, view1Ctrl;
+
+  beforeEach(inject(function($rootScope, $controller) {
+    scope = $rootScope.$new();
+    view1Ctrl = $controller('dashboardView1Ctrl', {$scope: scope});
+  }));
 
   describe('view1 controller', function(){
 
     it('should ....', inject(function($controller) {
       //spec body
-      var view1Ctrl = $controller('View1Ctrl');
       expect(view1Ctrl).toBeDefined();
     }));
 

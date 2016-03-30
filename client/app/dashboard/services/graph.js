@@ -1,10 +1,10 @@
-var services = angular.module('dashboardServices', ['ngResource']);
+var services = angular.module('dashboardServices', ['ngResource', 'dashboardApp']);
 
-services.factory('ChartResource', ['$resource',
-  function($resource){
+services.factory('ChartResource', ['$resource', 'wwwRoot',
+  function($resource, wwwRoot){
     return {
       send:function (relativeUrl) {
-        return $resource(relativeUrl, {},{
+        return $resource(wwwRoot + relativeUrl, {},{
           query: {method:'GET', isArray: true}
         })
       }
@@ -12,11 +12,11 @@ services.factory('ChartResource', ['$resource',
   }
 ]);
 
-services.factory('JsonChartResource', ['$resource',
-  function($resource){
+services.factory('JsonChartResource', ['$resource', 'wwwRoot',
+  function($resource, wwwRoot){
     return {
       send:function (relativeUrl, isArray) {
-        return $resource(relativeUrl, {})
+        return $resource(wwwRoot + relativeUrl, {})
       }
     };
   }

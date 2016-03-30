@@ -20,7 +20,7 @@ var graph = {
   type: 'graph',
   settings: {
     tittle: 'Hightchart',
-    relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=hightchart'
+    relativeUrl: '/server/?type=hightchart'
   }
 };
 
@@ -29,7 +29,7 @@ var csschart = {
   type: 'csschart',
   settings: {
     tittle: 'Csschart',
-    relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=barchart'
+    relativeUrl: '/server/?type=barchart'
   }
 };
 
@@ -37,7 +37,7 @@ var pieNg = {
   type: 'pieNg',
   settings: {
     tittle: 'Věk studentů magisterského studia v roce 2015',
-    relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=pie'
+    relativeUrl: '/server/?type=pie'
   }
 };
 
@@ -45,7 +45,7 @@ var barchartJQ = {
   type: 'barchartJQ',
   settings: {
     tittle: 'Přehled o přijimacím řízení 2013 / 2014 / 2015 JQ',
-    relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=barchart'
+    relativeUrl: '/server/?type=barchart'
   }
 };
 
@@ -53,7 +53,7 @@ var barchartNg = {
   type: 'barchartNg',
   settings: {
     tittle: 'Přehled o přijimacím řízení 2013 / 2014 / 2015 Ng',
-    relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=barchart'
+    relativeUrl: '/server/?type=barchart'
     }
 };
 
@@ -61,7 +61,7 @@ var barchartReact = {
   type: 'barchartReact',
   settings: {
     tittle: 'Přehled o přijimacím řízení 2013 / 2014 / 2015 React',
-    relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=barchart'
+    relativeUrl: '/server/?type=barchart'
     }
 };
 
@@ -69,7 +69,7 @@ var linechart = {
   type: 'linechart',
   settings: {
     tittle: 'Linechart',
-    relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=linechart'
+    relativeUrl: '/server/?type=linechart'
     }
 };
 
@@ -77,7 +77,7 @@ var linechartNg = {
 type: 'linechart-ang',
 settings: {
   tittle: 'Přihlášky na vysoké školy a počty přijatých uchazečů',
-  relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=linechart'
+  relativeUrl: '/server/?type=linechart'
   }
 };
 

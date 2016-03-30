@@ -192,6 +192,7 @@ var createBarChart = function(node, opts){
   var barsData = opts.bars;
   var grid = opts.grid;
   opts.parentWidth = opts.nodeParent.width();
+
   node.width(opts.parentWidth);
 
   if(parseInt(grid,10) === 0) node.css("background", "none");
