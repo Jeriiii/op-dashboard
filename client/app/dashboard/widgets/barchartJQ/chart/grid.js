@@ -55,6 +55,5 @@ var chartGrid = function (node, opts) {
       node.find(".grid").append(line);
     }
   }
-  console.log(node);
   node.width('100%');
 }

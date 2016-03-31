@@ -115,6 +115,12 @@ var setDotsPosition = function(o) {
  * @param {service} JsonChartResource Služba na načtení dat ze serveru.
  */
 var linechartNgLink = function ($scope, elem, attrs, JsonChartResource) {
+	/* Nutno obalit jQuery funkcionalitou aby fungovalo při testování karmou.
+	Při klasickém spuštění dochází k obalení již na úrovni angularu. */
+	if(typeof elem.offset !== 'function') {
+		elem = $(elem);
+	}
+
 	/* funkce co smaže widget. V této fci se ještě dá udělat ošetření smazání, či vyhodit modal okno */
 	var deleteWidget = function () {
 		elem.remove();

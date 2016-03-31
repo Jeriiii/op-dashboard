@@ -40,10 +40,7 @@ var linkFnc = function(scope, elem, attrs) {
   //scope.widgets = model.widgets;
 
   attrs.$observe('dbModel', function (newDbModel) {
-    console.log('Změna db modelu');
     model = JSON.parse(newDbModel);
-    console.log('root dashborard');
-    console.log(model);
     scope.widgets = model.widgets;
     scope.dynamicAdd = model.dynamicAdd
   });

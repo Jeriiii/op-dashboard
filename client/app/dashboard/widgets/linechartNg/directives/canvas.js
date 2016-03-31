@@ -33,7 +33,8 @@ var getOptions = function (o) {
  * @param {object} o Nastavení grafu.
  */
 var linechartCanvas = function ($scope, graph, o) {
-	o.graph = {"width": graph.parent().width(), "height": graph.parent().height()};
+	var grafWarper = $(graph.parent());  //nutno znovu obalit $(...) kvůli karmě
+	o.graph = {"width": grafWarper.width(), "height": grafWarper.height()};
 
 	graph.attr('width', o.graph.width);
 	graph.attr('height', o.graph.height);

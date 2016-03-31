@@ -112,7 +112,12 @@ dashboardApp.directive('pieChartNg', ['JsonChartResource', '$compile', function(
 		scope.$watch('opts', function(opts, oldValue) {
 			/* po http požadavku přidá graf */
 			if(opts) {
-				console.log(elem.offset());
+				//console.log(elem.children());
+				//console.log(elem.offset());
+				if(typeof elem.offset !== 'function') {
+					elem = $(elem);
+				}
+
 				createPieChartNg(scope, elem, opts);
 			}
 		});

@@ -179,7 +179,7 @@ var measuringTimeTester = function(callback, testMessage) {
 var createBarChartNg = function(scope, $timeout, node, opts){
   var barsData = opts.bars;
   var grid = opts.grid;
-  opts.parentWidth = opts.nodeParent.width();
+  opts.parentWidth = $(opts.nodeParent).width(); //nutno znovu obalit $(...) kvůli karmě
   node.width(opts.parentWidth);
 
   if(parseInt(grid,10) === 0) node.css("background", "none");

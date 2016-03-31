@@ -4,6 +4,11 @@ dashboardApp.directive('barsChJq', ['JsonChartResource', function(JsonChartResou
     restrict: 'E',
     replace: true,
     link: function(scope, elem, attrs) {
+      /* Nutno obalit jQuery funkcionalitou aby fungovalo při testování karmou.
+       Při klasickém spuštění dochází k obalení již na úrovni angularu. */
+      if(typeof elem.offset !== 'function') {
+        elem = $(elem);
+      }
 
       scope.$watch('opts', function(opts) {
         /* po http požadavku přidá sloupce do grafu */

@@ -6,9 +6,14 @@ dashboardApp.directive('barchartNg', ['JsonChartResource', function(JsonChartRes
     scope: {
     },
     link: function(scope, elem, attrs) {
+      /* Nutno obalit jQuery funkcionalitou aby fungovalo při testování karmou.
+       Při klasickém spuštění dochází k obalení již na úrovni angularu. */
+      if(typeof elem.offset !== 'function') {
+        elem = $(elem);
+      }
+
       /* po http požadavku dojke k přidání grafu */
       var addChart = function(opts) {
-        console.log('Vykreslení grafu');
         correctOptsVal(opts);
         chartGridNg(scope, elem, opts);
 

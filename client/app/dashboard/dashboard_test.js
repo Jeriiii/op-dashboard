@@ -62,13 +62,6 @@ describe('Directive:', function() {
 
 		}));
 
-		beforeEach(function () {
-			//angular.mock.inject(function ($injector) {
-			//	$httpBackend = $injector.get('$httpBackend');
-			//	responses($httpBackend);
-			//})
-		});
-
 		afterEach(function() {
 			$httpBackend.verifyNoOutstandingExpectation();
 			$httpBackend.verifyNoOutstandingRequest();
@@ -93,31 +86,23 @@ describe('Directive:', function() {
 		it("should render the header and text as passed in by $scope",
 			inject(function () {
 				$httpBackend.flush();
-				//
-				//// Render the template as a string
+
+				/* vytvoří HTML z templaty dashboardu */
 				var templateAsHtml = template.html();
 
-				//
-				//// Verify that the $scope variables are in the template
-				expect(templateAsHtml).toContain('Prehled');
+				/* Ověří že je vykreslen nadpis dachboardu */
+				expect(templateAsHtml).toContain('Všechny grafy');
 
-				//expect(templateAsHtml).toContain($scope.text);
-				//
-				//// Do it again with new values
-				//var previousHeader = $scope.header;
-				//var previousText = $scope.text;
-				//$scope.header = "A completely different header";
-				//$scope.text = "Something completely different";
-				//
-				//// Run the $digest cycle again
-				//$scope.$digest();
-				//
-				//templateAsHtml = template.html();
-				//
-				//expect(templateAsHtml).toContain($scope.header);
-				//expect(templateAsHtml).toContain($scope.text);
-				//expect(templateAsHtml).toNotContain(previousHeader);
-				//expect(templateAsHtml).toNotContain(previousText);
+				/* Ověří, že jsou vykresleny všechny nadpisy widgetů */
+				expect(templateAsHtml).toContain('Přehled o přijimacím řízení 2013 / 2014 / 2015 JQ');
+				expect(templateAsHtml).toContain('Přehled o přijimacím řízení 2013 / 2014 / 2015 Ng');
+				expect(templateAsHtml).toContain('Přehled o přijimacím řízení 2013 / 2014 / 2015 React');
+				expect(templateAsHtml).toContain('Věk studentů magisterského studia v roce 2015');
+				expect(templateAsHtml).toContain('Přihlášky na vysoké školy a počty přijatých uchazečů');
+
+				expect(templateAsHtml).toContain('přihláš. 134k');
+
+				//expect(templateAsHtml).toNotContain('něco');
 
 			}));
 	});
