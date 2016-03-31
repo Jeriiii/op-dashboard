@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Linechart test', function() {
+describe('LinechartNg test', function() {
 
 	beforeEach(module("dashboardApp"));
 
