@@ -90,9 +90,6 @@ describe('Directive:', function() {
 				/* vytvoří HTML z templaty dashboardu */
 				var templateAsHtml = template.html();
 
-				/* Ověří že je vykreslen nadpis dachboardu */
-				expect(templateAsHtml).toContain('Všechny grafy');
-
 				/* Ověří, že jsou vykresleny všechny nadpisy widgetů */
 				expect(templateAsHtml).toContain('Přehled o přijimacím řízení 2013 / 2014 / 2015 JQ');
 				expect(templateAsHtml).toContain('Přehled o přijimacím řízení 2013 / 2014 / 2015 Ng');
