@@ -114,8 +114,12 @@ var model = {
   },
   barchartReact: {
     widgets: [barchartReact]
+  },
+  widgets: {
+    simpleText: simpleText, clock: clock, graph: graph, csschart: csschart,
+    pieNg: pieNg, barchartJQ: barchartJQ, barchartNg: barchartNg,
+    barchartReact: barchartReact, linechart: linechart, linechartNg: linechartNg
   }
-
 };
 
 dashboardApp.value('dModel', model);

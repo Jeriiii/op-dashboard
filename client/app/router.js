@@ -15,27 +15,27 @@ dashboardApp.config(['$routeProvider',
 	function($routeProvider) {
 		$routeProvider.
 		when('/view1', {
-			templateUrl: 'view1/view1.html',
+			templateUrl: 'views/view1/view1.html',
 			controller: 'dashboardView1Ctrl'
 		}).
 		when('/view2', {
-			templateUrl: 'view2/view2.html',
+			templateUrl: 'views/view2/view2.html',
 			controller: 'dashboardView2Ctrl'
 		}).
 		when('/view3', {
-			templateUrl: 'view3/view3.html',
+			templateUrl: 'views/view3/view3.html',
 			controller: 'dashboardView3Ctrl'
 		}).
 		when('/view4', {
-			templateUrl: 'view4/view4.html',
+			templateUrl: 'views/view4/view4.html',
 			controller: 'dashboardView4Ctrl'
 		}).
 		when('/view5', {
-			templateUrl: 'view5/view5.html',
+			templateUrl: 'views/view5/view5.html',
 			controller: 'dashboardView5Ctrl'
 		}).
 		when('/view6', {
-			templateUrl: 'view6/view6.html',
+			templateUrl: 'views/view6/view6.html',
 			controller: 'dashboardView6Ctrl'
 		}).
 		otherwise({
