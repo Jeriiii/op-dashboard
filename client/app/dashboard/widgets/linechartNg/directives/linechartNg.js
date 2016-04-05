@@ -1,12 +1,12 @@
 /**
  * Zobrazí titulek u bodu v grafu.
  * @param {Object} o Nastavení pluginu.
- * @param {Object} dotHover Vlastnosti téhoto konkrétního bodu - např. tittle.
+ * @param {Object} dotHover Vlastnosti téhoto konkrétního bodu - např. title.
  * @param {integner} mouseX Xová souřadnice kurzoru.
  * @param {integner} mouseY Yová souřadnice kurzoru.
  * @param {scope} $scope Scope direktivy linechartNg
  */
-var showDotTittle = function (o, dotHover, mouseX, mouseY, $scope) {
+var showDottitle = function (o, dotHover, mouseX, mouseY, $scope) {
 	$scope.thtml = dotHover.tip;
 
 	var cssLeft = (mouseX + o.tooltipMarginX);
@@ -36,7 +36,7 @@ var showDotTittle = function (o, dotHover, mouseX, mouseY, $scope) {
  * @param {Object} o Nastavení pluginu.
  * @param {scope} $scope Scope direktivy linechartNg
  */
-var hideDotTittle = function (o, $scope) {
+var hideDottitle = function (o, $scope) {
 	$scope.thtml = '';
 	$scope.tcss = {
 		'position': 'static',
@@ -84,9 +84,9 @@ var dotsHover = function (o, graph, $scope) {
 
 
 		if (dotHover) {
-			showDotTittle(o, dotHover, mouseX, mouseY, $scope);
+			showDottitle(o, dotHover, mouseX, mouseY, $scope);
 		} else {
-			hideDotTittle(o, $scope);
+			hideDottitle(o, $scope);
 		}
 	});
 }

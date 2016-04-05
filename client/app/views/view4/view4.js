@@ -9,7 +9,7 @@ dashboardApp.controller('dashboardView4Ctrl', ['$scope', '$timeout', 'dModel', f
   var barchartJQ2 = {
     type: 'barchartJQ',
     settings: {
-      tittle: 'Bar chart JQ 2 Změněný',
+      title: 'Bar chart JQ 2 Změněný',
       relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=barchart-another'
     }
   };

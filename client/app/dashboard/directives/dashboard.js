@@ -4,7 +4,7 @@ var ctrlFnc = function ( $scope, $element ) {
     $scope.widgets.unshift({
         type: 'simpleText',
         settings: {
-          tittle: 'Vygenerovaný textový widget',
+          title: 'Vygenerovaný textový widget',
           text: 'Toto je opravdu jednoduchý dashboard 1 jen s textem',
           escapeHtml: true
         }
@@ -15,7 +15,7 @@ var ctrlFnc = function ( $scope, $element ) {
     $scope.widgets.unshift({
       type: 'graph',
       settings: {
-        tittle: 'Vygenerované graf',
+        title: 'Vygenerované graf',
         relativeUrl: 'data/graph1.json'
       }
     });
@@ -25,7 +25,7 @@ var ctrlFnc = function ( $scope, $element ) {
     $scope.widgets.unshift({
       type: 'clock',
       settings: {
-        tittle: 'Vygenerované hodiny',
+        title: 'Vygenerované hodiny',
         format: 'HH:mm:ss'
       }
     });

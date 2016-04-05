@@ -9,7 +9,7 @@ dashboardApp.controller('dashboardView6Ctrl', ['$scope', '$timeout','dModel', fu
   var barchartReact = {
     type: 'barchartReact',
     settings: {
-      tittle: 'Bar chart React Změněný',
+      title: 'Bar chart React Změněný',
       relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=barchart-another'
     }
   };

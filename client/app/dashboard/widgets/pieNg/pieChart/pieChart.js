@@ -49,7 +49,7 @@ var createPieChartNg = function(scope, elem, opts) {
 			pathContainer.d = d;
 			pathContainer.color = colorArr[colorI];
 			pathContainer.strokeWidth = 0;
-			pathContainer.tittle = item.tittle + ': ' + item.val;
+			pathContainer.title = item.title + ': ' + item.val;
 
 			paths.push(pathContainer);
 		};
@@ -75,7 +75,7 @@ var createPieChartNg = function(scope, elem, opts) {
 		scope.mMove = function (e, path) {
 			var mPos = {};
 
-			scope.label.text = path.tittle;
+			scope.label.text = path.title;
 
 			mPos.x = e.pageX - elemLeft;
 			mPos.y = e.pageY - elemTop;
