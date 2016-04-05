@@ -1,7 +1,8 @@
 module.exports = function (config) {
 	config.set({
 		preprocessors: {
-			'app/**/*.html': ['ng-html2js']
+			'app/**/*.html': ['ng-html2js'],
+			'app/dashboard/**/*.js': ['coverage']
 		},
 
 		basePath: './',
@@ -42,12 +43,22 @@ module.exports = function (config) {
 			'karma-firefox-launcher',
 			'karma-jasmine',
 			'karma-junit-reporter',
-			'karma-ng-html2js-preprocessor'
+			'karma-ng-html2js-preprocessor',
+			'karma-coverage'
 		],
 
 		junitReporter: {
 			outputFile: 'test_out/unit.xml',
 			suite: 'unit'
+		},
+
+		// add coverage to reporters
+		reporters: ['dots', 'coverage'],
+		// tell karma how you want the coverage results
+		coverageReporter: {
+			type : 'html',
+			// where to store the report
+			dir : 'coverage/'
 		}
 
 	});
