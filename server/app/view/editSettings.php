@@ -34,7 +34,7 @@
 <div ng-app="editJsonApp"class="container">
 	<div ng-controller="editController">
 		<h1>Změna nastavení</h1>
-		<p>Stačí vybrat soubor, který chcete editovat.</p>
+		<p>Vyberte soubor pro editaci</p>
 		<div class="btn-group" role="group" aria-label="...">
 			<button ng-repeat="file in files" ng-click="loadFile(file)" type="button" class="btn btn-default">{{file.name}}</button>
 		</div>
