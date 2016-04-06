@@ -3,16 +3,11 @@
     <!--<div class="btn btn-primary" ng-click="addTextWidget(textSettings)">Přidat textový widget</div>-->
     <!--<div class="btn btn-primary" ng-click="addGraphWidget(graphSettings)">Přidat graf</div>-->
     <!--<div class="btn btn-primary" ng-click="addClockWidget(clockSettings)">Přidat hodiny</div>-->
-    <div class="center-block btn-block">
-      <div class="btn-group">
-        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Přidat <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-          <li><a ng-click="addTextWidget(textSettings)">Textový widget</a></li>
-          <li><a ng-click="addGraphWidget(graphSettings)">Graf</a></li>
-          <li><a ng-click="addClockWidget(clockSettings)">Hodiny</a></li>
-        </ul>
+    <div class="addWigdetBtns btn-block">
+      <div class="btn-group" role="group" aria-label="Přidá vybraný widget">
+        <a type="button" class="btn btn-primary addTextWidget" ng-click="addTextWidget(textSettings)" class="addTextWidget">Přidat textový widget</a>
+        <a type="button" class="btn btn-primary addChartWidget" ng-click="addGraphWidget(graphSettings)">Graf</a>
+        <a type="button" class="btn btn-primary addClockWidget" ng-click="addClockWidget(clockSettings)">Hodiny</a>
       </div>
     </div>
   </div>

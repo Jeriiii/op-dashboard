@@ -31,3 +31,9 @@
   content: "";
   padding: 0;
 }
+
+.addWigdetBtns {
+  width: 280px !important;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}

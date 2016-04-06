@@ -1,5 +1,5 @@
 // Widget pro hodiny
-dashboardApp.directive('widgetClock', ['dateFilter', '$timeout', function(dateFilter, $timeout){
+dashboardApp.directive('widgetClock', ['dateFilter', '$interval', function(dateFilter, $interval){
   return {
     restrict: 'E',
     replace: true,
@@ -12,7 +12,7 @@ dashboardApp.directive('widgetClock', ['dateFilter', '$timeout', function(dateFi
           var now = Date.now();
 
           element.html(dateFilter(now, scope.format));
-          timer = $timeout(updateTime, now % 1000);
+          timer = $interval(updateTime, 1000);
       };
 
       scope.$on("$destroy", function( event ) {
