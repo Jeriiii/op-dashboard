@@ -120,6 +120,27 @@ var testPerformance = function($node, opts) {
     console.log("*****************");
     var timeAll = 0;
 
+    /*****************************************************************/
+    /* test vykreslení úplně jiné řady */
+    timeAll = timeAll +  measuringTimeTester(function() {
+      var barsTest3 = [
+        [{"data":11, "name": "přihláš."},{"data":15, "name": "přijat."},{"data":25, "name": "zapsa."}],
+        [{"data":33, "name": "přihláš."},{"data":66, "name": "přijat."},{"data":55, "name": "zapsa."}],
+        [{"data":12, "name": "přihláš."},{"data":40, "name": "přijat."},{"data":20, "name": "zapsa."}]
+      ];
+      removeBars($node);
+      createGroupsBars(barsTest3, opts, $node);
+    }, 'vykreslení úplně jiné řady');
+
+    /* Převedení na původní řadu */
+    var bars = [
+      [{"data":134, "name": "přihláš."},{"data":94, "name": "přijat."},{"data":88, "name": "zapsa."}],
+      [{"data":121, "name": "přihláš."},{"data":85, "name": "přijat."},{"data":79, "name": "zapsa."}],
+      [{"data":113, "name": "přihláš."},{"data":80, "name": "přijat."},{"data":75, "name": "zapsa."}]
+    ];
+    removeBars($node);
+    createGroupsBars(bars, opts, $node);
+
     /* test změny pouze tří hodnot za jiné hodnoty */
     timeAll = timeAll +  measuringTimeTester(function() {
       var barsTest1 = [
@@ -143,18 +164,6 @@ var testPerformance = function($node, opts) {
       removeBars($node);
       createGroupsBars(barsTest2, opts, $node);
     }, 'odstranění některých sloupců, zbytek ponechán beze změny');
-
-    /*****************************************************************/
-    /* test vykreslení úplně jiné řady */
-    timeAll = timeAll +  measuringTimeTester(function() {
-      var barsTest3 = [
-        [{"data":11, "name": "přihláš."},{"data":15, "name": "přijat."},{"data":25, "name": "zapsa."}],
-        [{"data":33, "name": "přihláš."},{"data":66, "name": "přijat."},{"data":55, "name": "zapsa."}],
-        [{"data":12, "name": "přihláš."},{"data":40, "name": "přijat."},{"data":20, "name": "zapsa."}]
-      ];
-      removeBars($node);
-      createGroupsBars(barsTest3, opts, $node);
-    }, 'vykreslení úplně jiné řady');
 
     /* ukončení testu testu */
     console.log("Končí test výkonnosti jQuery v čase " + timeAll + " ms");
