@@ -5,3 +5,16 @@
 .hightchart .top-menu{
     margin-bottom: 5px;
 }
+
+.hightchart .btn-group-wrap{
+    text-align: center;
+}
+
+.hightchart .btn-group-wrap .btn-sm{
+    padding: 1px 5px;
+}
+
+.highcharts-container {
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
