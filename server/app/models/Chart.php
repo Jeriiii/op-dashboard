@@ -7,52 +7,22 @@ namespace Models;
  *
  * @author Petr Kukrál <p.kukral@kukral.eu>
  */
-class Chart {
+class Chart implements IChart{
 
 	/**
-	 * Vrátí nastavení hightchart grafu ve formátu json
+	 * Vrátí nastavení daného grafu podle typu.
+	 * @param $type Typ daného grafu
+	 * @return string Nastavení daného grafu.
 	 */
-	public function getHightchartSettings() {
-		return $this->getSettings('hightchart.json');
-	}
-
-	/**
-	 * Vrátí nastavení linechart grafu ve formátu json
-	 */
-	public function getLinechartSettings() {
-		return $this->getSettings('linechart.json');
-	}
-
-	/**
-	 * Vrátí nastavení barchart grafu ve formátu json
-	 */
-	public function getBarchartSettings() {
-		return $this->getSettings('barchart.json');
-	}
-
-	/**
-	 * Vrátí nastavení barchart grafu ve formátu json
-	 */
-	public function getBarchartTestSettings() {
-		return $this->getSettings('barchart-test.json');
-	}
-
-	/**
-	 * Vrátí další (odlišné) nastavení barchart grafu ve formátu json
-	 */
-	public function getBarchartAnotherSettings() {
-		return $this->getSettings('barchart-another.json');
-	}
-
-	/**
-	 * Vrátí nastavení pie grafu ve formátu json
-	 */
-	public function getPieSettings() {
-		return $this->getSettings('pie.json');
+	public function getByType($type)
+	{
+		return $this->getSettings($type . '.json');
 	}
 
 	/**
 	 * Vrátí nastavení grafu ve formátu json
+	 * @param $file Soubor s nastavením, které se má vrátit
+	 * @return string Nastavení daného grafu.
 	 */
 	private function getSettings($file) {
 		$settings = file_get_contents(DATA_DIR . '/Chart/' . $file);
@@ -61,5 +31,6 @@ class Chart {
 
 		return $jsonSettings;
 	}
+
 
 }
