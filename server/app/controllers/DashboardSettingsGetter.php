@@ -3,6 +3,8 @@
 namespace Controllers;
 
 use Models\Chart;
+use Database\Database;
+use Database\Connection;
 
 /**
  * Vrátí nastavení celého dashboardu ve formátu json
@@ -22,33 +24,7 @@ class DashboardSettingsGetterController {
 
 		$type = $_GET['type'];
 
-		switch ($type) {
-			case 'hightchart':
-			$this->printHightchartSettings();
-			break;
-
-			case 'linechart':
-				$this->printLinechartSettings();
-				break;
-
-			case 'barchart':
-				$this->printBarchartSettings();
-				break;
-			case 'barchart-test':
-				$this->printBarchartTestSettings();
-				break;
-			case 'barchart-another':
-				$this->printBarchartAnotherSettings();
-				break;
-
-			case 'pie':
-				$this->printPieSettings();
-				break;
-
-			default:
-				echo "Settings for chart type $type not found";
-				break;
-		}
+		$this->printSettingsByType($type);
 	}
 
 	/**
@@ -95,69 +71,16 @@ class DashboardSettingsGetterController {
 	}
 
 	/**
-	 * Vytiskne nastavení pro Hightchart grafy.
+	 * Vrátí nastavení grafu podle jeho typu.
+	 * @param string $type Typ daného grafu.
 	 */
-	private function printHightchartSettings() {
+	private function printSettingsByType($type) {
 		$chart = new Chart();
 
-		$json = $chart->getHightchartSettings();
+		$json = $chart->getByType($type);
 
 		echo json_encode($json);
 	}
 
-	/**
-	 * Vytiskne nastavení spojnicového grafu
-	 */
-	private function printLinechartSettings() {
-		$chart = new Chart();
-
-		$json = $chart->getLinechartSettings();
-
-		echo json_encode($json);
-	}
-
-	/**
-	 * Vytiskne nastavení sloupcového grafu
-	 */
-	private function printBarchartSettings() {
-		$chart = new Chart();
-
-		$json = $chart->getBarchartSettings();
-
-		echo json_encode($json);
-	}
-
-	/**
-	 * Vytiskne nastavení sloupcového grafu
-	 */
-	private function printBarchartTestSettings() {
-		$chart = new Chart();
-
-		$json = $chart->getBarchartTestSettings();
-
-		echo json_encode($json);
-	}
-
-	/**
-	 * Vytiskne další nastavení sloupcového grafu
-	 */
-	private function printBarchartAnotherSettings() {
-		$chart = new Chart();
-
-		$json = $chart->getBarchartAnotherSettings();
-
-		echo json_encode($json);
-	}
-
-	/**
-	 * Vytiskne nastavení koláčového grafu
-	 */
-	private function printPieSettings() {
-		$chart = new Chart();
-
-		$json = $chart->getPieSettings();
-
-		echo json_encode($json);
-	}
 
 }

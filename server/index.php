@@ -4,6 +4,7 @@ define('APP_DIR', __DIR__ . '/app');
 define('DATA_DIR', __DIR__ . '/data');
 
 require_once 'loader.php';
+require_once APP_DIR . '/config/config.php';
 
 use Controllers\DashboardSettingsGetterController;
 
