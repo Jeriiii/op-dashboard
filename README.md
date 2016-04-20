@@ -10,19 +10,13 @@ Author: Petr Kukrál
 
 This SW is available under ALL free and open source licences:
 
-CC BY 3.0 http://creativecommons.org/licenses/by/3.0/
-
-GNU General Public License (GPL)
-
-MIT license
-
-Apache License 2.0
-
-Mozilla Public License 2.0
-
-Eclipse Public License
-
-WTFPL http://www.wtfpl.net/about/
+* CC BY 3.0 http://creativecommons.org/licenses/by/3.0/
+* GNU General Public License (GPL)
+* MIT license
+* Apache License 2.0
+* Mozilla Public License 2.0
+* Eclipse Public License
+* WTFPL http://www.wtfpl.net/about/
 
 You are free:
 
