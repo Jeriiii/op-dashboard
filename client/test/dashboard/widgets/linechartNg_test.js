@@ -24,7 +24,7 @@ describe('LinechartNg test', function() {
 		beforeEach(function() {
 			$scope.widget = widget;
 
-			template = $compile("<widget-base dbw-title='{{widget.settings.tittle}}'><linechart-ng  relative-url='{{widget.settings.relativeUrl}}' /></widget-base>")($scope);
+			template = $compile("<widget-base dbw-title='{{widget.settings.title}}'><linechart-ng  relative-url='{{widget.settings.relativeUrl}}' /></widget-base>")($scope);
 
 			$scope.$digest();
 

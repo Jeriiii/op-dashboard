@@ -24,7 +24,7 @@ describe('HightChart test', function() {
 		beforeEach(function() {
 			$scope.widget = widget;
 
-			template = $compile("<widget-base dbw-title='{{widget.settings.tittle}}'><graph-example relative-url='{{widget.settings.relativeUrl}}' /></widget-base>")($scope);
+			template = $compile("<widget-base dbw-title='{{widget.settings.title}}'><graph-example relative-url='{{widget.settings.relativeUrl}}' /></widget-base>")($scope);
 
 			$scope.$digest();
 

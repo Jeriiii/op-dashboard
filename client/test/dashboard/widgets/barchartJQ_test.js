@@ -24,7 +24,7 @@ describe('BarchartJQ test', function() {
 		beforeEach(function() {
 			$scope.widget = widget;
 
-			template = $compile("<widget-base dbw-title='{{widget.settings.tittle}}'><barchart-jq  relative-url='{{widget.settings.relativeUrl}}' /></widget-base>")($scope);
+			template = $compile("<widget-base dbw-title='{{widget.settings.title}}'><barchart-jq  relative-url='{{widget.settings.relativeUrl}}' /></widget-base>")($scope);
 
 			$scope.$digest();
 

@@ -24,8 +24,8 @@ var responses = function($httpBackend, wwwRoot) {
 				"unit":"k","grid":"1"}
 	);
 	$httpBackend.when('GET', wwwRoot + '/server/?type=pie').respond(200,
-			{"piechart":[{"val":2643,"tittle":"15 - 19 let"},{"val":22165,"tittle":"20 - 24 let"},{"val":5118,"tittle":"25 - 29 let"},
-				{"val":785,"tittle":"30 - 34 let"},{"val":510,"tittle":"35 - 39 let"},{"val":572,"tittle":"40 let a star\u0161\u00ed"}]}
+			{"piechart":[{"val":2643,"title":"15 - 19 let"},{"val":22165,"title":"20 - 24 let"},{"val":5118,"title":"25 - 29 let"},
+				{"val":785,"title":"30 - 34 let"},{"val":510,"title":"35 - 39 let"},{"val":572,"title":"40 let a star\u0161\u00ed"}]}
 	);
 
 	$httpBackend.when('GET', wwwRoot + '/server/?type=barchart-test').respond(200,

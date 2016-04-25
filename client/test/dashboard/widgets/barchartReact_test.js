@@ -24,7 +24,7 @@ describe('BarchartReact test', function() {
 		beforeEach(function() {
 			$scope.widget = widget;
 
-			template = $compile("<widget-base dbw-title='{{widget.settings.tittle}}'><barchart-ng  relative-url='{{widget.settings.relativeUrl}}' /></widget-base>")($scope);
+			template = $compile("<widget-base dbw-title='{{widget.settings.title}}'><barchart-ng  relative-url='{{widget.settings.relativeUrl}}' /></widget-base>")($scope);
 
 			$scope.$digest();
 

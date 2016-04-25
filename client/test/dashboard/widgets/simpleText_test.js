@@ -21,11 +21,11 @@ describe('SimpleText test', function() {
 		}));
 
 		beforeEach(function() {
-			$scope.testTittle = 'Testovací titulek';
+			$scope.testTitle = 'Testovací titulek';
 			$scope.testText = 'Toto je testovací text, <strong>který</strong> by měl tento widget snadno zobrazit.';
 			$scope.escapeHtml = false;
 
-			template = $compile("<widget-base dbw-title='{{testTittle}}'>" +
+			template = $compile("<widget-base dbw-title='{{testTitle}}'>" +
 					"<widget-simple-text dbw-text='{{testText}}' " +
 					"dbw-escape-html='{{widget.settings.escapeHtml}}' /></widget-base>"
 			)($scope);
