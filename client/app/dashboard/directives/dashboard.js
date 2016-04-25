@@ -16,7 +16,7 @@ var ctrlFnc = function ( $scope, $element ) {
       type: 'graph',
       settings: {
         title: 'Vygenerované graf',
-        relativeUrl: 'data/graph1.json'
+        relativeUrl: '/server/?type=hightchart'
       }
     });
   };
