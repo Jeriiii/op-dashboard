@@ -13,12 +13,12 @@ var createPieChartNg = function(scope, elem, opts) {
 		var x1,x2,y1,y2 = 0;
 		var paths = [];
 		var id = 1;
-		var pieSize = opts.pieRadius;
+		var pieRadius = opts.pieRadius;
 		var piePadding = 10; //volné místo nad a pod grafem
-		var m = pieSize + piePadding; //souřadnice poč. bodu
+		var m = pieRadius + piePadding; //souřadnice poč. bodu
 
-		var pieHeight = 2 * (pieSize + piePadding);
-		var pieWidth = 2 * (pieSize + piePadding);
+		var pieHeight = 2 * (pieRadius + piePadding);
+		var pieWidth = 2 * (pieRadius + piePadding);
 
 		scope.pieHeight = pieHeight;
 		scope.pieWidth = pieWidth;
@@ -29,14 +29,14 @@ var createPieChartNg = function(scope, elem, opts) {
 			startAngle = endAngle;
 			endAngle = startAngle + item.angle;
 
-			x1 = parseInt(m + pieSize*Math.cos(Math.PI*startAngle/180));
-			y1 = parseInt(m + pieSize*Math.sin(Math.PI*startAngle/180));
+			x1 = parseInt(m + pieRadius*Math.cos(Math.PI*startAngle/180));
+			y1 = parseInt(m + pieRadius*Math.sin(Math.PI*startAngle/180));
 
-			x2 = parseInt(m + pieSize*Math.cos(Math.PI*endAngle/180));
-			y2 = parseInt(m + pieSize*Math.sin(Math.PI*endAngle/180));
+			x2 = parseInt(m + pieRadius*Math.cos(Math.PI*endAngle/180));
+			y2 = parseInt(m + pieRadius*Math.sin(Math.PI*endAngle/180));
 
 			var largeArch = ((endAngle-startAngle > 180) ? 1 : 0);
-			var d = "M" + m + "," + m + "  L" + x1 + "," + y1 + "  A" + pieSize + "," + pieSize + " 0 " + largeArch + ",1 " + x2 + "," + y2 + " z";
+			var d = "M" + m + "," + m + "  L" + x1 + "," + y1 + "  A" + pieRadius + "," + pieRadius + " 0 " + largeArch + ",1 " + x2 + "," + y2 + " z";
 
 			var colorI = i;
 			if(colorI >= colorArr.length) {
