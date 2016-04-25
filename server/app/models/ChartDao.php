@@ -2,6 +2,8 @@
 
 namespace Models;
 
+use PDO;
+
 /**
  * Načte data z databáze a vrátí je controlerru.
  *
@@ -16,8 +18,15 @@ class ChartDao extends AbstractDao implements IChart {
 	 */
 	public function getByType($type)
 	{
-		$query = "SELECT * FROM " . $this->getTableName() . " WHERE type = ?";
+		$query = "SELECT * FROM widgets WHERE type = ?";
 		$stmt = $this->database->query($query, $type);
-		return $stmt->fetch(PDO::FETCH_OBJ);
+		$row = $stmt->fetch(PDO::FETCH_OBJ);
+
+		if(!empty($row)) {
+			$settings = $row->settings;
+			return json_decode($settings);
+		}
+
+		return 'Data typu ' + $type + ' nebyla nalezena';
 	}
 }

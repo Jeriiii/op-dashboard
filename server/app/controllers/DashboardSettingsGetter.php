@@ -5,6 +5,7 @@ namespace Controllers;
 use Models\Chart;
 use Database\Database;
 use Database\Connection;
+use Models\ChartDao;
 
 /**
  * Vrátí nastavení celého dashboardu ve formátu json
@@ -75,7 +76,13 @@ class DashboardSettingsGetterController {
 	 * @param string $type Typ daného grafu.
 	 */
 	private function printSettingsByType($type) {
-		$chart = new Chart();
+		if(DATA_SOURCE == 'FILES') {
+			$chart = new Chart();
+		} elseif(DATA_SOURCE == 'DATABASE') {
+			$connection = new Connection(DB_DRIVER, DB_HOST, DB_NAME, DB_USER, DB_PASSWORD);
+			$database = new Database($connection);
+			$chart = new ChartDao($database);
+		}
 
 		$json = $chart->getByType($type);
 

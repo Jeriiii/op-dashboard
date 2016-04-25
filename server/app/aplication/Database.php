@@ -2,6 +2,8 @@
 
 namespace Database;
 
+use PDO;
+
 /**
  * Vykonává operace nad databází
  *

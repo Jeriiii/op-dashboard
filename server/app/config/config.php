@@ -1,6 +1,6 @@
 <?php
 
-define("EMAIL_RECIPIENT", "to@email.com");
+define("DATA_SOURCE", "FILES"); //DATABASE nebo FILES
 
 /* nastavení databáze */
 define("DB_DRIVER", "mysql");

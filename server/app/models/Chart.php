@@ -25,8 +25,13 @@ class Chart implements IChart{
 	 * @return string Nastavení daného grafu.
 	 */
 	private function getSettings($file) {
-		$settings = file_get_contents(DATA_DIR . '/Chart/' . $file);
+		$filePath = DATA_DIR . '/Chart/' . $file;
 
+		if(!file_exists($filePath)) {
+			return 'Soubor ' + $file + ' nebyl nalezen.';
+		}
+
+		$settings = file_get_contents($filePath);
 		$jsonSettings = json_decode($settings);
 
 		return $jsonSettings;

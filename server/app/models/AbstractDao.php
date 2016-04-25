@@ -2,6 +2,8 @@
 
 namespace Models;
 
+use Database\Database;
+
 /**
  * AbstractDao
  *
