@@ -9,7 +9,7 @@ dashboardApp.controller('dashboardView5Ctrl', ['$scope', '$timeout','dModel', fu
     type: 'barchartNg',
     settings: {
       title: 'Bar chart ng Změněný',
-      relativeUrl: 'http://localhost/skola/op/dashboard-op/server/?type=barchart-another'
+      relativeUrl: '/server/?type=barchart-another'
     }
   };
 

@@ -1,8 +1,8 @@
 {
 	"bars": [
 	  [{"data":11, "name": "přihláš."},{"data":15, "name": "přijat."},{"data":25, "name": "zapsa."}],
-	  [{"data":33, "name": "přihláš."},{"data":66, "name": "přijat."},{"data":55, "name": "zapsa."}],
-	  [{"data":12, "name": "přihláš."},{"data":40, "name": "přijat."},{"data":20, "name": "zapsa."}]
+	  [{"data":33, "name": "přihláš."},{"data":85, "name": "přijat."},{"data":79, "name": "zapsa."}],
+	  [{"data":113, "name": "přihláš."},{"data":80, "name": "přijat."},{"data":75, "name": "zapsa."}]
 	],
 	"unit":"k",
 	"grid":"1"
