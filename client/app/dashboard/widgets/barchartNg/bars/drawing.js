@@ -135,7 +135,7 @@ var testPerformanceNg = function(scope, $timeout, $node, opts) {
           [{"data":113, "name": "přihláš."},{"data":80, "name": "přijat."},{"data":55, "name": "zapsa."}]
         ];
         createGroupsBarsNg(scope, barsTest1, opts, $node);
-        scope.$apply();
+        scope.$digest();
       }, 'změny pouze tří hodnot za jiné hodnoty');
 
       /*****************************************************************/
