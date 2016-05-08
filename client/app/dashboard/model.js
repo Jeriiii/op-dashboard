@@ -92,20 +92,20 @@ var testBarchartNg = {
 };
 
 var model = {
+  //stránka Základní widgety
   baseWidgets: {
     widgets: [simpleText, clock, graph],
     dynamicAdd: true
   },
+  //stránka Všechny grafy
   allCharts: {
     widgets: [pieNg, barchartJQ, barchartNg, barchartReact, linechartNg]
   },
-  aldAndNewCharts: { //porovnání starých a nových grafů
-    widgets: [csschart, barchartNg, linechart, linechartNg]
-  },
+  //stránka Výkonostní testy jQuery a Angularu
   performanceWidgets: {
     widgets: [testBarchartJQ, testBarchartNg]
   },
-
+  //stránky Test výkonosti grafy
   barchartJQ: {
     widgets: [barchartJQ]
   },
@@ -115,6 +115,7 @@ var model = {
   barchartReact: {
     widgets: [barchartReact]
   },
+  //seznam všech dostupných widgetů
   widgets: {
     simpleText: simpleText, clock: clock, graph: graph, csschart: csschart,
     pieNg: pieNg, barchartJQ: barchartJQ, barchartNg: barchartNg,
